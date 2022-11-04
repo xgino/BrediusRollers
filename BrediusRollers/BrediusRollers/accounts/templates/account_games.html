@@ -1,0 +1,86 @@
+{% extends "account/account_base.html" %}
+{% load static %}
+
+{% block title %} | Goals {% endblock %}
+
+{% block content %}
+
+
+{% include 'account/_header.html' %}
+
+
+
+
+<div class="d-flex align-items-stretch">
+    <!-- Sidebar Navigation-->
+    
+    {% include 'account/_nav.html' %}
+
+   
+    
+    <!-- Sidebar Navigation end-->
+    <div class="page-content">
+        {% include 'account/_welcome_txt.html' %}
+    
+
+        <section>
+            <div class="container-fluid">
+            <div class="row">
+                {% for goals in goal %}
+                <div class="col-lg-4">
+                <div class="stats-with-chart-2 block">
+                    <div class="title">
+                        <strong class="d-block">{{ goals.player }}</strong>
+                        <span class="d-block">{{ goals.game }}</span>
+                    </div>
+                    <div class="piechart chart">
+                        <canvas id="pieChartHome1"></canvas>
+                        <div class="text">
+                            <strong class="d-block">{{ goals.goals }} goals</strong>
+                            <span class="d-block">{{ goals.season }}</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                {% endfor %}
+            </div>
+            </div>
+        </section>
+
+
+<section>
+    {% for game in games %}                
+    <div class="public-user-block block">
+        <div class="row d-flex align-items-center">   
+            <div class="col-lg-4 d-flex align-items-center">
+                <div class="order"></div>
+                <a href="#" class="name">
+                    <strong class="d-block">Wedstrijd in <strong class="text-primary">{{ game.gameday.adress.place }}</strong></strong>
+                    <span class="d-block">
+                        Nr.{{ game.leauge_code }} | Veld {{ game.field }} | {{ game.formated_starttime }} - {{ game.formated_endtime }}
+                    </span>
+                    <span>
+                        <i class="icon-info"></i> {{ game.gameday.adress.get_street }}, {{ game.gameday.adress.get_zip }}
+                    </span>
+                </a>
+            </div>
+            <div class="col-lg-8 text-center">
+                <div class="contributions">
+                    <h4>{{ game }}</h4>
+                    <strong class="text-primary">{{ game.home_score }} - {{ game.away_score }}</strong>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+
+
+
+
+
+{% include 'account/_footer.html' %}
+    
+{% endblock %}

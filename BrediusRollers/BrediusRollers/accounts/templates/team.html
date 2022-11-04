@@ -1,0 +1,79 @@
+{% extends "account/account_base.html" %}
+{% load static %}
+
+{% block title %} | Team {% endblock %}
+
+{% block content %}
+
+
+{% include 'account/_header.html' %}
+
+
+
+
+<div class="d-flex align-items-stretch">
+    <!-- Sidebar Navigation-->
+    
+    {% include 'account/_nav.html' %}
+    <!-- Sidebar Navigation end-->
+    
+    
+    <div class="page-content">
+        
+        {% include 'account/_welcome_txt.html' %}
+        
+
+        <section class="no-padding-bottom">
+            <div class="container-fluid">
+                <div class="row">
+                    {% for teammates in team_player %}
+                    <div class="col-lg-4">
+                        <div class="user-block block text-center">
+                            <div class="avatar">
+                                <img src="{{ teammates.profile.avatar.url }}" alt="{{ teammates.profile.avatar.url }}" class="img-fluid">  
+                                {% if teammates.number_plate %} 
+                                    <div class="order dashbg-2">nr{{ teammates.number_plate }}</div>
+                                {% endif %}
+                            </div>
+                            <a href="#" class="user-title">
+                                <h3 class="h5">
+                                    {% if teammates.profile.gender %} 
+                                        {{ teammates.profile.gender }} 
+                                    {% endif %} 
+                                    {{ teammates.profile.user.get_full_name }}
+                                </h3>
+                                <span>
+                                    {% if teammates.profile.phone %} 
+                                        {{ teammates.profile.phone }} 
+                                    {% endif %}
+                                </span>
+                            </a>
+                            
+                            
+                            <div class="contributions">
+                                {% if teammates.team %} {{ teammates.team }} {% endif %} 
+                                {% if teammates.position %} {{ teammates.position }} {% endif %}
+                                <span class="text-primary">{% if teammates.is_captain %} Captain {% endif %}</span>
+                            </div>
+                        
+
+                            {% if teammates.profile.formatted_short_dob %} 
+                            <span>
+                                <strong>
+                                    <i class="fa fa-gg"></i>
+                                    {{ teammates.profile.formatted_short_dob }}
+                                </strong>
+                            </span>
+                            {% endif %} 
+                                    
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+
+    {% include 'account/_footer.html' %}
+
+{% endblock %}

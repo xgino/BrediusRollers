@@ -1,0 +1,116 @@
+
+{% load static %}
+
+
+
+
+<!-- Matches Comming Matches -->
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <h5>Aankomende wedstrijd</h5>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    
+    <ul class="tab-filters" role="tablist">
+        <li class="active"><a href="#all" role="tab" data-toggle="tab" aria-expanded="true">All</a></li>
+        <li><a href="#nationalcup" role="tab" data-toggle="tab" aria-expanded="true"></a></li>
+        <li><a href="#premierleague" role="tab" data-toggle="tab" aria-expanded="true">premier league</a></li>
+    </ul>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="tab-content">
+            {% if games %}
+                {% for game in games %}
+                    {% if not game.completed %}
+                        <div class="tab-pane active" id="all">
+                            <div class="amateurs-main-match">
+                                <div class="title">{{ game.league }} Klasse wedstrijd start in</div>	
+                                <a href="matches.html" class="team">
+                                    <!-- <span class="image"><img src="{% static 'images/soccer/team-logo1.png' %}" alt="main-match"></span> -->
+                                    <span class="info">
+                                        <span class="name">{{ game.home_team.team.club }} {{ game.home_team }}</span>
+                                        <span class="city">{{ game.home_team.team.club.city }}</span>
+                                    </span>
+                                </a>
+                                <div class="score">                                  
+                                    <div id="event-box">
+                                        
+                                    </div>
+                                    <div class="countdown-box">
+                                        <% from functions.countdown import countdown %>
+                                        <% import datetime %>
+                                        <% countdown(datetime.datetime(game.long_formated_starttime)) %>
+                                    </div>
+
+                                    <div id="date-box">{{ game.gameday.formated_date }}</div>
+                                    <div id="time-box">{{ game.long_formated_starttime }}</div>
+
+                                </div>
+                                <a href="matches.html" class="team guest">
+                                    <span class="info">
+                                        <span class="name">{{ game.away_team.team.club }} {{ game.away_team }}</span>
+                                        <span class="city">{{ game.away_team.team.club.city }}</span>
+                                    </span>	
+                                    <span class="image"><img src="{% static 'images/soccer/team-logo2.png' %}" alt="main-match"></span>
+                                </a>
+                                <div class="title">26 september 2022 / 8:45 PM</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12">
+                    <p>No Games Availeble</p>
+                </div>
+            {% endif %}
+
+            <div class="tab-pane" id="nationalcup">
+                <div class="amateurs-main-match">
+                    <div class="title">National Cup - Round 1</div>	
+                    <a href="matches.html" class="team">
+                        <span class="image"><img src="{% static 'images/soccer/team-logo3.png' %}" alt="main-match"></span>
+                        <span class="info">
+                            <span class="name">Internacional</span>
+                            <span class="city">london</span>
+                        </span>
+                    </a>
+                    <div class="score">
+                        <span>3:2</span>	
+                    </div>
+                    <a href="matches.html" class="team guest">
+                        <span class="info">
+                            <span class="name">Arsenalp</span>
+                            <span class="city">Lyon</span>
+                        </span>	
+                        <span class="image"><img src="{% static 'images/soccer/team-logo4.png' %}" alt="main-match"></span>
+                    </a>
+                    <div class="title">26 september / 8:45 PM</div>
+                </div>
+            </div>
+            <div class="tab-pane" id="premierleague">
+                <div class="amateurs-main-match">
+                    <div class="title">Premier League - Round 28</div>	
+                    <a href="matches.html" class="team">
+                        <span class="image"><img src="{% static 'images/soccer/team-logo2.png' %}" alt="main-match"></span>
+                        <span class="info">
+                            <span class="name">Internacional</span>
+                            <span class="city">london</span>
+                        </span>
+                    </a>
+                    <div class="score">
+                        <span>2:2</span>	
+                    </div>
+                    <a href="matches.html" class="team guest">
+                        <span class="info">
+                            <span class="name">Arsenalp</span>
+                            <span class="city">Lyon</span>
+                        </span>	
+                        <span class="image"><img src="{% static 'images/soccer/team-logo4.png' %}" alt="main-match"></span>
+                    </a>
+                    <div class="title">26 september / 8:45 PM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+
+{% extends "account/account_base.html" %}
+
+{% block title %} | Register {% endblock %}
+{% block content %}
+
+<div class="login-page">
+  <div class="container d-flex align-items-center">
+    <div class="form-holder has-shadow">
+      <div class="row">
+        <!-- Logo & Information Panel-->
+        <div class="col-lg-6">
+          <div class="info d-flex align-items-center">
+              <div class="content">
+                  <div class="logo">
+                      <h1>Registeren</h1>
+                  </div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                  <a href="{% url 'Clubs:clubs' %}" class='btn btn-dark'>Terug naar home</a>
+              </div>
+          </div>
+        </div>
+        <!-- Form Panel    -->
+        <div class="col-lg-6 bg-white">
+          <div class="form d-flex align-items-center">
+            <div class="content">
+              <form method='POST' class="text-left form-validate">
+                {% csrf_token %}
+
+                <div class="form-group-material">
+                  {{ form.first_name }}
+                  <label for="register-username" class="label-material">Voornaam</label>
+                </div>
+                <div class="form-group-material">
+                  {{ form.email }}
+                  <label for="register-email" class="label-material">E-mailadres</label>
+                </div>
+                <div class="form-group-material">
+                  {{ form.password }}
+                  <label for="register-password" class="label-material">Wachtwoord</label>
+                </div>
+                <div class="form-group-material">
+                  {{ form.password_2 }}
+                  <label for="register-password" class="label-material">Bevestig Wachtwoord</label>
+                </div>
+                <div class="form-group terms-conditions text-center">
+                  <input id="register-agree" name="registerAgree" type="checkbox" required value="1" data-msg="Uw toestemming is vereist" class="checkbox-template">
+                  <label for="register-agree">Ik ga akkoord met de voorwaarden en het beleid</label>
+                </div>
+                <div class="form-group text-center">
+                  <button type='submit' id="register" class='btn btn-primary'>Registreer nu</button>
+                </div>
+              </form>
+              
+                <small>Heb je al een account? </small><a href="{% url 'Accounts:login' %}" class="signup">Log in</a>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="copyrights text-center">
+    <p>2018 &copy; Your company. Download From <a target="_blank" href="https://templateshub.net">Templates Hub</a>.</p>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

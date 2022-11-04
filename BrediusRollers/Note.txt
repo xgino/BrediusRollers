@@ -1,0 +1,19 @@
+
+User Login / register
+User password forget
+User type
+Admin edit form, change form
+User profile /update
+User dashboard
+
+
+
+migrate
+
+accounts
+club
+teams
+players
+games
+training
+global

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Team</h1>
+
+
+
+
+    {{ team.name }}
+
+
+
+    <br />
+    <br />
+    <br />
+
+
+    {% if players %}
+        {% for player in players %}
+            {{ player.user.first_name }}
+            <a href="{% url 'Players:player' player.id %}" class="btn btn-primary btn-block">More Info</a>
+                    
+            <br />
+        {% endfor %}
+
+    {% else %}
+        No players
+    {% endif %}
+
+
+
+
+{% endblock %}

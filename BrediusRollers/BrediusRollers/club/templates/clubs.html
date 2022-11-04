@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Clubs</h1>
+
+
+{% if clubs %}
+{% for club in clubs %}
+
+
+    {{ club.name }}
+    {{ club.city }}
+    {{ club.season }}
+
+
+    <a href="{% url 'Clubs:club' club.id %}" class="btn btn-primary btn-block">More Info</a>
+    <br />
+    
+{% endfor %}
+{% else %}
+<div class="col-md-12">
+    <p>No Clubs Availeble</p>
+    </div>
+
+
+{% endif %}
+
+
+
+{% endblock %}

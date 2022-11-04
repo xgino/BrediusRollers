@@ -1,0 +1,25 @@
+
+
+
+<nav id="sidebar">
+    <!-- Sidebar Header-->
+    <div class="sidebar-header d-flex align-items-center">
+      <div class="avatar"><img src="{{ user.profile.avatar.url }}" alt="{{ user.profile.avatar.url }}" class="img-fluid rounded-circle"></div>
+      <div class="title">
+        <h1 class="h5">{{ user.get_full_name }}</h1>
+        <p>Web Designer</p>
+      </div>
+    </div>
+    <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+        
+
+    <ul class="list-unstyled">
+        <li class="active"><a href="{% url 'Accounts:dashboard' %}"> <i class="icon-home"></i>DASHBOARD</a></li>
+        <li><a href="{% url 'Accounts:team' %}"> <i class="icon-grid"></i>MY TEAM</a></li>
+        <li><a href="{% url 'Accounts:account_games' %}"> <i class="icon-grid"></i>GAMES </a></li>
+        <li><a href="charts.html"> <i class="fa fa-bar-chart"></i>Charts </a></li>
+        <li><a href="{% url 'Accounts:profile' %}"> <i class="icon-padnote"></i>PROFILE</a></li>
+    </ul>
+</nav>
+
+

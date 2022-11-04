@@ -1,0 +1,33 @@
+
+
+{% load static %}
+
+<div class="main-menu-wrap sticky-menu">
+    <div class="container">
+        <a href="#" class="custom-logo-link"><img src="{% static 'other/images/logo.png' %}" alt="logo" class="custom-logo"></a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#team-menu" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <nav class="navbar">
+            <div class="collapse navbar-collapse" id="team-menu">
+                <ul class="main-menu nav">
+                    <li class="active"><a href=""><span>Home</span></a></li>
+                    <li><a href="{% url 'Games:games' %}"><span>Wedstrijden</span></a></li>
+                        <!-- <li><a href=""><span>Match details</span></a></li> -->
+                    <li><a href="{% url 'Trainings:trainings' %}"><span>Teams</span></a></li>
+                        <!-- <li><a href=""><span>Player Detail</span></a></li> -->
+                    <li><a href=""><span>Scores</span></a></li>
+                    <li><a href=""><span>About</span></a></li>
+                    <li><a href=""><span>Contact</span></a></li>
+                    <li><a href=""><span>404</span></a></li>
+                    
+                    <li><a href="{% url 'Accounts:dashboard' %}"><span>Account</span></a></li>
+                    <li><a href="{% url 'Clubs:clubs' %}"><span>Club</span></a></li>
+                </ul>
+            </div>       
+        </nav>
+    </div>
+</div>

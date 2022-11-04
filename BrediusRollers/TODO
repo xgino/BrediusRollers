@@ -1,0 +1,244 @@
+
+
+Time Tracker
+
+    MOST ERD
+
+    14 04 2022  |   Start 19:20 end 20:20   |   1H
+    15 04 2022  |   Start 00:00 end 05:14   |   5H
+    15 04 2022  |   Start 15:40 end 16:40   |   1H
+    16 04 2022  |   Start 00:00 end 02:30   |   2.5H
+    17 04 2022  |   Start 01:00 end 03:00   |   2H
+    17 04 2022  |   Start 18:00 end 20:00   |   2H
+    18 04 2022  |   Start 17:30 end 20:00   |   2.5H
+    20 04 2022  |   Start 20:00 end 00:00   |   4H
+    21 04 2022  |   Start 00:00 end 03:30   |   3.5H
+================================================
+Results Week 1                                  23.5H
+
+    MOST RELEARN BASICS DJANGO
+
+    01 05 2022  |   Start 16:00 end 19:00   |   3H
+    03 05 2022  |   Start 18:00 end 21:00   |   3H
+    04 05 2022  |   Start 00:30 end 05:30   |   5H
+    04 05 2022  |   Start 18:00 end 19:00   |   1H
+    05 05 2022  |   Start 00:00 end 04:00   |   4H
+    06 05 2022  |   Start 15:00 end 18:00   |   3H
+================================================
+Results Week 2                                  19H 
+
+    CREATE ACCOUNT FUNC, and other models LIKE maybe 40% of site
+
+    07 07 2022  |   Start ??:?? end ??:??   |   8H
+    11 07 2022  |   Start 18:00 end 21:00   |   5H
+    12 07 2022  |   Start 20:00 end 02:00   |   6H
+    13 07 2022  |   Start ??:00 end ??:00   |   6H
+    14 07 2022  |   Start 16:00 end 21:00   |   5H
+    14 07 2022  |   Start 23:00 end 02:00   |   3H
+
+================================================
+Results Week 3                                  33H 
+
+    ............................
+
+    15 07 2022  |   Start 19:00 end ??:??   |   6H
+    16 07 2022  |   Start ??:00 end ??:??   |   4H
+    11 08 2022  |   Start ??:00 end ??:??   |   3H
+    13 08 2022  |   Start ??:00 end ??:??   |   5H
+    19 08 2022  |   Start ??:00 end ??:??   |   6H
+    21 08 2022  |   Start ??:00 end ??:??   |   5H
+
+
+
+================================================
+Results Week 3                                  ??H 
+
+
+
+
+
+
+
+
+TODO
+- [ ] Usertype FRONTEND ACCOUNT SITE
+- [ ] Create Admin Templates
+- [ ] Make User Perms for type users. -> Player, Editor, Helper, Coach
+- [ ] Create usertype Views -> 
+- [ ] Insert other Data Models
+- [ ] Forgot Password not yet
+
+
+DONE ---
+- [x] Registration Page
+- [x] Registration Func
+- [x] Login page
+- [x] Login func
+- [x] Forgot password page / func
+- [x] Auto Create Profile For new Users
+- [x] Old profile image replace on new upload
+
+
+DATABASE ---
+- [x] Custom User Model
+- [x] Extend Usermodel Profile
+- [x] Adress Model
+- [ ] 
+
+DONT FORGET IDIOT ---
+- [ ] Resize Profile icon upload to reduce storage
+- [X] Slug for indi players/ clubs??
+- [X] Slug for indi gameday/ games??
+- [X] Slug in a slug > Club, Teams, Team, Players, Player
+- [x] Slug in a slug > Gameday, games, game
+- [x] Slug in a slug > Trainings, TrainingTime, TrainingLocation
+
+- [ ] Attendence add + event app import game
+- [ ] Fuck Referee in games + referee app/model Add later or not
+- [ ] Fuck Attendance in games + attendance app/model Add later or not
+- [ ] Dashboard view -> jouw team, teammates, goals, wedstrijden -> season
+- [ ] Find Winning Team of our club
+
+
+
+==========================================================================================
+
+
+NOTE
+- [ ] Learn how to make own Animated icons Figma
+- [ ] Data Protection Europe!!!!!!!
+
+
+FUNCTIONS
+- [ ] Animation
+    - [ ] Background, Icons, Mouse Interaction, preload animation
+- [ ] Donate Link Paypal COFEE
+- [ ] Bugg Found? Leave Message Admin + Developer can SEE
+- [ ] Responsive Mobile
+- [ ] Login @rights             ROLS: Subscriber, Contributor, Author, Editor, Administrator, Super Administrator : 
+    - [ ] User type: Contributor = Person
+            Person Info own     #Edit
+            Adres               #Edit
+            Function            #Edit
+            Team                #See
+            Player              #see
+            Club                #See
+            Training            #Edit #aanwezig
+            Event               #See
+            Matchday            #See
+            Account own info    #Edit
+    - [ ] User type: Administrator = admin
+            Person Info All     #Edit
+            All Adres           #Edit
+            Player All          #Edit
+            Team All            #Edit
+            Event All           #Edit
+            Match All           #Edit
+            Match Team All      #Edit
+            Match Location All  #Edit
+            Match Day All       #Edit
+            Referee             #Edit 
+    - [ ] User type: Super Administrator = Head owner??
+            All of Aministrator @Rights
+            User Functions      #Edit
+            Club Info ALL       #Edit
+
+    - [ ] User Rolls: SportLeider, Coach, News Author, 
+            -   Player      is referee, is captan
+                    
+
+
+            -   Editor      ->  Edit News Images ect
+                -   Gameday News   
+                -   Images
+                -   Blog News
+            -   Helper      ->  See Health of players
+            -   Coach       ->  Playerinfo + Stats
+            -   SportLeider  ->  Admin can ALL
+
+
+
+- [ ] Delete Perm Account Also Testimonials
+
+
+Extra's
+- [ ] Exel import Data / export
+- [ ] Amount visitors day / week / month
+- [ ] Last Edited date, last login Admin
+- [ ] Google Login
+
+
+Maybe
+- [ ] Scraped Data
+- [ ] Dark Mode
+- [ ] Live and Construction BTN DEVELOPER
+
+
+Some Links
+    Animation Site          https://fireart.studio/blog/10-best-website-animation-techniques-for-your-web-design/
+    User ROLLS and Perms    https://premio.io/blog/user-roles-and-permissions-in-wordpress/
+    Animated Icons          https://lordicon.com/
+
+
+pages -- TODO
+- [ ] Homepage 
+    - [ ] Press / latest news page
+    - [ ] Upcomming Training Day (Count Down)
+    - [ ] Call to action Join Training free -> Form
+    - [ ] Latest Results (Team Score)
+    - [ ] Upcomming Matches
+    - [ ] Best Spotlight players
+    - [ ] BTN Join Our TEAM
+    - [ ] Player Stats 
+    - [ ] Spotlight Aanvoerders, Coaches, Trainers, Best Players, other
+    - [ ] Action Short Clip video (Edit video + sound eff)
+    
+    - [ ] Get in Toutch
+- [ ] Aboutpage
+    - [ ] Team 1, team2, team 3, ...
+    - [ ] Testimonials / review page
+    - [ ] Portfolio Galary
+    - [ ] Latest Video of game
+    - [ ] Donation Cofee
+- [ ] Players
+    - [ ] Spotlight Each Player
+- [ ] Event
+    - [ ] Upcomming Matches
+    - [ ] Upcomming Training
+    - [ ] Event Player Birtday
+- [ ] Contact page
+    - [ ] Bug Report Form
+    - [ ] Contact Form
+    - [ ] Google maps
+
+
+Invisable pages
+- [ ] Privacy policy page
+- [ ] Terms and conditions page
+- [ ] Copyright info
+
+- [ ] Page Not Found page "Were sorry something gone wrong on our end."
+- [ ] Werkzaamheiden op site
+
+
+
+Used things
+- [ ] Python Django 
+- [ ] JavaScript
+- [ ] Custom CSS
+- [ ] Bootstrap
+- [ ] Template CSS
+- [ ] Sass
+- [ ] Digital Ocean (Hosting) / Name cheap Hosting
+- [ ] NameCheap (Domain)
+
+
+
+
+
+
+ASK BERT
+
+- [ ] Bredius Rollers Registert in KVK?
+- [ ] Main color for site
+- [ ] Home page Header Action Image Rolstoel Hockey?

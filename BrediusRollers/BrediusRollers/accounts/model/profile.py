@@ -1,0 +1,50 @@
+from django.db import models
+from django.contrib.auth import get_user_model
+from .adress import Adress
+import os
+
+User = get_user_model()
+
+
+def profile_image(instance, filename):
+    
+    ext = filename.split('.')[-1]
+    filename = "%s%s.%s" % ('Profile', instance.user.id, 'jpg')
+    return os.path.join('profile/users', filename)
+
+
+
+class Profile(models.Model):
+
+    GENDER_CHOICES = (
+        ('Dhr', 'De heer'),
+        ('Mevr', 'Mevrouw'),
+    )
+
+    user            = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, primary_key=True, null=False, related_name="profile", verbose_name="User")
+    gender          = models.CharField(max_length=4, null=True, blank=True, choices=GENDER_CHOICES, verbose_name="Geslacht")
+    phone           = models.CharField(max_length=20, null=True, blank=True, verbose_name="Mobiel nummer")
+    date_of_birth   = models.DateField(null=True, blank=True, verbose_name="Geboortedatum")
+
+    avatar          = models.ImageField(default='profile/default.jpg', upload_to=profile_image, verbose_name="Profiel")
+    bio             = models.TextField(max_length=200, blank=True, null=True, verbose_name="Bio")
+    hobby           = models.CharField(default='Rolstoel Hockey Bredius', null=True, blank=True, max_length=200, verbose_name='Hobby(s)')
+
+    adress          = models.ForeignKey(Adress, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Adres")
+
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name
+
+    def formatted_date_dob(self):
+        if self.date_of_birth:
+            date = self.date_of_birth
+            return date.strftime("%d %B %Y")
+
+    def formatted_short_dob(self):
+        if self.date_of_birth:
+            date = self.date_of_birth
+            return date.strftime("%d %b %y")
+
+
+    def get_full_name(self):
+        return self.user.first_name

@@ -1,0 +1,23 @@
+<div class="page-header">
+    <div class="container-fluid">
+        <h2 class="h5 no-margin-bottom">
+            {% if profile.coach %} 
+                Welcome Coach
+            {% elif profile.player %} 
+                Welcome Player
+            {% endif %}
+            
+            <strong class="text-primary">
+                {% if profile.gender %} 
+                    {{ profile.gender }} 
+                    {{ user.get_short_name }}
+                {% else %}
+                    {{ profile.get_full_name }} 
+                {% endif %}
+
+
+            </strong>
+            
+        </h2>
+    </div>
+</div>
