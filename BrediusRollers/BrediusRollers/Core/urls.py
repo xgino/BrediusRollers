@@ -9,6 +9,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('', include('PAGES.urls')),
     path('wedstrijden/', include('games.urls')),
     path('clubs/', include('club.urls')),
     path('teams/', include('teams.urls')),

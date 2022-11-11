@@ -9,7 +9,7 @@ class Match_team(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE, verbose_name="Team")
 
     def __str__(self):
-        return self.team.name
+        return f"{self.team}"
     
 
 
@@ -20,7 +20,6 @@ class Game_day(models.Model):
 
     def __str__(self):
         return self.sport_hall
-
 
     def formated_date(self):
         date = self.date
@@ -41,7 +40,6 @@ class Game(models.Model):
     away_score = models.IntegerField(verbose_name="Away Goals")
 
     gameday = models.ForeignKey(Game_day, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Game_day")
-    completed = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.home_team} VS {self.away_team}'

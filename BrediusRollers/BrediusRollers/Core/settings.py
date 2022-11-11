@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     
     # My Apps
     'accounts.apps.AccountsConfig',         # Account -> register, login, pass forgot, profile, dashboard
+    'PAGES.apps.PagesConfig',         # Account -> register, login, pass forgot, profile, dashboard
     'club.apps.ClubConfig',         # Club -> Season
     'teams.apps.TeamsConfig',         # Teams -> League
     'players.apps.PlayersConfig',         # Players -> possitions
@@ -26,6 +27,7 @@ INSTALLED_APPS = [
 
     # 3e party
     'django_cleanup.apps.CleanupConfig',
+    'import_export',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'

@@ -5,7 +5,6 @@ from teams.models import Team
 from club.models import Subscription
 
 
-
 class Position(models.Model):
     name  = models.CharField(max_length=255, verbose_name="Name")
     short_name   = models.CharField(max_length=255, verbose_name="Korte Naam")

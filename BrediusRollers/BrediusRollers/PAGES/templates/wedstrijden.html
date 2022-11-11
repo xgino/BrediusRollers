@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} | Wedstrijden {% endblock %}
+
+{% block content %}
+
+
+<!--BREADCRUMBS BEGIN-->
+<section class="image-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="info">
+                    <div class="wrap">
+                        <ul class="breadcrumbs">
+                            <li><a href="{% url 'Pages:home' %}">Home</a>/</li>
+                            <li>Wedstrijden</li>
+                        </ul>
+                        <h1>Wedstrijden</h1>
+                    </div>
+                </div>
+            </div>	
+        </div>
+    </div>
+</section>
+<!--BREADCRUMBS END-->
+
+
+<section class="main-match-shedule amateurs-match-shedule">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12"><h5>Eerstvolgende wedstrijddag</h5></div>
+            <div class="col-md-10 col-sm-9 col-xs-9"></div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="all">
+                        {% if upcomming_matchday %}
+                        <div class="amateurs-main-match">
+                            <div class="title">
+                                <span id="date">{{ upcomming_matchday.date|date:"d F Y"|lower }}</span> <br />
+                                <span>Sporthal {{ upcomming_matchday.sport_hall }}</span>
+                            </div>	
+                            <a href="#" class="team">
+                                <!-- <span class="image"><img src="images/soccer/team-logo1.png" alt="main-match"></span>
+                                <span class="info">
+                                    <span class="name">Team 1</span>
+                                    <span class="city">london</span>
+                                </span> -->
+                            </a>
+                            <div class="score">
+                                <h4 id="countdown-box"></h4>	
+                            </div>
+                            <a href="#" class="team guest">
+                                <!-- <span class="info">
+                                    <span class="name">Team 2</span>
+                                    <span class="city">London</span>
+                                </span>	
+                                <span class="image"><img src="images/soccer/team-logo2.png" alt="main-match"></span> -->
+                            </a>
+                            <div class="title">
+                                <strong>{{ upcomming_matchday.adress.street }} {{ upcomming_matchday.adress.house_number }}</strong><br />
+                                <strong>{{ upcomming_matchday.adress.zipcode }} {{ upcomming_matchday.adress.zipcode_number }} {{ upcomming_matchday.adress.place }}</strong>
+                            </div>
+                        </div>
+                        {% else %}
+                            <div class="amateurs-main-match">
+                                <p>No Gameday Availeble</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12"><h6>Aankomende wedstrijden</h6></div>
+            <div class="col-md-12 col-sm-12 col-xs-12">    
+                <div class="main-lates-matches">
+                    {% if future_bredius %}
+                        {% for game in future_bredius %}
+                            <a href="{% url 'Pages:wedstrijd' game.id %}" class="item">
+                                <span class="championship">{{ game.gameday.sport_hall }} {{ game.league }}</span>
+                                <span class="teams-wrap">
+                                        <span class="team">
+                                            <!-- <span><img src="images/common/team-logo1.png" alt="team-image"></span> -->
+                                            <span>{{ game.home_team }}</span>
+                                        </span>
+                                        <span class="score">
+                                            <span>{{ game.gameday.date|date:"d F"|lower }} {{ game.start_time|time:"H:i" }}</span>
+                                        </span>
+                                        <span class="team1">
+                                            <span>{{ game.away_team }}</span>
+                                            <!-- <span><img src="images/common/team-logo2.png" alt="team-image"></span> -->
+                                        </span>
+                                </span>
+                                <span class="game-result">{{ game.gameday.adress.street }} {{ game.gameday.adress.house_number }}, {{ game.gameday.adress.zipcode }} {{ game.gameday.adress.zipcode_number }} {{ game.gameday.adress.place }}</span>
+                            </a>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <p>No future bredius Games Availeble</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12"><h6>Laatste wedstrijden</h6></div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="main-lates-matches">
+                    {% if past_bredius %}
+                        {% for game in past_bredius %}
+                            <a href="{% url 'Pages:wedstrijd' game.id %}" class="item">
+                                <span class="championship">{{ game.gameday.sport_hall }} {{ game.league }}</span>
+                                <span class="teams-wrap">
+                                        <span class="team">
+                                            <!-- <span><img src="images/common/team-logo1.png" alt="team-image"></span> -->
+                                            <span>{{ game.home_team }}</span>
+                                        </span>
+                                        <span class="score">
+                                            <span>{{ game.home_score }} : {{ game.away_score }}</span>
+                                        </span>
+                                        <span class="team1">
+                                            <span>{{ game.away_team }}</span>
+                                            <!-- <span><img src="images/common/team-logo2.png" alt="team-image"></span> -->
+                                        </span>
+                                </span>
+                                <span class="game-result">
+                                    <span>{{ game.gameday.adress.street }} {{ game.gameday.adress.house_number }}, {{ game.gameday.adress.zipcode }} {{ game.gameday.adress.zipcode_number }} {{ game.gameday.adress.place }}</span>
+                                    <br /> <span>{{ game.start_time|time:"H:i" }}, {{ game.gameday.date|date:"d F Y"|lower }}</span>
+                                </span>
+                            </a>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-md-12">
+                            <p>No Games Availeble</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

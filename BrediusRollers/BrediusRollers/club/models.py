@@ -1,8 +1,35 @@
 from django.db import models
 from accounts.model.profile import Profile
+import os
+
+def sponsor_logo(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s%s.%s" % ('sponsor', instance.user.id, 'png')
+    return os.path.join('sponsor/sponsors', filename)
+
+
+class Sponsors(models.Model):
+    title  = models.CharField(max_length=255, verbose_name="Title")
+    description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
+    short_description = models.TextField(max_length=20, blank=True, null=True, verbose_name="Short description")
+    logo = models.ImageField(default='sponsor/default.jpg', upload_to=sponsor_logo, verbose_name="Logo")
+
+    def __str__(self):
+        return str(self.title)
+
 
 class Coach(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Coach")
+
+    def __str__(self):
+        return str(self.profile)
+
+
+class Role(models.Model):
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Role")
+    title  = models.CharField(max_length=255, verbose_name="Title")
+    description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
+    short_description = models.TextField(max_length=20, blank=True, null=True, verbose_name="Short description")
 
     def __str__(self):
         return str(self.profile)
@@ -28,7 +55,6 @@ class Club(models.Model):
 
     def __str__(self):
         return self.name
-
 
 
 class Subscription(models.Model):

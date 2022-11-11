@@ -7,10 +7,15 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import UserAdminChangeForm, UserAdminCreationForm
 
+from import_export.admin import ImportExportModelAdmin
+from .resources import AdressResource
+
+
 User = get_user_model()
 
 
-class AdressAdmin(admin.ModelAdmin):
+class AdressAdmin(ImportExportModelAdmin):
+    resource_classes = [AdressResource]
     list_display = ('id', 'get_street', 'get_zip', 'place')
     list_display_links = ('id', 'get_street', 'get_zip', 'place')
     list_filter = ('place',)

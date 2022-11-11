@@ -1,11 +1,14 @@
 from django.db import models
+from django.urls import reverse
 from club.models import Club, Season, Coach
 
 class League(models.Model):
-    name  = models.CharField(max_length=255, verbose_name="League")
-    
+    name  = models.CharField(max_length=56, verbose_name="League")
+    shortname  = models.CharField(max_length=10, verbose_name="Short League")
+
     def __str__(self):
         return self.name
+
 
 
 class Team(models.Model):
@@ -14,10 +17,12 @@ class Team(models.Model):
     matches_played  = models.IntegerField(verbose_name="Played Matches")
     coach = models.OneToOneField(Coach, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Coach")
 
-
     season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
     club = models.ForeignKey(Club, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Club")
     league = models.ForeignKey(League, on_delete=models.CASCADE, null=True, blank=True, verbose_name="League")
 
     def __str__(self):
-        return self.name
+        return f"{self.club} {self.name}"
+
+    def get_absolute_url(self):
+        return reverse('Pages:team_filter', args=[self.id])
