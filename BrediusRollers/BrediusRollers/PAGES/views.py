@@ -5,8 +5,8 @@ from django.utils import timezone
 from django.db.models import Q  # Django Filter OR
 
 # Import form own models
-from games.models import Game_day, Game, Match_team
-from club.models import Club, Role, Sponsors
+from games.models import Game_day, Game, Match_team, Goals
+from club.models import Club, Role, Sponsors, Season
 from teams.models import Team
 from players.models import Player
 from accounts.model import profile
@@ -69,17 +69,19 @@ def teams(request):
     now = timezone.now()
 
     #TODO -> FIXED VALUE
-    PlayerH1 = Player.objects.filter(team__in=Team.objects.filter(name='H1').filter(club__in=Club.objects.filter(name__startswith='Bredius')))
-    PlayerH2 = Player.objects.filter(team__in=Team.objects.filter(name='H2').filter(club__in=Club.objects.filter(name__startswith='Bredius')))
-    PlayerH3 = Player.objects.filter(team__in=Team.objects.filter(name='H3').filter(club__in=Club.objects.filter(name__startswith='Bredius')))
-    PlayerH4 = Player.objects.filter(team__in=Team.objects.filter(name='H4').filter(club__in=Club.objects.filter(name__startswith='Bredius')))
-    PlayerH5 = Player.objects.filter(team__in=Team.objects.filter(name='H5').filter(club__in=Club.objects.filter(name__startswith='Bredius')))
 
-    BrediusTeam3 = Role.objects.order_by('-profile')[:3]
-    BrediusTeam6 = Role.objects.order_by('-profile')[3:6]
-    BrediusTeam9 = Role.objects.order_by('-profile')[6:9]
-    BrediusTeam12 = Role.objects.order_by('-profile')[9:12]
-    BrediusTeam15 = Role.objects.order_by('-profile')[12:15]
+    PlayerH1 = Player.objects.filter( season=Season.objects.order_by('name').latest('name')).filter(team__in=Team.objects.filter(name='H1').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
+    PlayerH2 = Player.objects.filter( season=Season.objects.order_by('name').latest('name')).filter(team__in=Team.objects.filter(name='H2').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
+    PlayerH3 = Player.objects.filter( season=Season.objects.order_by('name').latest('name')).filter(team__in=Team.objects.filter(name='H3').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
+    PlayerH4 = Player.objects.filter( season=Season.objects.order_by('name').latest('name')).filter(team__in=Team.objects.filter(name='H4').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
+    PlayerH5 = Player.objects.filter( season=Season.objects.order_by('name').latest('name')).filter(team__in=Team.objects.filter(name='H5').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
+
+
+    BrediusTeam3 = Role.objects.filter(season=Season.objects.order_by('name').latest('name')).order_by('-profile')[:3]
+    BrediusTeam6 = Role.objects.filter(season=Season.objects.order_by('name').latest('name')).order_by('-profile')[3:6]
+    BrediusTeam9 = Role.objects.filter(season=Season.objects.order_by('name').latest('name')).order_by('-profile')[6:9]
+    BrediusTeam12 = Role.objects.filter(season=Season.objects.order_by('name').latest('name')).order_by('-profile')[9:12]
+    BrediusTeam15 = Role.objects.filter(season=Season.objects.order_by('name').latest('name')).order_by('-profile')[12:15]
 
     sponsor = Sponsors.objects.order_by("?")[:4]
 
@@ -104,17 +106,20 @@ def teams(request):
 
 
 
-def team(request, team_id):
-    # Give Error if Listing ID not exist typed in URL
-    team = get_object_or_404(Team, pk=team_id)
-    players = Player.objects.order_by('number_plate').filter(team=team)
+def player(request, player_id):
+    template = 'player.html'
+
+    player = get_object_or_404(Player, pk=player_id)
+
+    old_player = Player.objects.filter(profile=player.profile.user.id).order_by("-season")
 
     context = {
-        'team': team,
-        'players': players,
+        'player': player,
+        'old_player': old_player,
     }
 
-    return render(request, 'team.html', context)
+    return render(request, template, context)
+
 
 
 def overons(request):

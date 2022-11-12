@@ -7,7 +7,7 @@ from .resources import PlayerResource, PositionResource
 
 class PlayerAdmin(ImportExportModelAdmin):
     resource_classes = [PlayerResource]
-    list_display = ('id', 'profile', 'team', 'position', 'subscription', 'number_plate')
+    list_display = ('id', 'profile', 'team', 'position', 'subscription', 'number_plate', 'season')
     list_display_links = ('profile',)
     list_filter = ('profile',)
     search_fields = ('profile',)

@@ -1,0 +1,176 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} | Players {% endblock %}
+
+{% block content %}
+
+
+<!--BREADCRUMBS BEGIN-->
+<section class="image-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="info">
+                    <div class="wrap">
+                        <ul class="breadcrumbs">
+                            <li><a href="{% url 'Pages:home' %}">Home</a>/</li>
+                            <li>Players</li>
+                        </ul>
+                        <h1>Players</h1>
+                    </div>
+                </div>
+            </div>	
+        </div>
+    </div>
+</section>
+<!--BREADCRUMBS END-->
+
+
+
+
+
+
+
+
+<section class="player-single-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="player-photo">
+                    <div class="number">{{ player.number_plate }}</div>
+                    <img class="img-responsive" src="{{ player.profile.profiel.url }}" alt="player">
+                </div>  
+            </div>
+
+            <div class="col-md-8">
+
+                <div class="col-md-12">
+                    {% if player.is_captain %}
+                    <div class="captain-bage">Captain</div>
+                    {% endif %}
+
+                    <h4 class="player-name">
+                        
+                        {% if player.profile.gender %}
+                        {{ player.profile.gender }}. 
+                        {% endif %}
+                    
+                        {{ player.profile.user.first_name }} 
+                        {{ player.profile.user.last_name }} 
+                    </h4>
+
+                </div>
+
+                
+                <div class="col-md-6">
+                    <div class="player-info">
+                        <h6 class="player-info-title">overzicht</h6>	
+                        <div class="summary">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <div class="item">Naam:</div>
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xs-8">{{ player.profile.user.first_name }} {{ player.profile.user.last_name }}</div>
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <div class="item">Positie:</div>
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xs-8">{{ player.position }}</div>
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <div class="item">Team:</div>
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xs-8">{{ player.team.club }} {{ player.team.name }}</div>
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <div class="item">Seizoen:</div>
+                                </div>
+                                <div class="col-md-8 col-sm-8 col-xs-8">{{ player.season.start_date|date:"Y" }} - {{ player.season.end_date|date:"Y" }}</div>
+                            </div>
+                        </div>
+                        
+    
+                        
+    
+    
+                        <!-- <h6>Trofeeën</h6>
+                        <ul class="player-trophey">
+                            <li>
+                                <img src="images/common/am-trophey1.png" width="100" height="150" alt="trophy">
+                                <div class="year">2012</div>
+                            </li>
+                            <li>
+                                <img src="images/common/am-trophey.png" width="100" height="150" alt="trophy">
+                                <div class="year">2015</div>
+                            </li>
+                            <li>
+                                <img src="images/common/am-trophey2.png" width="100" height="150" alt="trophy">
+                                <div class="year">2017</div>
+                            </li>
+                        </ul>
+                         -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="player-info">
+                        {% if player.profile.bio %}
+                        <h6 class="player-info-title">Biografie</h6>	
+                        <p>{{ player.profile.bio }}</p>
+                        {% endif %}
+
+                        {% if player.profile.hobby %}
+                        <h6 class="player-info-title">Hobby</h6>
+                        <p>{{ player.profile.hobby }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                
+                <div class="col-md-12">
+                    <h6>clubgeschiedenis</h6>
+                    <div class="overflow-scroll">
+                        <table>
+                            <tr>
+                                <th>Seizoen</th>
+                                <th class="club">Club</th>
+                                <th>Team</th>
+                                <th>Klasse</th>
+                                <th>Positie</th>
+                                <th>Wedstrijden</th>
+                                <th>Punten</th>
+                            </tr>
+                            {% for x in old_player %}
+                            <tr>
+                                <td>{{ x.season.start_date|date:"Y" }}/{{ x.season.end_date|date:"Y" }}</td>
+                                <td class="club">
+                                    <!-- <img src="images/soccer/team-logo1.png" width="30" height="30" alt="trophy"> -->
+                                    {{ x.team.club }}
+                                </td>
+                                <td> {{ x.team.name }}</td>
+                                <td>{{ x.team.league }}</td>
+                                <td>{{ x.position }}</td>
+                                <td>{{ x.team.matches_played }}</td>
+                                <td><span>{{ x.team.points_earned }}</span></td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </table>
+                    </div>
+                </div>   
+
+
+
+            </div>
+
+
+            
+
+
+
+
+
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

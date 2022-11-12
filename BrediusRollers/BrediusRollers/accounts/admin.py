@@ -31,7 +31,7 @@ class ProfileInline(admin.StackedInline):
     fk_name = 'user'
 
     fieldsets = (
-        ('Gebruikers info', {'fields': ('gender', 'phone', 'date_of_birth', 'adress', 'avatar', 'bio', 'hobby',)}),
+        ('Gebruikers info', {'fields': ('gender', 'phone', 'date_of_birth', 'adress', 'profiel', 'avatar', 'bio', 'hobby',)}),
         
     )
 

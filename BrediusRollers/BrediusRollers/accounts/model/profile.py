@@ -10,7 +10,14 @@ def profile_image(instance, filename):
     
     ext = filename.split('.')[-1]
     filename = "%s%s.%s" % ('Profile', instance.user.id, 'jpg')
-    return os.path.join('profile/users', filename)
+    return os.path.join('profile/user_image', filename)
+
+
+def profile_avatar(instance, filename):
+    
+    ext = filename.split('.')[-1]
+    filename = "%s%s.%s" % ('Profile', instance.user.id, 'jpg')
+    return os.path.join('profile/user_avatar', filename)
 
 
 
@@ -26,7 +33,8 @@ class Profile(models.Model):
     phone           = models.CharField(max_length=20, null=True, blank=True, verbose_name="Mobiel nummer")
     date_of_birth   = models.DateField(null=True, blank=True, verbose_name="Geboortedatum")
 
-    avatar          = models.ImageField(default='profile/default.jpg', upload_to=profile_image, verbose_name="Profiel")
+    profiel         = models.ImageField(default='profile/default_image.jpg', upload_to=profile_image, verbose_name="Profiel")
+    avatar          = models.ImageField(default='profile/default_avatar.jpg', upload_to=profile_avatar, verbose_name="Avatar")
     bio             = models.TextField(max_length=200, blank=True, null=True, verbose_name="Bio")
     hobby           = models.CharField(default='Rolstoel Hockey Bredius', null=True, blank=True, max_length=200, verbose_name='Hobby(s)')
 
