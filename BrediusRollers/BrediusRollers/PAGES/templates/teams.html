@@ -41,7 +41,7 @@
                 {% for player in PlayerH1 %}
                     <div class="staff-box">            
                         <div class="col-md-3  col-sm-6 col-xs-12">
-                            <a href="#" class="item">
+                            <a href="{% url 'Pages:player' player.id %}" class="item">
                                 <span class="info">
                                     <span class="name">{{ player.profile.user.get_full_name }}</span>
                                     <span class="position">{{ player.position }}</span>
@@ -85,7 +85,7 @@
                 {% for player in PlayerH3 %}
                     <div class="staff-box">            
                         <div class="col-md-3  col-sm-6 col-xs-12">
-                            <a href="#" class="item">
+                            <a href="{% url 'Pages:player' player.id %}" class="item">
                                 <span class="info">
                                     <span class="name">{{ player.profile.user.get_full_name }}</span>
                                     <span class="position">{{ player.position }}</span>
@@ -107,7 +107,7 @@
                 {% for player in PlayerH4 %}
                     <div class="staff-box">            
                         <div class="col-md-3  col-sm-6 col-xs-12">
-                            <a href="#" class="item">
+                            <a href="{% url 'Pages:player' player.id %}" class="item">
                                 <span class="info">
                                     <span class="name">{{ player.profile.user.get_full_name }}</span>
                                     <span class="position">{{ player.position }}</span>
@@ -129,7 +129,7 @@
                 {% for player in PlayerH5 %}
                     <div class="staff-box">            
                         <div class="col-md-3  col-sm-6 col-xs-12">
-                            <a href="#" class="item">
+                            <a href="{% url 'Pages:player' player.id %}" class="item">
                                 <span class="info">
                                     <span class="name">{{ player.profile.user.get_full_name }}</span>
                                     <span class="position">{{ player.position }}</span>

@@ -5,8 +5,487 @@
 
 {% block content %}
 
+<!-- 
+banner <br>
+Club stats <br>
+History <br>
+Galary <br>
+Ask join <br>
+Sponsor <br>
+Managers <br>
 
-Over page
+ -->
+
+
+<!--TROPHEY ROOM BEGIN-->
+<section class="trophey-room">
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h4>Club informatie</h4> 
+            </div>
+
+            
+            <div class="col-md-7">
+                <div class="trophey-media">
+                    <img src="{{ about.photo.url }}" alt="club-image">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <p>
+                    {{ about.description }}
+                </p><br />
+                <ul class="done-list">
+                    <!-- <li>Win a championship</li>
+                    <li>Played 96 matches</li>
+                    <li>Have not lost a single match at home</li>
+                    <li>New club record for most scores</li> -->
+                    <li>Club main point 1</li>
+                    <li>Club main point 2</li>
+                    <li>Club main point 3</li>
+                    <li>Club main point 4</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--TIMELINE BEGIN-->
+    <div class="timeline-bar">
+        <div class="bar">
+            <div class="date date-1" >2015</div>
+            <div class="date date-2" >2016</div>
+            <div class="date date-3" >2017</div>
+            <div class="date date-4" >2018</div>
+            <div class="date date-5" >2019</div>
+            <div class="date date-6 active" ><script>document.write(new Date().getFullYear())</script> </div>
+        </div>
+    </div>
+    <!--TIMELINE END-->
+    
+</section>
+<!--TROPHEY ROOM END-->
+
+
+
+
+
+ <!--CLUB WRAP BEGIN-->
+<section class="club-wrap">
+    <div class="container">
+        <div class="row row-eq-height">
+            <div class="col-md-9 col-sm-9 col-xs-9">
+                <h4>{{ club.name }}</h4>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <a href="broadcasts.html" class="btn small club-top-btn">Versterk jij ons team?</a>
+            </div>
+        </div>
+    </div>
+    <div class="club-top-info">
+        <div class="organisation-header-wrapper">
+            <div class="container">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="all">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="club-logo  wpb_animate_when_almost_visible wpb_zoomInLeft zoomInLeft wpb_start_animation animated">
+                                    <img class="img-responsive" src="{% static 'other/images/soccer/champ-logo.png' %}" alt="organisation logo" >                
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="org-club-info">                                    
+                                    <div class="item"><span>Seizoen:</span> {{ club.season.start_date|date:"M Y" }} - {{ club.season.end_date|date:"M Y" }}</div>
+                                    <div class="item"><span>Onze teams:</span> {% for x in bredius_teams %}{{ x.name }} {% endfor %}</div>  
+                                    <div class="item"><span>Plaats:</span> {{ club.city }}</div>
+                                    <div class="item"><span>Trainingen gehad:</span> {{ train_count }}</div>
+                                    <div class="item"><span>Aantal leden:</span> {{ club_player_count }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="org-club-stat">      
+                                    {% if next_training %}
+                                    <div class="title">aankomend training | <strong id="training-countdown-box"></strong></div>
+                                    <div class="next">
+                                        <div class="info">
+                                            <div class="name" id="training-countdown">{{ next_training.date|date:"l" }} {{ next_training.training_time.start_time|date:"H:i" }} | {{ next_training.date|date:"d M Y" }}</div>
+                                            <div class="date">{{ next_training.training_location.adress.street }} {{ next_training.training_location.adress.house_number }} | {{ next_training.training_location.adress.zipcode }} {{ next_training.training_location.adress.zipcode_number }} {{ next_training.training_location.adress.place }}</div>
+                                            <div class="date">Start tijd {{ next_training.training_time.start_time|date:"H:i" }} | Eind tijd {{ next_training.training_time.end_time|date:"H:i" }}</div>
+                                            <div class="date">Opbouw 30min | Afbouw 30min</div>
+                                        </div>
+                                    </div>
+                                   {% endif %}
+                                    
+                                    <!-- <div class="title">team stats</div>
+                                    <div class="circle-item">
+                                        <div class="circle-bar" id="circle_3" data-percent="55"></div>
+                                        <div class="text">Winst </div>
+                                    </div>
+                                    <div class="circle-item">
+                                        <div class="circle-bar" id="circle_4" data-percent="37"></div>
+                                        <div class="text">Lost </div>
+                                    </div>              -->
+                                </div>
+                            </div>
+                        </div>	
+                    </div>
+                </div>
+            </div>	
+        </div>
+    </div>
+</section>
+<!--CLUB WRAP END-->
+
+
+
+
+
+
+
+
+
+{% if photo %}
+<!--MACTH LIVE GALLERY BEGIN-->
+<section class="match-live-gallery">
+    <div class="owl-carousel owl-theme gallery-slider">
+        {% for x in photo %}
+        <div class="item">
+            <a href="news-single.html">
+                <span class="info">
+                    <span class="then">{{ x.title }}</span>
+                    <span class="what">{{ x.description }}</span>
+                </span>
+                <img src="{{ x.photo.url }}" alt="gallery-slide-img">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6"></div>
+            <div class="col-xs-6 text-right">
+                <div class="owl-carousel-arrows">
+                    <div class="custom-navigation">
+                        <a class="custom-next-btn"><i class="fa fa-caret-left fa-3x" aria-hidden="true"></i></a>
+                        <a class="custom-prev-btn"><i class="fa fa-caret-right fa-3x" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--MACTH LIVE GALLERY END-->
+{% endif %}
+
+
+
+
+
+<!--MAIN CLUB STAFF BEGIN-->
+<section class="main-club-stuff">    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="soccer-h4">Bredius Rollers Team</h4>  
+                <ul class="player-filters" role="tablist">
+                    <li class="active">
+                        <a href="#managers" role="tab" data-toggle="tab">Ons Team</a>
+                    </li>
+                    <!-- <li>
+                        <a href="#academy" role="tab" data-toggle="tab">Academy</a>
+                    </li>                   -->
+                </ul>
+            </div>
+        </div>
+    </div>           
+
+    <div class="tab-content">
+
+        <div class="tab-pane active" id="managers" role="tabpanel">
+            <div id="managers_carousel" class="carousel slide main-stuff-slider" data-ride="carousel" >
+                <div class="carousel-inner" role="listbox" >
+                    {% if BrediusTeam3 %}
+                    <div class="item active">
+                        <div class="container">
+                            <div class="row">
+                                {% for team in BrediusTeam3 %}
+                                    <div class="col-md-4">
+                                        <div class="staff-item">
+                                            <a href="#">
+                                                <span class="info">
+                                                    <span class="name">{{ team.profile.user.get_full_name }}</span>
+                                                    <span class="position">{{ team.title }}</span>
+                                                    <span class="number">14</span>
+                                                </span>
+                                                <img src="{{ team.profile.profiel.url }}"  alt="person-slider">
+                                            </a>	
+                                        </div>
+                                    </div> 
+                                {% endfor %}                   
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if BrediusTeam6 %}
+                    <div class="item">
+                        <div class="container">
+                            <div class="row">
+                                {% for team in BrediusTeam6 %}
+                                <div class="col-md-4">
+                                    <div class="staff-item">
+                                        <a href="#">
+                                            <span class="info">
+                                                <span class="name">{{ team.profile.user.get_full_name }}</span>
+                                                <span class="position">{{ team.title }}</span>
+                                                <span class="number">14</span>
+                                            </span>
+                                            <img src="{{ team.profile.profiel.url }}"  alt="person-slider">
+                                        </a>	
+                                    </div>
+                                </div>    
+                                {% endfor %}   
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if BrediusTeam9 %}
+                    <div class="item">
+                        <div class="container">
+                            <div class="row">
+                                {% for team in BrediusTeam9 %}
+                                <div class="col-md-4">
+                                    <div class="staff-item">
+                                        <a href="#">
+                                            <span class="info">
+                                                <span class="name">{{ team.profile.user.get_full_name }}</span>
+                                                <span class="position">{{ team.title }}</span>
+                                                <span class="number">14</span>
+                                            </span>
+                                            <img src="{{ team.profile.profiel.url }}"  alt="person-slider">
+                                        </a>	
+                                    </div>
+                                </div>    
+                                {% endfor %}   
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if BrediusTeam12 %}
+                    <div class="item">
+                        <div class="container">
+                            <div class="row">
+                                {% for team in BrediusTeam12 %}
+                                <div class="col-md-4">
+                                    <div class="staff-item">
+                                        <a href="#">
+                                            <span class="info">
+                                                <span class="name">{{ team.profile.user.get_full_name }}</span>
+                                                <span class="position">{{ team.title }}</span>
+                                                <span class="number">14</span>
+                                            </span>
+                                            <img src="{{ team.profile.profiel.url }}"  alt="person-slider">
+                                        </a>	
+                                    </div>
+                                </div>    
+                                {% endfor %}   
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if BrediusTeam15 %}
+                    <div class="item">
+                        <div class="container">
+                            <div class="row">
+                                {% for team in BrediusTeam15 %}
+                                <div class="col-md-4">
+                                    <div class="staff-item">
+                                        <a href="#">
+                                            <span class="info">
+                                                <span class="name">{{ team.profile.user.get_full_name }}</span>
+                                                <span class="position">{{ team.title }}</span>
+                                                <span class="number">14</span>
+                                            </span>
+                                            <img src="{{ team.profile.profiel.url }}"  alt="person-slider">
+                                        </a>	
+                                    </div>
+                                </div>    
+                                {% endfor %}   
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Controls -->
+                    <a class="nav-arrow left-arrow" href="#managers_carousel" role="button" data-slide="prev">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="sr-only"></span>
+                    </a>
+                    <a class="nav-arrow right-arrow" href="#managers_carousel" role="button" data-slide="next">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        <span class="sr-only"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+       
+        
+
+        <!-- <div class="tab-pane" id="academy" role="tabpanel">
+            <div id="academy_carousel" class="carousel slide main-stuff-slider" data-ride="carousel" >
+                <div class="carousel-inner" role="listbox" >
+                    <div class="item active">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="staff-item">
+                                        <a href="staff.html">
+                                            <span class="info">
+                                                <span class="name">Vito<br>Palet</span>
+                                                <span class="position">Left Forward</span>
+                                                <span class="number">14</span>
+                                            </span>
+                                            <img src="{% static 'other/images/soccer/player-2.jpg' %}"  alt="person-slider">
+                                        </a>	
+                                    </div>
+                                </div>                    
+                                <div class="col-md-4">
+                                    <div class="staff-item">
+                                        <a href="staff.html">
+                                            <span class="info">
+                                                <span class="name">Lucas<br>Melet</span>
+                                                <span class="position">Left Midfielder</span>
+                                                <span class="number">8</span>
+                                            </span>
+                                            <img src="{% static 'other/images/soccer/stuff-person.jpg' %}"  alt="person-slider">
+                                        </a>	
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <div class="staff-item">
+                                        <a href="staff.html">
+                                            <span class="info">
+                                                <span class="name">Lucas<br>Marse</span>
+                                                <span class="position">Central Attacking Midfielder</span>
+                                                <span class="number">7</span>
+                                            </span>
+                                            <img src="{% static 'other/images/soccer/player-3.jpg' %}"  alt="person-slider">
+                                        </a>	
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="staff-item">
+                                        <a href="staff.html">
+                                            <span class="info">
+                                                <span class="name">Lucas<br>Marsan</span>
+                                                <span class="position">Left Forward</span>
+                                                <span class="number">14</span>
+                                            </span>
+                                            <img src="{% static 'other/images/soccer/player-3.jpg' %}"  alt="person-slider">
+                                        </a>	
+                                    </div>
+                                </div>                    
+                                <div class="col-md-4">
+                                    <div class="staff-item">
+                                        <a href="staff.html">
+                                            <span class="info">
+                                                <span class="name">Luscas<br>Mars</span>
+                                                <span class="position">Left Midfielder</span>
+                                                <span class="number">8</span>
+                                            </span>
+                                            <img src="{% static 'other/images/soccer/player-2.jpg' %}"  alt="person-slider">
+                                        </a>	
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <div class="staff-item">
+                                        <a href="staff.html">
+                                            <span class="info">
+                                                <span class="name">Lucas<br>Mafo</span>
+                                                <span class="position">Central Attacking Midfielder</span>
+                                                <span class="number">7</span>
+                                            </span>
+                                            <img src="{% static 'other/images/soccer/stuff-person.jpg' %}"  alt="person-slider">
+                                        </a>	
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <a class="nav-arrow left-arrow" href="#academy_carousel" role="button" data-slide="prev">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="sr-only"></span>
+                    </a>
+                    <a class="nav-arrow right-arrow" href="#academy_carousel" role="button" data-slide="next">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        <span class="sr-only"></span>
+                    </a>
+                </div>
+            </div>
+        </div> -->
+
+   
+    </div>
+</section>
+<!--MAIN CLUB STAFF END-->
+
+
+
+
+
+
+<!-- Call to action -->
+<div class="call-to-action">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-sm-9 col-xs-6">
+                <div class="text">Train een keertje gratis mee</div>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-6 text-right">
+                <a href="contacts.html" class="join">Aanmelden</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Become part of a great team -->
+
+
+
+{% if sponsor %}
+<!--SPONSOR BOX BEGIN-->
+<div class="am-sponsor-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <p class="text">
+                    We waarderen de hulp van degenen die ons hebben gesponsord. We willen onze dank uitspreken door ze op onze website te markeren.
+                </p>
+            </div>
+            {% for s in sponsor %}
+            <div class="col-xs-3 text-center">
+                <img  class="sponsor-icons" src="{{ s.logo.url }}" alt="sponsor image">	
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!--SPONSOR BOX END-->
+{% endif %}
+
+
 
 
 

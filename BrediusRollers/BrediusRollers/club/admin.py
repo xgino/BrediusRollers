@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Club, Season, Subscription, Coach, Role, Sponsors
+from .models import Club, Season, Subscription, Coach, Role, Sponsors, About, Photo
 
 from import_export.admin import ImportExportModelAdmin
 from .resources import CoachResource, RoleResource, SeasonResource, ClubResource, SubscriptionResource
@@ -46,6 +46,15 @@ class RoleAdmin(ImportExportModelAdmin):
     list_display_links = ('profile',)
     list_per_page = 25
 
+class AboutAdmin(ImportExportModelAdmin):
+    list_display = ('id', 'season', 'description', 'photo')
+    list_display_links = ('season',)
+    list_per_page = 25
+
+class PhotoAdmin(ImportExportModelAdmin):
+    list_display = ('id', 'title', 'description', 'season', 'photo')
+    list_display_links = ('title',)
+    list_per_page = 25
 
 
 
@@ -55,3 +64,5 @@ admin.site.register(Subscription, SubscriptionAdmin)
 admin.site.register(Coach, CoachAdmin)
 admin.site.register(Role, RoleAdmin)
 admin.site.register(Sponsors, SponsorsAdmin)
+admin.site.register(About, AboutAdmin)
+admin.site.register(Photo, PhotoAdmin)

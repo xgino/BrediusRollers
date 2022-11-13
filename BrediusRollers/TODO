@@ -55,21 +55,32 @@ Results Week 4                                  29H
 
 
     07 11 2022  |   Start 17:00 end 19:00   |   2H
-    09 11 2022  |   Start 17:00 end 19:00   |   4H
-    10 11 2022  |   Start 17:00 end 19:00   |   8H
-    11 11 2022  |   Start 17:00 end 19:00   |   10H
+    09 11 2022  |   Start ??:?? end ??:??   |   4H
+    10 11 2022  |   Start ??:?? end ??:??   |   8H
+    11 11 2022  |   Start ??:?? end ??:??   |   12H
 
 
 
 ================================================
 Results Week 5                                  ??H 
 
-Problems
+PROBLEMS - TODO
 - [X] SQL Season name changed to int, error cuz char value
 - [X] Teams page, get players based on last season
 - [X] Player page, Get player older Season stats
 - [X] Bredius Staff, Select by year
+- [X] Insert other Data Models
 - [ ] Check if db has correct, no repeating things
+- [ ] Voeg Wissel Player toe
+- [ ] Clean Up code
+- [ ] write Documentation
+- [ ] Usertype FRONTEND ACCOUNT SITE
+- [ ] Create Admin Templates
+- [ ] Make User Perms for type users. -> Player, Editor, Helper, Coach
+- [ ] Create usertype Views -> 
+- [ ] Forgot Password not yet
+- [ ] WEATHER FORECAST API
+- [ ] KNHB Score Scraper API
 
 
 VRAGEN
@@ -87,17 +98,6 @@ UITLEG
 - [ ] Gebruikers kunnen hun profiel aanpassen en wijzigen
 - [ ] Admin Kan teams, spelers, club, sponsor, 
 
-
-
-TODO
-- [ ] Usertype FRONTEND ACCOUNT SITE
-- [ ] Create Admin Templates
-- [ ] Make User Perms for type users. -> Player, Editor, Helper, Coach
-- [ ] Create usertype Views -> 
-- [ ] Insert other Data Models
-- [ ] Forgot Password not yet
-- [ ] WEATHER FORECAST API
-- [ ] KNHB Score Scraper API
 
 
 DONE ---

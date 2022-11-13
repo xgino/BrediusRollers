@@ -20,7 +20,7 @@ class Trainings_location(models.Model):
 class Training(models.Model):
     training_time = models.ForeignKey(Trainings_time, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Training_time")
     training_location = models.ForeignKey(Trainings_location, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Training_location")
-    date = models.DateTimeField(verbose_name="Date")
+    date = models.DateField(verbose_name="Date")
     
 
     def __str__(self):

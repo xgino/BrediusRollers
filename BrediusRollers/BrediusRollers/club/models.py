@@ -1,11 +1,22 @@
 from django.db import models
 from accounts.model.profile import Profile
 import os
+from datetime import datetime
 
 def sponsor_logo(instance, filename):
     ext = filename.split('.')[-1]
     filename = "%s%s.%s" % ('sponsor', instance.user.id, 'png')
     return os.path.join('sponsor/sponsors', filename)
+
+def about_image(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s%s.%s" % ('about', instance.season.name, 'png')
+    return os.path.join('about/image', filename)
+
+def capture_photo(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s%s.%s" % (instance.title, f"-{datetime.now().strftime('%d')}{datetime.now().strftime('%m')}-{datetime.now().strftime('%y')}", 'png')
+    return os.path.join('about/photo', filename)
 
 
 class Sponsors(models.Model):
@@ -65,3 +76,21 @@ class Subscription(models.Model):
 
     def __str__(self):
         return self.sub_num
+
+
+class About(models.Model):
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
+    description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
+    photo = models.ImageField(default='about/default_image.jpg', upload_to=about_image, verbose_name="Image")
+
+    def __str__(self):
+        return f"{self.season}"
+
+class Photo(models.Model):
+    title  = models.CharField(max_length=15, verbose_name="Title -> 1x naam perdag, Verander naam hier != als file naam")
+    description = models.TextField(max_length=30, blank=True, null=True, verbose_name="Description")
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
+    photo = models.ImageField(upload_to=capture_photo, verbose_name="Photo")
+
+    def __str__(self):
+        return f"{self.title} {self.season.name}"
