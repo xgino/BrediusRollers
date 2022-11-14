@@ -29,42 +29,22 @@
                     <li {% if request.path == wedstrijden %}class="active"{% endif %}>
                         <a href="{{ wedstrijden }}"><span>Wedstrijden</span></a>
                     </li>
-                        <!-- 
-                        GameDays
-                        Matches
-                            Mach Details 
-                        -->
 
                     <li {% if request.path == teams %}class="active"{% endif %}>
                         <a href="{{ teams }}"><span>Teams</span></a>
                     </li>
-                        <!-- 
-                            Team Scores
-                            Players
-                            Player Details
-                         -->
-                        
-
                     
                     <li {% if request.path == overons %}class="active"{% endif %}>
                         <a href="{{ overons }}"><span>Over ons</span></a>
                     </li>
-                         <!-- 
-                            Club
-                            Teams
-                            Trainings
-                            Lid worden?
-                          -->
-
-
 
                     <li {% if request.path == contact %}class="active"{% endif %}>
                         <a href="{{ contact }}"><span>Contact</span></a>
                     </li>
-                          <!-- 
-                            Form
-                            Some details
-                           -->
+
+                    <li>
+                        <a href="{% url 'Accounts:dashboard' %}"> <i class="fa fa-user" aria-hidden="true"></i> </a>
+                    </li>
                 </ul>
             </div>       
         </nav>
