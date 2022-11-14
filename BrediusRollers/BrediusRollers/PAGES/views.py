@@ -185,9 +185,11 @@ def overons(request):
 
 def contact(request):
     template = 'contact.html'
+    now = timezone.now()
 
+    next_training = Training.objects.filter(date__gte=now).order_by('date').first()
     context = { 
-        
+        'next_training': next_training,
     }
 
     return render(request, template, context)

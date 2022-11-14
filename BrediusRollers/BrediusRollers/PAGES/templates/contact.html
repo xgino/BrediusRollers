@@ -6,39 +6,85 @@
 {% block content %}
 
 
-Contact page
-
-
-{% for x in training %}
-{{ x }} {{x.date}} <br>
-{% endfor %}
-
-{{ train_count}}
-
-
   <!--CONTACT WRAP BEGIN-->
   <section class="contacts-wrap">
     <div class="container">
         <div class="row">
-            <div class="col-md-5">
-                <h4>Head office</h4>	
-                <p>Selvage mixtape coloring book, street art swag sriracha activated charcoal vegan hammock selfies distillery wayfarers dreamcatcher lyft beard. </p>
+            <div class="col-md-7">
+                <h4>Contact</h4>	
+                
+                <p>
+                    Bij Bredius Rollers staat voor alle leden plezier in de rolstoelhockeysport voorop. 
+                    Er doen momenteel meer dan 100 sporters mee aan Bredius Rollers rolstoelhockey, zowel op breedtesport- als topsportniveau.
+                </p>
                 <div class="contact-office-img">
                     <img class="img-responsive" src="{% static 'other/images/soccer/contact-office-img.jpg' %}" alt="contact-office-img">	
                 </div>
-                <ul class="contact-list">
-                    <li><i class="fa fa-flag" aria-hidden="true"></i><span>276 Upper Parliament Street, Liverpool L8, Great Britain</span></li>
-                    <li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:team@email.com">team@email.com</a></li>
-                    <li class="phone"><i class="fa fa-phone" aria-hidden="true"></i><span>+61 3 8376 6284</span></li>
-                </ul>
-                <ul class="contact-bar">
-                    <li class="facebook"><a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
-                    <li class="twitter"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li class="google"><a href="#"><i class="fa fa-google" aria-hidden="true"></i></a></li>
-                    <li class="pinterest"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                </ul>
+                <p>
+                    Bij het handbewogen rolstoelhockey mag iedereen deelnemen met of zonder beperking en is voor alle leeftijden. Wil je meer weten over Bredius Rollers Rolstoelhockey of heb je interesse om lid te worden, stuur dan een e-mail naar ons.
+                </p>
+                <!-- Import social icons -->
+                {% include 'import/_social_icons.html' %}
+                
+
             </div>
-            <div class="col-md-7">
+                
+
+            <div class="col-md-5">
+                <ul class="contact-list">
+                    <li> <strong> Activiteiten- en Sportvereniging Bredius </strong></li>
+                    <li><i class="fa fa-flag" aria-hidden="true"></i>
+                        <span>Kievitstraat 40-BREDIUSHONK, 3443 BG Woerden</span>
+                    </li>
+                    <li>
+                        <i class="fa fa-globe" aria-hidden="true"></i>
+                        <a href="https://www.asvbredius.nl">www.asvbredius.nl</a>
+                    </li>
+                </ul>
+
+                <ul class="contact-list">
+                    <li> <strong>Contact Bredius Rollers </strong></li>
+                    <li>
+                        <span>Bert Bogaard </span>
+                        
+                    </li>
+                    <li>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <a href="mailto:info@brediusrollers.nl">info@brediusrollers.nl</a>
+                    </li>
+                    <li class="phone">
+                        <i class="fa fa-whatsapp" aria-hidden="true">
+                        </i><span> <a href="https://wa.me/31631027637">+31 (0)63 1027 637</a></span>
+                    </li>
+                </ul>
+
+                {% if next_training %}
+                <ul class="contact-list">
+                    <li> <strong> Aankomend training | <strong id="training-countdown-box"></strong> </strong></li>
+                    <li><i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <div class="name" id="training-countdown">{{ next_training.date|date:"l" }} {{ next_training.training_time.start_time|date:"H:i" }} | {{ next_training.date|date:"d M Y" }}</div>
+                    </li>
+                    
+                    <li><i class="fa fa-flag" aria-hidden="true"></i>
+                        <span>{{ next_training.training_location.adress.street }} {{ next_training.training_location.adress.house_number }}, {{ next_training.training_location.adress.zipcode }} {{ next_training.training_location.adress.zipcode_number }} {{ next_training.training_location.adress.place }}</span>
+                    </li>
+                    <li>
+                        <iframe width="100%" height="250" src="https://maps.google.com/maps?q={{ next_training.training_location.adress.street }}%20{{ next_training.training_location.adress.house_number }},%20{{ next_training.training_location.adress.zipcode }}%20{{ next_training.training_location.adress.zipcode_number }}%20{{ next_training.training_location.adress.place }},%20Nederland&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+                    </li>
+                    <!-- <div class="contact-office-img">
+                        <img class="img-responsive" src="{% static 'other/images/soccer/contact-office-img.jpg' %}" alt="contact-office-img">	
+                    </div> -->
+                    
+                </ul>
+                {% endif %}
+                
+            </div>
+
+            <div class="col-md-12">
+                
+            </div>
+
+            <!-- <div class="col-md-6">
                 <h4>Get in touch</h4>	
                 <div class="leave-comment-wrap">
                     <form>								
@@ -81,12 +127,15 @@ Contact page
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
-    <div class="contacts-map">
-        <img class="img-responsive" src="{%static 'other/images/soccer/contacts-map.jpg' %}" alt="contacts-map">
-    </div>
+
+
+
+
+
+
 </section>
 <!--CONTACT WRAP END-->
 
