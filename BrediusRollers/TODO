@@ -53,16 +53,25 @@ Results Week 3                                  33H
 ================================================
 Results Week 4                                  29H 
 
+    Create Webpages and get data from models to display
 
     07 11 2022  |   Start 17:00 end 19:00   |   2H
     09 11 2022  |   Start ??:?? end ??:??   |   4H
     10 11 2022  |   Start ??:?? end ??:??   |   8H
     11 11 2022  |   Start ??:?? end ??:??   |   12H
+    12 11 2022  |   Start ??:?? end ??:??   |   10H
+    13 11 2022  |   Start ??:?? end ??:??   |   5H
+    14 11 2022  |   Start ??:?? end ??:??   |   8H
 
 
 
 ================================================
-Results Week 5                                  ??H 
+Results Week 5                                  50H 
+
+
+
+
+
 
 PROBLEMS - TODO
 - [X] SQL Season name changed to int, error cuz char value
