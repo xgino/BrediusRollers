@@ -7,9 +7,13 @@ from accounts.model.adress import Adress
 
 class Match_team(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE, verbose_name="Team")
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name="Season")
 
     def __str__(self):
         return f"{self.team}"
+    
+    class Meta:
+        unique_together = ["team", "season"]
     
 
 
@@ -17,6 +21,7 @@ class Game_day(models.Model):
     sport_hall   = models.CharField(max_length=255, verbose_name="Sporthal")
     date = models.DateField(auto_now=False, auto_now_add=False, verbose_name="Datum")
     adress = models.ForeignKey(Adress, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Adres")
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name="Season")
 
     def __str__(self):
         return self.sport_hall
@@ -24,6 +29,7 @@ class Game_day(models.Model):
     def formated_date(self):
         date = self.date
         return date.strftime("%Y-%m-%d")
+    
 
 
 class Game(models.Model):
@@ -33,13 +39,17 @@ class Game(models.Model):
     start_time = models.TimeField(auto_now=False, auto_now_add=False, verbose_name="Start tijd")
     end_time = models.TimeField(auto_now=False, auto_now_add=False, verbose_name="Eindig tijd")
     
-    leauge_code   = models.CharField(max_length=10, verbose_name="Wedstrijd Code")
+    leauge_code   = models.CharField(max_length=10, verbose_name="Wedstrijd Code", )
     home_team = models.ForeignKey(Match_team, on_delete=models.CASCADE, verbose_name="Home", related_name='Home_Team')
     home_score = models.IntegerField(verbose_name="Home Goals")
     away_team = models.ForeignKey(Match_team, on_delete=models.CASCADE, verbose_name="Away", related_name='Away_Team')
     away_score = models.IntegerField(verbose_name="Away Goals")
 
     gameday = models.ForeignKey(Game_day, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Game_day")
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name="Season")
+
+    class Meta:
+        unique_together = ["leauge_code", "season"]
 
     def __str__(self):
         return f'{self.home_team} VS {self.away_team}'
@@ -70,5 +80,4 @@ class Goals(models.Model):
 
     def __str__(self):
         return str(self.goals)
-
 

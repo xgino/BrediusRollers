@@ -7,7 +7,7 @@ from .resources import MatchTeamResource, GamedayResource, GameResource, GoalsRe
 
 class Match_teamAdmin(ImportExportModelAdmin):
     resource_classes = [MatchTeamResource]
-    list_display = ('id', 'team',)
+    list_display = ('id', 'team', 'season')
     list_display_links = ('team',)
     list_filter = ('team',)
     search_fields = ('team',)
@@ -15,7 +15,7 @@ class Match_teamAdmin(ImportExportModelAdmin):
 
 class GameAdmin(ImportExportModelAdmin):
     resource_classes = [GameResource]
-    list_display = ('id', 'league', 'field', 'start_time', 'end_time', 'leauge_code', 'home_team', 'home_score', 'away_team', 'away_score', 'gameday')
+    list_display = ('id', 'league', 'field', 'start_time', 'end_time', 'leauge_code', 'home_team', 'home_score', 'away_team', 'away_score', 'gameday', 'season')
     list_display_links = ('home_team', 'away_team')
     list_filter = ('league', 'gameday')
     search_fields = ('league', 'leauge_code')
@@ -23,7 +23,7 @@ class GameAdmin(ImportExportModelAdmin):
 
 class Game_dayAdmin(ImportExportModelAdmin):
     resource_classes = [GamedayResource]
-    list_display = ('id', 'sport_hall', 'date', 'adress')
+    list_display = ('id', 'sport_hall', 'date', 'adress', 'season')
     list_display_links = ('sport_hall',)
     list_filter = ('sport_hall',)
     search_fields = ('sport_hall', 'date', 'adress')

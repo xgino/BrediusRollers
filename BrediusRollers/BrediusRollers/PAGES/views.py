@@ -2,48 +2,80 @@ from django.shortcuts import get_object_or_404, render
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from django.utils import timezone
-from django.db.models import Q  # Django Filter OR
+from django.db.models import Sum, Q  # Django Filter OR
 
 # Import form own models
 from games.models import Game_day, Game, Match_team, Goals
 from club.models import Club, Role, Sponsors, Season, About, Photo
 from teams.models import Team
 from players.models import Player
-from accounts.model import profile
 from trainings.models import Training
+
+# GLOBAL VARIABLES
+now = timezone.now()
 
 
 def home(request):
     template = 'home.html'
 
+    # Filters
+    season = Season.objects.latest("name")
+    get_past_games = (Game_day.objects.filter(date__lt=now).order_by('date'))
+    get_future_games = (Game_day.objects.filter(date__gte=now).order_by('date'))
+    get_bredius_games = (Q(home_team__in=Match_team.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))) | Q(away_team__in=Match_team.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))))
     
-    context = { }
+    # Get SLIDER Past -3 Bredius Games
+    past_bredius1 = Game.objects.filter(get_bredius_games).filter(season=season).filter(gameday__in=get_past_games)[0]
+    past_bredius2 = Game.objects.filter(get_bredius_games).filter(season=season).filter(gameday__in=get_past_games)[1]
+    past_bredius3 = Game.objects.filter(get_bredius_games).filter(season=season).filter(gameday__in=get_past_games)[1:2]
+    
+    upcomming_matchday = Game_day.objects.filter(season=season).filter(date__gte=now).order_by('date').latest('-date')
+    past_bredius = Game.objects.filter(get_bredius_games).filter(gameday__in=get_past_games).filter(season=season).order_by('end_time')[:5]
+
+    bredius_players =  Player.objects.filter( team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')) ).filter(season=season)
+    goals = Goals.objects.filter(player__in=Player.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))).filter(season=season).order_by('-goals')[:7]
+    asdda = Goals.objects.filter(player__in=Player.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))).filter(season=season).annotate()
+
+    #filter on Player in Bredius, Filter on Season, Filter on goals, For each person is same, add count
+
+    # Filter play on bredius team, in season , filter goals order goals
+
+    context = {
+        'past_bredius1': past_bredius1,
+        'past_bredius2': past_bredius2,
+        'past_bredius3': past_bredius3,
+        'upcomming_matchday': upcomming_matchday,
+        'past_bredius': past_bredius,
+        'bredius_players': bredius_players,
+
+        'goals': goals,
+        'asdda': asdda,
+
+    }
 
     return render(request, template, context)
 
 
 def wedstrijden(request):
     template = 'wedstrijden.html'
-    now = timezone.now()
-    # get bredius games Home_team or Away_team
+
+    # Filters
+    season = Season.objects.latest("name")
     get_bredius_games = (Q(home_team__in=Match_team.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))) | Q(away_team__in=Match_team.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))))
-    
-    #get future and past games
     get_future_games = (Game_day.objects.filter(date__gte=now).order_by('date'))
     get_past_games = (Game_day.objects.filter(date__lt=now).order_by('date'))
-
-    #filter on all teams of bredius
-    bredius_teams = Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')).order_by('name')
     
     #Future and past matches of bredius
-    future_bredius = Game.objects.filter(get_bredius_games).filter(gameday__in=get_future_games).order_by('start_time')
-    past_bredius = Game.objects.filter(get_bredius_games).filter(gameday__in=get_past_games).order_by('end_time')
-    
-    #Filter on first Upcomming match day date
-    upcomming_matchday = Game_day.objects.filter(date__gte=now).earliest('date')
+    future_bredius = Game.objects.filter(get_bredius_games).filter(gameday__in=get_future_games).filter(season=season).order_by('start_time')
+    past_bredius = Game.objects.filter(get_bredius_games).filter(gameday__in=get_past_games).filter(season=season).order_by('end_time')
 
+    upcomming_matchday = Game_day.objects.filter(season=season).filter(date__gte=now).order_by('date').latest('-date')
+
+
+    # Filter on Season Start / end date, Filter on date ahead, get first upcomming
+
+    
     context = {
-        'bredius_teams': bredius_teams,
         'future_bredius': future_bredius,
         'past_bredius': past_bredius,
         'upcomming_matchday': upcomming_matchday,
