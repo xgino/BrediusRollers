@@ -5,6 +5,11 @@
 
 {% block content %}
 
+{% for x in keepers %}
+    {{x.team}} | {{x}} | {{x.position}} <br>
+{% endfor %}
+
+{{ fkeeper }}
 
 <div class="main-slider-section">
     <div class="main-slider">
@@ -309,20 +314,17 @@
                     <div class="player-stat-slider tab-content">      
                         <div id="slider" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner tab-content" role="listbox">
-                                {% if keepers %}
+                             
+                                <!-- Class:active First Item only -->
+                                {% if fkeepers %}
                                 <div class="item active tab-pane" id="goalkeepers">
                                     <div class="wrap">
-                                        {% for x in keepers %}
                                         <div class="stat">
                                             <div class="top-info with_number">
-                                                <div class="number">{{ x.number_plate }}</div>
-                                                <a href="player-second-page.html" class="name">
-                                                    {{ x.profile.user.first_name }} {{ x.profile.user.last_name }}
-                                                </a>
+                                                <div class="number">{{ fkeepers.number_plate }}</div>
+                                                <a href="player-second-page.html" class="name">{{ fkeepers.profile.user.first_name }} {{ fkeepers.profile.user.last_name }}</a>
                                             </div>
-                                            <div class="position">
-                                                {{x.position.name}} | BROKEN FILTER FUNCTION OF SITE
-                                            </div>
+                                            <div class="position">{{fkeepers.position.name}}</div>
                                             <!-- <div class="progress-wrap">
                                                 <div class="progress-item">
                                                     <div class="bar-label">
@@ -355,28 +357,78 @@
                                         </div>
                                         <div class="image">
                                             <a href="player-second-page.html" title="player-image">
-                                                <!-- <img src="{{ x.profile.profiel.url }}" alt="player-image"> -->
+                                                <img src="{{ fkeepers.profile.profiel.url }}" alt="{{ fkeepers.profile.user.first_name }} | Profile">
                                             </a>
                                         </div>	
-                                        {% endfor %}
                                     </div>
                                 </div>
                                 {% endif %}
 
-                                {% if defenders %}
-                                <div class="item tab-pane" id="defenders">
+                                <!-- All Keepers after first object -->
+                                {% if keepers %}
+                                {% for x in keepers %}
+                                <div class="item tab-pane" id="goalkeepers">
                                     <div class="wrap">
-                                        {% for x in defenders %}
                                         <div class="stat">
                                             <div class="top-info with_number">
                                                 <div class="number">{{ x.number_plate }}</div>
-                                                <a href="player.html" class="name">
-                                                    {{ x.profile.user.first_name }} {{ x.profile.user.last_name }}
+                                                <a href="player-second-page.html" class="name">{{ x.profile.user.first_name }} {{ x.profile.user.last_name }}</a>
+                                            </div>
+                                            <div class="position">{{x.position.name}}</div>
+                                            <!-- <div class="progress-wrap">
+                                                <div class="progress-item">
+                                                    <div class="bar-label">
+                                                        <div class="achievement">played</div>
+                                                        <div class="score">23</div>
+                                                    </div>
+                                                    <div class="progress-line">
+                                                        <div class="bar bar-1" ></div>
+                                                    </div>
+                                                </div>
+                                                <div class="progress-item">
+                                                    <div class="bar-label">
+                                                        <div class="achievement">saves</div>
+                                                        <div class="score">23</div>
+                                                    </div>
+                                                    <div class="progress-line">
+                                                        <div class="bar bar-2" ></div>
+                                                    </div>
+                                                </div>
+                                                <div class="progress-item">
+                                                    <div class="bar-label">
+                                                        <div class="achievement">missing</div>
+                                                        <div class="score">23</div>
+                                                    </div>
+                                                    <div class="progress-line">
+                                                        <div class="bar bar-3" ></div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div class="image">
+                                            <a href="player-second-page.html" title="player-image">
+                                                <img src="{{ x.profile.profiel.url }}" alt="{{ x.profile.user.first_name }} | Profile">
+                                            </a>
+                                        </div>	
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+
+                                {% if defenders %}
+                                {% for x in defenders %}
+                                <div class="item tab-pane" id="defenders">
+                                    <div class="wrap">
+                                        <div class="stat">
+                                            <div class="top-info with_number">
+                                                <div class="number">{{ x.number_plate }}</div>
+                                                <a href="player.html" class="name">{{ x.profile.user.first_name }} {{ x.profile.user.last_name }}</a>
+                                            </div>
+                                            <div class="top-info">
+                                                <a href="player-second-page.html" class="name">
                                                 </a>
                                             </div>
-                                            <div class="position">
-                                                {{x.position.name}} | BROKEN FILTER FUNCTION OF SITE
-                                            </div>
+                                            <div class="position">{{x.position.name}}</div>
                                             <!-- <div class="progress-wrap">
                                                 <div class="progress-item">
                                                     <div class="bar-label">
@@ -409,14 +461,14 @@
                                         </div>
                                         <div class="image">
                                             <a href="player-second-page.html" title="player-image">
-                                                <!-- <img src="{{ x.profile.profiel.url }}" alt="player-image"> -->
+                                                <img src="{{ x.profile.profiel.url }}" alt="player-image">
                                             </a>
                                         </div>	
-                                        {% endfor %}
                                     </div>
                                 </div>
+                                {% endfor %}
                                 {% endif %}
-                
+
                                 <div class="arrow-wrap">
                                     <!-- Controls -->
                                     <a class="nav-arrow left-arrow" href="#slider" role="button" data-slide="prev">

@@ -100,7 +100,8 @@ def top_assists(season):
 # Return all players == keepers
 def get_keepers(season):
     try:
-        keepers = Player.objects.filter( team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')) ).filter(season=season).filter(position__short_name='GK')
+        team = Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius'))
+        keepers = Player.objects.filter(team__in=team).filter(position__short_name='GK').filter(season=season).order_by('-team')
     except:
         keepers = None
     return keepers
@@ -109,7 +110,8 @@ def get_keepers(season):
 # Return all players == defenders
 def get_defenders(season):
     try: 
-        defenders = Player.objects.filter( team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')) ).filter(season=season).filter(position__short_name='DF')
+        team = Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius'))
+        defenders = Player.objects.filter( team__in=team ).filter(position__short_name='DF').filter(season=season).order_by('-team')
     except:
         defenders = None
     return defenders

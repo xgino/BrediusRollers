@@ -40,7 +40,8 @@ def home(request):
         'bredius_players': bredius_players,
         'upcomming_matchday': upcomming_matchday,
         'top_goals': top_goals, 'top_assists': top_assists,
-        'keepers': keepers, 'defenders': defenders,
+        'keepers': keepers[1:], 'defenders': defenders,
+        'fkeepers':keepers.first(),
         'BrediusTeam3': BrediusTeam3, 'BrediusTeam6': BrediusTeam6, 'BrediusTeam9': BrediusTeam9, 'BrediusTeam12': BrediusTeam12, 'BrediusTeam15': BrediusTeam15,
         'sponsor': sponsor,
     }

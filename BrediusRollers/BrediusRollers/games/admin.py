@@ -9,32 +9,31 @@ class Match_teamAdmin(ImportExportModelAdmin):
     resource_classes = [MatchTeamResource]
     list_display = ('id', 'team', 'season')
     list_display_links = ('team',)
-    list_filter = ('team',)
-    search_fields = ('team',)
+    list_filter = ('team__club', 'season',)
+    #search_fields = ('team',)
     list_per_page = 25
 
 class GameAdmin(ImportExportModelAdmin):
     resource_classes = [GameResource]
-    list_display = ('id', 'league', 'field', 'start_time', 'end_time', 'leauge_code', 'home_team', 'home_score', 'away_team', 'away_score', 'gameday', 'season')
+    list_display = ('id', 'league', 'start_time', 'end_time', 'home_team', 'home_score', 'away_team', 'away_score', 'gameday', 'season')
     list_display_links = ('home_team', 'away_team')
-    list_filter = ('league', 'gameday')
-    search_fields = ('league', 'leauge_code')
+    list_filter = ('league', 'gameday', 'season',)
     list_per_page = 25
 
 class Game_dayAdmin(ImportExportModelAdmin):
     resource_classes = [GamedayResource]
     list_display = ('id', 'sport_hall', 'date', 'adress', 'season')
     list_display_links = ('sport_hall',)
-    list_filter = ('sport_hall',)
-    search_fields = ('sport_hall', 'date', 'adress')
+    list_filter = ('sport_hall', 'season',)
+    #search_fields = ('sport_hall', 'date', 'adress')
     list_per_page = 25
 
 class ScoresAdmin(ImportExportModelAdmin):
     resource_classes = [ScoresResource]
     list_display = ('id', 'player', 'season', 'game', 'goals', 'assists')
     list_display_links = ('player',)
-    list_filter = ('season',)
-    search_fields = ('player', 'season', 'game')
+    list_filter = ('player', 'season',)
+    #search_fields = ('player', 'season', 'game')
     list_per_page = 25
 
 

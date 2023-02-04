@@ -14,7 +14,7 @@ class ClubAdmin(ImportExportModelAdmin):
     resource_classes = [ClubResource]
     list_display = ('id', 'name', 'city', 'season')
     list_display_links = ('name',)
-    list_filter = ('name', 'city', )
+    list_filter = ('name', 'city', 'season',)
     search_fields = ('name', 'city', 'season')
     list_per_page = 25
 
@@ -30,7 +30,7 @@ class SubscriptionAdmin(ImportExportModelAdmin):
     resource_classes = [SubscriptionResource]
     list_display = ('id', 'sub_num', 'season')
     list_display_links = ('sub_num',)
-    list_filter = ('sub_num', 'season',)
+    list_filter = ('season',)
     search_fields = ('sub_num', 'season',)
     list_per_page = 25
 
