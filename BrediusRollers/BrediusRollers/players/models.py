@@ -25,6 +25,6 @@ class Player(models.Model):
     wish  = models.TextField(max_length=255, null=True, blank=True, verbose_name="Wish")
 
     def __str__(self):
-        return self.profile.user.first_name + ' ' + self.profile.user.last_name
+        return self.profile.user.first_name + ' ' + self.profile.user.last_name + ' ' + str(self.season.name)
 
 

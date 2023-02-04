@@ -1,0 +1,22 @@
+{% load static %}
+
+{% if sponsor %}
+<!--SPONSOR BOX BEGIN-->
+<div class="am-sponsor-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <p class="text">
+                    We waarderen de hulp van degenen die ons hebben gesponsord. We willen onze dank uitspreken door ze op onze website te markeren.
+                </p>
+            </div>
+            {% for s in sponsor %}
+            <div class="col-xs-3 text-center">
+                <img  class="sponsor-icons" src="{{ s.logo.url }}" alt="sponsor image">	
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!--SPONSOR BOX END-->
+{% endif %}

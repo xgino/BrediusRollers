@@ -1,5 +1,5 @@
 from import_export import resources
-from .models import Match_team, Game_day, Game, Goals
+from .models import Match_team, Game_day, Game, Score
 
 
 class MatchTeamResource(resources.ModelResource):
@@ -31,10 +31,10 @@ class GameResource(resources.ModelResource):
             'published': {'format': '%d.%m.%Y'},
         }
 
-class GoalsResource(resources.ModelResource):
+class ScoresResource(resources.ModelResource):
     class Meta:
-        model = Goals
-        fields = ('id', 'season', 'player', 'game', 'goals')
+        model = Score
+        fields = ('id', 'season', 'player', 'game', 'goals', 'assists')
         
         widgets = {
             'published': {'format': '%d.%m.%Y'},

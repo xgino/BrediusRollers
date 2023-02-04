@@ -72,11 +72,12 @@ class Game(models.Model):
         return f'{date} {time}'
 
 
-class Goals(models.Model):
+class Score(models.Model):
     season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name="Season")
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Player")
     game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name="Game")
     goals  = models.IntegerField(verbose_name="Goals")
+    assists = models.IntegerField(verbose_name="assists")
 
     def __str__(self):
         return str(self.goals)

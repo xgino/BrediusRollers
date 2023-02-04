@@ -5,42 +5,60 @@
 
 {% block content %}
 
-sasda
-{% for x in asdda %}
-
-{{ x.player.profile.user.first_name }} {{x}} <br>
-{% endfor %}
-
-<br>
-goals
-{% for x in goals %}
-{{ x.player.profile.user.first_name }} {{x}} <br>
-{% endfor %}
-
 
 <div class="main-slider-section">
     <div class="main-slider">
         <div id="main-slider" class="carousel slide" data-ride="carousel" data-interval="4000">
             <div class="carousel-inner" role="listbox">
 
-                <div class="item active">
-                    <div class="main-slider-caption">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="match-date">Wedstrijd / {{ upcomming_matchday.date|date:"d M Y"|lower }} / {{ upcomming_matchday.sport_hall }}</div>
-                                    <div class="team" id="countdown-box"></div>                                       
-                                    <div class="booking">
-                                        <a href="{% url 'Pages:wedstrijden' %}">
-                                            Details
-                                        </a>
+                {% if upcomming_matchday %}
+                    <div class="item active">
+                        <div class="main-slider-caption">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="match-date">Wedstrijd / {{ upcomming_matchday.date|date:"d M Y"|lower }} / {{ upcomming_matchday.sport_hall }}</div>
+                                        <div class="team" id="countdown-box"></div>                                       
+                                        <div class="booking">
+                                            <a href="{% url 'Pages:wedstrijden' %}">
+                                                Details
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                {% else %}
+                    {% if past_bredius3 %}
+                        <div class="item">
+                            <div class="main-slider-caption">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="match-date">{{ past_bredius3.gameday.date|date:"d M Y"|lower }} / {{ past_bredius3.start_time|time:"H:i" }} uur / {{ past_bredius3.gameday.sport_hall }}</div>
+                                            <div class="team"> 
+                                                {{ past_bredius3.home_team.team.club }} {{ past_bredius3.home_team.team.name }}
+                                                <div class="big-count">
+                                                    {{ past_bredius3.home_score }} : {{ past_bredius3.away_score }}
+                                                </div>
+                                                {{ past_bredius3.away_team.team.club }} {{ past_bredius3.away_team.team.name }}
+                                            </div>                                    
+                                            <div class="booking">
+                                                <a href="{% url 'Pages:wedstrijd' past_bredius3.id %}">
+                                                    Wedstrijd Details
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                {% if past_bredius1 %}
                 <div class="item">
                     <div class="main-slider-caption">
                         <div class="container">
@@ -64,7 +82,9 @@ goals
                         </div>
                     </div>
                 </div>
+                {% endif %}
 
+                {% if past_bredius2 %}
                 <div class="item">
                     <div class="main-slider-caption">
                         <div class="container">
@@ -87,7 +107,7 @@ goals
                         </div>
                     </div>
                 </div>
-
+                {% endif %}
                
 
             </div>
@@ -120,29 +140,31 @@ goals
                             </a>
                         </div>
                         {% else %}
-
+                        {% if past_bredius3 %}
                         <!-- Latest 3e game -->
-                        <div class="col-sm-4 active" data-slide-to="0" data-target="#main-slider">
-                            <a href="#" class="nav-item">
-                                <span class="championship">{{ past_bredius3.home_team.team.club }} {{ past_bredius3.home_team.team.name }} - {{ past_bredius3.away_team.team.club }} {{ past_bredius3.away_team.team.name }}</span>
-                                <span class="teams-wrap">
-                                    <span class="team">
-                                        <!-- <img src="images/soccer/team-logo1.png" alt="team-logo"> -->
-                                    </span>
-                                    <span class="score">
-                                        <span>{{ past_bredius3.home_score }} : {{ past_bredius3.away_score }}</span>
-                                    </span>
+                            <div class="col-sm-4 active" data-slide-to="0" data-target="#main-slider">
+                                <a href="#" class="nav-item">
+                                    <span class="championship">{{ past_bredius3.home_team.team.club }} {{ past_bredius3.home_team.team.name }} - {{ past_bredius3.away_team.team.club }} {{ past_bredius3.away_team.team.name }}</span>
+                                    <span class="teams-wrap">
+                                        <span class="team">
+                                            <!-- <img src="images/soccer/team-logo1.png" alt="team-logo"> -->
+                                        </span>
+                                        <span class="score">
+                                            <span>{{ past_bredius3.home_score }} : {{ past_bredius3.away_score }}</span>
+                                        </span>
 
-                                    <span class="team1">
-                                        <!-- <span><img src="images/soccer/team-logo2.png" alt="team-logo"></span> -->
+                                        <span class="team1">
+                                            <!-- <span><img src="images/soccer/team-logo2.png" alt="team-logo"></span> -->
+                                        </span>
                                     </span>
-                                </span>
-                                <span class="game-result">{{ past_bredius3.league }} - {{ past_bredius3.gameday.sport_hall }}</span>
-                            </a>
-                        </div>
+                                    <span class="game-result">{{ past_bredius3.league }} - {{ past_bredius3.gameday.sport_hall }}</span>
+                                </a>
+                            </div>
+                            {% endif %}
                         {% endif %}
 
                         <!-- Latest 1e game -->
+                        {% if past_bredius1 %}
                         <div class="col-sm-4 active" data-slide-to="1" data-target="#main-slider">
                             <a href="#" class="nav-item">
                                 <span class="championship">{{ past_bredius1.home_team.team.club }} {{ past_bredius1.home_team.team.name }} - {{ past_bredius1.away_team.team.club }} {{ past_bredius1.away_team.team.name }}</span>
@@ -161,8 +183,10 @@ goals
                                 <span class="game-result">{{ past_bredius1.league }} - {{ past_bredius1.gameday.sport_hall }}</span>
                             </a>
                         </div>
+                        {% endif %}
 
                         <!-- Latest 2e game -->
+                        {% if past_bredius2 %}
                         <div class="col-sm-4 active" data-slide-to="2" data-target="#main-slider">
                             <a href="#" class="nav-item">
                                 <span class="championship">{{ past_bredius2.home_team.team.club }} {{ past_bredius2.home_team.team.name }} - {{ past_bredius2.away_team.team.club }} {{ past_bredius2.away_team.team.name }}</span>
@@ -181,7 +205,7 @@ goals
                                 <span class="game-result">{{ past_bredius2.league }} - {{ past_bredius2.gameday.sport_hall }}</span>
                             </a>
                         </div>
-
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -189,7 +213,6 @@ goals
     </div>
 </div>
    
-
 
 <!--MAIN MACTH SHEDULE BEGIN-->
     
@@ -201,7 +224,7 @@ goals
                 
                 <div class="main-next-match bg-cover">
                     {% if upcomming_matchday %}
-                    <img src="{% static 'other/images/soccer/next-match-bg.jpg' %}" class="next-match-background-img" alt="next-image"> 
+                    <img src="{% static 'images/background/sporthall.jpg' %}" class="next-match-background-img" alt="next-image"> 
                     <div class="wrap">
                         <div class="place" >{{ upcomming_matchday.sport_hall }}</div>
                         <div class="date" >{{ upcomming_matchday.date|date:"d F Y"|lower }}</div>
@@ -221,7 +244,7 @@ goals
                     </div>
                     {% else %}
                     <div class="wrap">
-                        <div class="place" >Estadio Olimpico Monumental</div>
+                        <p>Momenteel geen gegevens beschikbaar.</p>
                     </div>
                     {% endif %}
                 </div>
@@ -252,7 +275,7 @@ goals
                     {% endfor %}
                     {% else %}
                         <div class="col-md-12">
-                            <p>No Games Availeble</p>
+                            <p>Momenteel geen gegevens beschikbaar.</p>
                         </div>
                     {% endif %}
 
@@ -266,7 +289,6 @@ goals
 
 
 <!--MAIN PLAYERS STAT BEGIN-->
-    
 <section class="main-players-stat bg-cover">
     <div class="container">
         <div class="row">
@@ -274,37 +296,88 @@ goals
                 <h4 class="hockey-stats-h4">Players stats</h4>
                 
                 <div class="single-player-stats players_statistic_slider">
-                    <ul class="player-filters" role="tablist">        
-                        <li>
-                            <a href="#players" role="tab" data-toggle="tab">
-                                Players
-                            </a>
-                        </li>
+                    <ul class="player-filters" role="tablist">  
+                        {% if keepers %}
+                            <li class="active"><a href="#goalkeepers" role="tab" data-toggle="tab">goalkeepers</a></li>
+                        {% endif %}
+
+                        {% if defenders %}
+                            <li><a href="#defenders" role="tab" data-toggle="tab">defenders</a></li>
+                        {% endif %}
                 
                     </ul>
                     <div class="player-stat-slider tab-content">      
                         <div id="slider" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner tab-content" role="listbox">
-
-                                {% if bredius_players%}
-                                {% for x in bredius_players %}
-                                <div class="item tab-pane" id="players">
+                                {% if keepers %}
+                                <div class="item active tab-pane" id="goalkeepers">
                                     <div class="wrap">
+                                        {% for x in keepers %}
                                         <div class="stat">
                                             <div class="top-info with_number">
-                                                <div class="number">1</div>
-                                                <a href="player.html" class="name">
-                                                    JORG BELAFFSOON
-                                                </a>
-                                            </div>
-                                            <div class="top-info">
+                                                <div class="number">{{ x.number_plate }}</div>
                                                 <a href="player-second-page.html" class="name">
+                                                    {{ x.profile.user.first_name }} {{ x.profile.user.last_name }}
                                                 </a>
                                             </div>
                                             <div class="position">
-                                                Defender
+                                                {{x.position.name}} | BROKEN FILTER FUNCTION OF SITE
                                             </div>
-                                            <div class="progress-wrap">
+                                            <!-- <div class="progress-wrap">
+                                                <div class="progress-item">
+                                                    <div class="bar-label">
+                                                        <div class="achievement">played</div>
+                                                        <div class="score">23</div>
+                                                    </div>
+                                                    <div class="progress-line">
+                                                        <div class="bar bar-1" ></div>
+                                                    </div>
+                                                </div>
+                                                <div class="progress-item">
+                                                    <div class="bar-label">
+                                                        <div class="achievement">saves</div>
+                                                        <div class="score">23</div>
+                                                    </div>
+                                                    <div class="progress-line">
+                                                        <div class="bar bar-2" ></div>
+                                                    </div>
+                                                </div>
+                                                <div class="progress-item">
+                                                    <div class="bar-label">
+                                                        <div class="achievement">missing</div>
+                                                        <div class="score">23</div>
+                                                    </div>
+                                                    <div class="progress-line">
+                                                        <div class="bar bar-3" ></div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                        <div class="image">
+                                            <a href="player-second-page.html" title="player-image">
+                                                <!-- <img src="{{ x.profile.profiel.url }}" alt="player-image"> -->
+                                            </a>
+                                        </div>	
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                {% if defenders %}
+                                <div class="item tab-pane" id="defenders">
+                                    <div class="wrap">
+                                        {% for x in defenders %}
+                                        <div class="stat">
+                                            <div class="top-info with_number">
+                                                <div class="number">{{ x.number_plate }}</div>
+                                                <a href="player.html" class="name">
+                                                    {{ x.profile.user.first_name }} {{ x.profile.user.last_name }}
+                                                </a>
+                                            </div>
+                                            <div class="position">
+                                                {{x.position.name}} | BROKEN FILTER FUNCTION OF SITE
+                                            </div>
+                                            <!-- <div class="progress-wrap">
                                                 <div class="progress-item">
                                                     <div class="bar-label">
                                                         <div class="achievement">played</div>
@@ -332,16 +405,16 @@ goals
                                                         <div class="bar bar-6" ></div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="image">
                                             <a href="player-second-page.html" title="player-image">
-                                                <img src="{% static 'other/images/soccer/player-stat-slider-img.jpg' %}" alt="player-image">
+                                                <!-- <img src="{{ x.profile.profiel.url }}" alt="player-image"> -->
                                             </a>
                                         </div>	
+                                        {% endfor %}
                                     </div>
                                 </div>
-                                {% endfor %}
                                 {% endif %}
                 
                                 <div class="arrow-wrap">
@@ -369,67 +442,48 @@ goals
                             <li class="active">
                                 <a href="#goals" role="tab" data-toggle="tab">goals</a>
                             </li>
-                            <!-- <li>
+                            <li>
                                 <a href="#assist" role="tab" data-toggle="tab">assist</a>
-                            </li> -->
+                            </li>
                         </ul>    
                     </div>
                     <div class="tab-content">
                         <div class="best-players-list tab-pane active" id="goals">
-                            {% for x in goals %}
+                            {% if top_goals %}
+                            {% for x in top_goals %}
                             <a href="player-second-page.html" class="item">
                                 <span class="number">{{ x.goals }}</span>
                                 <span>{{ x.player.profile.user.first_name }} {{ x.player.profile.user.last_name }} </span>
                                 <span class="achievement">{{ x.player.number_plate }}</span>
                             </a>
                             {% endfor %}
+                            {% else %}
+                            <div class="item">
+                                <p>Momenteel geen gegevens beschikbaar.</p>
+                            </div>
+                            {% endif %}
                         </div>
-                        <!-- <div class="best-players-list tab-pane" id="assist">
+                        <div class="best-players-list tab-pane" id="assist">
+                            {% if top_assists %}
+                            {% for x in top_assists %}
                             <a href="player.html" class="item">
-                                <span class="number">1</span>
-                                <span>Luis Hernandez</span>
-                                <span class="achievement">14</span>
+                                <span class="number">{{ x.assists }}</span>
+                                <span>{{ x.player.profile.user.first_name }} {{ x.player.profile.user.last_name }}</span>
+                                <span class="achievement">{{ x.player.number_plate }}</span>
                             </a>
-                            <a href="player-second-page.html" class="item">
-                                <span class="number">9</span>
-                                <span>Luis Hernandez</span>
-                                <span class="achievement">14</span>
-                            </a>
-                            <a href="player.html" class="item">
-                                <span class="number">9</span>
-                                <span>Luis Hernandez</span>
-                                <span class="achievement">14</span>
-                            </a>
-                            <a href="player.html" class="item">
-                                <span class="number">9</span>
-                                <span>Luis Hernandez</span>
-                                <span class="achievement">14</span>
-                            </a>
-                            <a href="player-second-page.html" class="item">
-                                <span class="number">9</span>
-                                <span>Luis Hernandez</span>
-                                <span class="achievement">14</span>
-                            </a>
-                            <a href="player.html" class="item">
-                                <span class="number">9</span>
-                                <span>Luis Hernandez</span>
-                                <span class="achievement">14</span>
-                            </a>
-                            <a href="player.html" class="item">
-                                <span class="number">9</span>
-                                <span>Luis Hernandez</span>
-                                <span class="achievement">14</span>
-                            </a>
-                        </div> -->
+                            {% endfor %}
+                            {% else %}
+                                <div class="item">
+                                    <p>Momenteel geen gegevens beschikbaar.</p>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-
-
 <!--MAIN PLAYERS STAT END-->
     
 <!--SUCCESS STORY BEGIN-->
@@ -437,84 +491,51 @@ goals
     <div class="container">
         <div class="row">
             <div class="col-md-7">
-                <h4>success story <br>began here</h4>
-                <p>Pabst irony tattooed, synth sriracha selvage pok pok. Wayfarers kinfolk sartorial, helvetica you probably haven't heard of them tumeric venmo deep mixtape semiotics brunch. </p>
+                <h4>club story <br>began here</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer porta sem et enim pellentesque, sed convallis 
+                    ex varius. Fusce nisl justo, condimentum eget nisl ac, luctus tristique odio. Fusce at turpis nisi. Pellentesque 
+                    vel orci fermentum dui sodales vehicula. Sed vel lectus sodales, vestibulum magna ut, vehicula sem. Nulla viverra.</p>
+                    
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="icon"><img src="images/common/success-icon.png" alt="succes-icon"></div>
-                        <div class="title">Legendary</div>
-                        <p>Next level paleo taxidermy, bespoke messenger bag leggings occupy food truck. </p>
+                        <div class="icon"><img src="{% static 'other/images/common/success-icon.png' %}" alt="succes-icon"></div>
+                        <div class="title">Title</div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer porta sem et enim pellentesque, sed convallis 
+                            ex varius. </p>
                     </div>
                     <div class="col-md-6">
-                        <div class="icon"><img src="images/common/success-icon1.png" alt="succes-icon"></div>
-                        <div class="title">Legendary</div>
-                        <p>Wayfarers kinfolk sartorial, helvetica you probably haven't heard of them tumeric venmo deep v mixtape semiotics brunch. </p>
+                        <div class="icon"><img src="{% static 'other/images/common/success-icon1.png' %}" alt="succes-icon"></div>
+                        <div class="title">Title</div>
+                        <p>ex varius. Fusce nisl justo, condimentum eget nisl ac, luctus tristique odio. Fusce at turpis nisi. Pellentesque 
+                            vel orci.</p>
                     </div>
-                    <div class="col-md-12"><a href="trophies.html" class="booking">trophies</a></div>
+                    <!-- <div class="col-md-12"><a href="trophies.html" class="booking">trophies</a></div> -->
+                    <div class="col-md-12"><br /><br /><br /><br /></div>
                 </div>
             </div>
-            <div class="col-md-5 position-relative">
+            <!-- <div class="col-md-5 position-relative">
                 <blockquote class="coach-quote">
                     <p>Austin mustache man bun vice helvetica.</p>
                     <p class="name">Brandon Campbell / head coach</p>
                 </blockquote>
-                <img class="img-responsive" src="images/soccer/coach.png" alt="coach-image">
-            </div>
+                <img class="img-responsive" src="{% static 'other/images/soccer/coach.png' %}" alt="coach-image">
+            </div> -->
         </div>
     </div>	
 </section>
 <!--SUCCESS STORY END-->
 
+<!-- Bredius Team -->
+{% include 'import/_brediusTeam.html' %}
+<!-- Bredius Team End -->
 
-<!--SUCCESS STORY BEGIN-->
-<section class="success-story-cybersport">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-                <h4>success story <br>began here</h4>
-                <p>Pabst irony tattooed, synth sriracha selvage pok pok. Wayfarers kinfolk sartorial, helvetica you probably haven't heard of them tumeric venmo deep mixtape semiotics brunch. </p>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="icon"><img src="images/common/success-icon.png" alt="succes-icon"></div>
-                        <div class="title">Legendary</div>
-                        <p>Next level paleo taxidermy, bespoke messenger bag leggings occupy food truck. </p>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="icon"><img src="images/common/success-icon1.png" alt="succes-icon"></div>
-                        <div class="title">Legendary</div>
-                        <p>Wayfarers kinfolk sartorial, helvetica you probably haven't heard of them tumeric venmo deep v mixtape semiotics brunch. </p>
-                    </div>
-                    <div class="col-md-12"><a href="trophies.html" class="booking">trophies</a></div>
-                </div>
-            </div>
+<!-- Call to action -->
+{% include 'import/_call2action.html' %}
+<!-- Become part of a great team -->
 
-            <div class="col-md-5">
-                <div class="wrap position-relative">
-                    <div class="cybersport-slogan">
-                        <div class="title">Welcome to</div>
-                        <div class="big-title">Pubstomps</div>
-                        <p>Hella pop-up flexitarian, semiotics migas humblebrag schlitz literally tofu deep v thundercats skateboard viral cornhole.</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-<!--SUCCESS STORY END-->
-
-
-<!--MAIN CLUB STAFF BEGIN-->
-
-<!--MAIN CLUB STAFF END-->
-    
-
-    
-<!--CALL TO ACTION BEGIN-->
-
-<!--CALL TO ACTION END-->
-
-
+<!--SPONSOR BOX BEGIN-->
+{% include 'import/_sponsor.html' %}
+<!--SPONSOR BOX END-->
 
 
 {% endblock %}

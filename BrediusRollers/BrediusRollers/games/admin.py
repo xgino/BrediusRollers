@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Match_team, Game, Goals, Game_day
+from .models import Match_team, Game, Score, Game_day
 
 from import_export.admin import ImportExportModelAdmin
-from .resources import MatchTeamResource, GamedayResource, GameResource, GoalsResource
+from .resources import MatchTeamResource, GamedayResource, GameResource, ScoresResource
 
 
 class Match_teamAdmin(ImportExportModelAdmin):
@@ -29,9 +29,9 @@ class Game_dayAdmin(ImportExportModelAdmin):
     search_fields = ('sport_hall', 'date', 'adress')
     list_per_page = 25
 
-class GoalsAdmin(ImportExportModelAdmin):
-    resource_classes = [GoalsResource]
-    list_display = ('id', 'player', 'season', 'game', 'goals')
+class ScoresAdmin(ImportExportModelAdmin):
+    resource_classes = [ScoresResource]
+    list_display = ('id', 'player', 'season', 'game', 'goals', 'assists')
     list_display_links = ('player',)
     list_filter = ('season',)
     search_fields = ('player', 'season', 'game')
@@ -42,6 +42,6 @@ class GoalsAdmin(ImportExportModelAdmin):
 admin.site.register(Match_team, Match_teamAdmin)
 admin.site.register(Game, GameAdmin)
 admin.site.register(Game_day, Game_dayAdmin)
-admin.site.register(Goals, GoalsAdmin)
+admin.site.register(Score, ScoresAdmin)
 
 

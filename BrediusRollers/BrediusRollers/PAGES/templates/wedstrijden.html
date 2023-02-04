@@ -15,36 +15,39 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="all">
                         {% if upcomming_matchday %}
-                        <div class="amateurs-main-match">
-                            <div class="title">
-                                <span id="date">{{ upcomming_matchday.date|date:"d F Y"|lower }}</span> <br />
-                                <span>Sporthal {{ upcomming_matchday.sport_hall }}</span>
-                            </div>	
-                            <a href="#" class="team">
-                                <!-- <span class="image"><img src="images/soccer/team-logo1.png" alt="main-match"></span>
-                                <span class="info">
-                                    <span class="name">Team 1</span>
-                                    <span class="city">london</span>
-                                </span> -->
-                            </a>
-                            <div class="score">
-                                <h4 id="countdown-box"></h4>	
-                            </div>
-                            <a href="#" class="team guest">
-                                <!-- <span class="info">
-                                    <span class="name">Team 2</span>
-                                    <span class="city">London</span>
-                                </span>	
-                                <span class="image"><img src="images/soccer/team-logo2.png" alt="main-match"></span> -->
-                            </a>
-                            <div class="title">
-                                <strong>{{ upcomming_matchday.adress.street }} {{ upcomming_matchday.adress.house_number }}</strong><br />
-                                <strong>{{ upcomming_matchday.adress.zipcode }} {{ upcomming_matchday.adress.zipcode_number }} {{ upcomming_matchday.adress.place }}</strong>
-                            </div>
-                        </div>
-                        {% else %}
                             <div class="amateurs-main-match">
-                                <p>No Gameday Availeble</p>
+                                <div class="title">
+                                    <span id="date">{{ upcomming_matchday.date|date:"d F Y"|lower }}</span> <br />
+                                    <span>Sporthal {{ upcomming_matchday.sport_hall }}</span>
+                                </div>	
+                                <a href="#" class="team">
+                                    <!-- <span class="image"><img src="images/soccer/team-logo1.png" alt="main-match"></span>
+                                    <span class="info">
+                                        <span class="name">Team 1</span>
+                                        <span class="city">london</span>
+                                    </span> -->
+                                </a>
+                                <div class="score">
+                                    <h4 id="countdown-box"></h4>	
+                                </div>
+                                <a href="#" class="team guest">
+                                    <!-- <span class="info">
+                                        <span class="name">Team 2</span>
+                                        <span class="city">London</span>
+                                    </span>	
+                                    <span class="image"><img src="images/soccer/team-logo2.png" alt="main-match"></span> -->
+                                </a>
+                                <div class="title">
+                                    <strong>{{ upcomming_matchday.adress.street }} {{ upcomming_matchday.adress.house_number }}</strong><br />
+                                    <strong>{{ upcomming_matchday.adress.zipcode }} {{ upcomming_matchday.adress.zipcode_number }} {{ upcomming_matchday.adress.place }}</strong>
+                                </div>
+                            </div>
+                        {% else %}
+                        
+                            <div class="amateurs-main-match">
+                                <div class="title">
+                                    <p>Momenteel geen gegevens beschikbaar.</p>
+                                </div>
                             </div>
                         {% endif %}
                     </div>
@@ -75,7 +78,7 @@
                         {% endfor %}
                     {% else %}
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <p>No future bredius Games Availeble</p>
+                            <p>Momenteel geen gegevens beschikbaar.</p>
                         </div>
                     {% endif %}
                 </div>
@@ -109,7 +112,7 @@
                         {% endfor %}
                     {% else %}
                         <div class="col-md-12">
-                            <p>No Games Availeble</p>
+                            <p>Momenteel geen gegevens beschikbaar.</p>
                         </div>
                     {% endif %}
                 </div>

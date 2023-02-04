@@ -7,14 +7,13 @@ html{
     -ms-text-size-adjust:100%;
     scroll-behavior: smooth;
 
-    --call2action-color: rgb(190, 0, 180);
-    --somesitecolor: #00ff37;
-    --somebgcolor: #ff0000;
-    --sometextcolor: #6f007e;
-    --logocolor: #1100ff;
-    --footerbgcolor: rgba(0, 183, 255, 0.7);
-    --sometextbtncolor: #141414;
-    --whitecolor: #fff;
+    --action-color: #0085A4;
+    --call2action-color: #048489;
+    --sometextcolor: #020003;
+    --logocolor: #000010;
+    --footerbgcolor: #324b4cc5;
+    --sometextbtncolor: #000034;
+    --whitecolor: #FAF8FF;
     --darkgraycolor: #999;
 }
 body{
@@ -55,7 +54,7 @@ h1{
 }
 mark{
     color:#000;
-    background:#ff0
+    background:var(--call2action-color);
 }
 small{
     font-size:80%
@@ -12352,7 +12351,7 @@ body{
     background:#f7f7f7
 }
 a{
-    color:var(--somesitecolor);
+    color:var(--action-color);
     text-decoration:none;
     outline:0;
     transition:all .4s
@@ -12741,12 +12740,12 @@ textarea{
 .amateurs-main-match{
     padding:67px 50px 67px 50px;
     font-size:0;
-    background:url(../images/soccer/amateurs-main-match-bg.jpg) 50% 50% no-repeat;
+    background:url(../../images/background/sticks.jpg) 50% 50% no-repeat;
     background-size:cover
 }
 .club-top-info{
     min-height:300px;
-    background:url(../images/soccer/club-top-bg.jpg) 50% 50% no-repeat;
+    background:url(../../images/background/gymnasium.jpg) 50% 50% no-repeat;
     background-size:cover;
     position:relative
 }
@@ -12934,7 +12933,7 @@ body.admin-bar .is-sticky .main-menu-wrap{
 .main-players-stat{
     padding:44px 0 100px 0;
     background-size:cover;
-    background-image:url(../images/soccer/player-stat-bg.jpg)
+    background-image:url(../../images/background/floorball.jpg)
 }
 .main-players-stat h4{
     padding-bottom:0;
@@ -12942,7 +12941,7 @@ body.admin-bar .is-sticky .main-menu-wrap{
 }
 .success-story{
     padding:44px 0 0 0;
-    background:url(../images/soccer/about-bg.jpg) 100% 0 no-repeat #f7f7f7;
+    background:url(../../images/background/about_bg.jpg) 100% 0 no-repeat #f7f7f7;
     background-size:cover
 }
 .success-story .title{
@@ -13143,7 +13142,7 @@ body.admin-bar .is-sticky .main-menu-wrap{
 .am-sponsor-box{
     height:480px;
     padding:80px 0 80px 0;
-    background:url(../images/soccer/sponsor-bg.jpg) 50% 50% no-repeat;
+    background:url(../../images/background/ballen.jpg) 50% 50% no-repeat;
     background-size:cover
 }
 .am-sponsor-box .text{
@@ -13151,7 +13150,7 @@ body.admin-bar .is-sticky .main-menu-wrap{
 }
 .main-club-stuff{
     padding:56px 0 100px 0;
-    background:url(../images/soccer/club-stuff-bg.jpg) 50% 50% no-repeat;
+    background:url(../../images/background/club-wheels.jpg) 50% 50% no-repeat;
     background-size:cover
 }
 .main-club-stuff .staff-text{
@@ -13159,7 +13158,7 @@ body.admin-bar .is-sticky .main-menu-wrap{
 }
 .call-to-action{
     padding:74px 0;
-    background:url(../images/soccer/call-toaction.jpg) 50% 50% no-repeat;
+    background:url(../../images/background/call-action.jpg) 50% 50% no-repeat;
     background-size:cover
 }
 .call-to-action .text{
@@ -13183,7 +13182,7 @@ body.admin-bar .is-sticky .main-menu-wrap{
 }
 .call-to-action .join:hover{
     color:var(--whitecolor);;
-    background:var(--sometextbtncolor);
+    background:var(--action-color);
 }
 .main-team-store .player-filters{
     padding-bottom:34px
@@ -13196,7 +13195,7 @@ body.admin-bar .is-sticky .main-menu-wrap{
     text-transform:uppercase
 }
 #show-all-link:hover{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .store-list-item>div{
     max-width:320px;
@@ -13381,12 +13380,12 @@ body.admin-bar .is-sticky .main-menu-wrap{
 }
 .main-sponsor-slider-background{
     padding:94px 0 160px 0;
-    background:url(../images/soccer/sponsor-bg.jpg) no-repeat;
+    background:url(../../images/background/ballen.jpg) no-repeat;
     background-size:cover
 }
 .footer{
     padding:30px 0 0;
-    background:url(../images/soccer/footer-bg.jpg) 50% 50% no-repeat;
+    background:url(../../images/background/footer-bg.jpg) 50% 50% no-repeat;
     overflow:hidden;
     background-size:cover
 }
@@ -13414,7 +13413,13 @@ body.admin-bar .is-sticky .main-menu-wrap{
     display:inline-block
 }
 .footer .footer-left p{
-    color:#292929
+    color:var(--darkgraycolor);
+}
+.footer .footer-left a{
+    color:var(--action-color);
+}
+.footer .footer-left a:hover{
+    color:var(--whitecolor);
 }
 .wrapper-overfllow{
     overflow:hidden;
@@ -13471,7 +13476,7 @@ body.admin-bar .is-sticky .main-menu-wrap{
     display:block
 }
 .footer .foot-news .item .name:hover{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .footer .foot-news .item .date{
     font-size:12px;
@@ -13520,7 +13525,7 @@ body.admin-bar .is-sticky .main-menu-wrap{
     color:var(--darkgraycolor);
 }
 .footer .contact-list li a:hover{
-    color:var(--whitecolor);
+    color:var(--action-color);
 }
 .footer .contact-list li.phone span{
     font-size:24px;
@@ -13630,7 +13635,7 @@ body.admin-bar .is-sticky .main-menu-wrap{
 .amateurs-match-shedule{
     padding-top:97px;
     padding-bottom:80px;
-    background:url(../images/soccer/amateurs-match-shedule-bg.jpg) no-repeat;
+    background:url(../../images/background/goal-bg.jpg) no-repeat;
     background-size:cover
 }
 .main-match-shedule.amateurs-match-shedule ul.player-filters{
@@ -13640,7 +13645,7 @@ body.admin-bar .is-sticky .main-menu-wrap{
     color:var(--sometextbtncolor);
 }
 .main-match-shedule.amateurs-match-shedule>ul.player-filters li a:before{
-    background:var(--somebgcolor);
+    background:var(--action-color);
 }
 .image-header{
     min-height:300px;
@@ -14040,7 +14045,7 @@ ul.team-legend{
     line-height:normal
 }
 .recent-news .item .date a:hover{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .recent-news .item .name{
     font-size:18px;
@@ -14050,7 +14055,7 @@ ul.team-legend{
     display:block
 }
 .recent-news .item .name:hover{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .content{
     padding:35px 0 0
@@ -14340,7 +14345,7 @@ ul.team-legend{
     display:inline-block
 }
 .news-single .item .top-info .date a:hover{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .news-single .item .top-info .comment-quantity{
     float:right;
@@ -14574,7 +14579,7 @@ blockquote p.name{
     font-size:14px
 }
 .share-box .share-socials li a:hover{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .comments-wrap{
     padding:0 30px
@@ -14614,7 +14619,7 @@ blockquote p.name{
     line-height:normal
 }
 .comment-item .info .date a:hover{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .comment-item .info .date .quote{
     position:absolute;
@@ -15367,14 +15372,14 @@ td a{
 }
 .product-right-info .details ul li{
     padding-bottom:3px;
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .product-right-info .details ul li span{
     color:#666
 }
 .product-right-info .details ul li a{
     font-size:16px;
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .product-right-info .socials{
     padding-top:29px
@@ -15945,7 +15950,7 @@ label:hover:before{
     color:var(--sometextbtncolor);
 }
 .search-item .info .name:hover{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .search-item .info .wrap{
     padding-top:5px;
@@ -15978,7 +15983,7 @@ label:hover:before{
     display:inline-block;
     font-size:12px;
     text-transform:uppercase;
-    color:var(--somesitecolor);
+    color:var(--action-color);
     font-family:Montserrat,sans-serif
 }
 .search-item .info .read-more:hover{
@@ -16130,7 +16135,7 @@ overflow-scroll.table tr td{
         margin:33px 0 0 0;
         display:block;
         z-index:1;
-        background:var(--somebgcolor);
+        background:var(--action-color);
     }
     .navbar-toggle .icon-bar{
         background:var(--sometextbtncolor);
@@ -16206,7 +16211,7 @@ overflow-scroll.table tr td{
         border-left:none
     }
     .main-menu>li>ul>li>ul li:hover>a{
-        color:var(--somebgcolor);
+        color:var(--action-color);
     }
     .main-menu>li>ul>li:hover>a{
         color: var(--call2action-color);
@@ -16629,7 +16634,7 @@ overflow-scroll.table tr td{
     color:var(--darkgraycolor);
 }
 .socials li a:hover{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .top-contacts .contacts{
     padding:20px 0 4px 0;
@@ -16654,10 +16659,10 @@ overflow-scroll.table tr td{
     color:var(--darkgraycolor);
 }
 .top-contacts .contacts li a:hover{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .top-contacts .contacts li a:hover .fa{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .top-search{
     border:solid var(--darkgraycolor);;
@@ -16715,7 +16720,7 @@ overflow-scroll.table tr td{
     background:0 0
 }
 .main-slider-section{
-    background:url(../images/soccer/main-slider.jpg) no-repeat;
+    background:url(../../images/background/main-slider.jpg) no-repeat;
     background-size:cover
 }
 #main-slider{
@@ -16872,7 +16877,7 @@ overflow-scroll.table tr td{
 }
 .main-slider-caption .booking a{
     padding:15px 24px 15px 24px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     overflow:hidden;
     border-radius:23px;
     color:var(--sometextbtncolor);;
@@ -17384,7 +17389,7 @@ overflow-scroll.table tr td{
 .main-next-match .booking{
     padding:0 15px 0 15px;
     display:inline-block;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     border-radius:9px;
     color:var(--sometextbtncolor);;
     font-size:12px;
@@ -17542,7 +17547,7 @@ overflow-scroll.table tr td{
     left:0;
     bottom:0;
     height:6px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     transition:all .4s
 }
 .players_statistic_slider .player-filters li a:hover:before{
@@ -17665,7 +17670,7 @@ overflow-scroll.table tr td{
     top:0;
     bottom:0;
     left:0;
-    background:var(--somebgcolor);
+    background:var(--action-color);
 }
 .players_statistic_slider .player-stat-slider .item .progress-line .bar.bar-1{
     width:80%
@@ -17763,7 +17768,7 @@ overflow-scroll.table tr td{
     left:0;
     bottom:0;
     height:6px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     transition:all .4s
 }
 .team-best-player .player-filters li a:hover:before{
@@ -17821,7 +17826,7 @@ overflow-scroll.table tr td{
 }
 .best-players-list .item:first-child .achievement{
     color:var(--sometextbtncolor);;
-    background:var(--somebgcolor);
+    background:var(--action-color);
 }
 .best-players-list .item:first-child .achievement:before{
     content:'';
@@ -17832,7 +17837,7 @@ overflow-scroll.table tr td{
     bottom:0;
     transform:skew(-10deg);
     z-index:-1;
-    background:var(--somebgcolor);
+    background:var(--action-color);
 }
 .best-players-list .item .achievement:before{
     content:'';
@@ -18110,7 +18115,7 @@ overflow-scroll.table tr td{
     left:0;
     bottom:0;
     height:6px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     transition:all .4s
 }
 .player-filters li a:hover:before{
@@ -18278,7 +18283,7 @@ overflow-scroll.table tr td{
     text-align:center;
     font-size:12px;
     text-transform:uppercase;
-    color:var(--sometextbtncolor);;
+    color:var(--whitecolor);;
     font-family:Montserrat,sans-serif;
     line-height:normal
 }
@@ -18321,6 +18326,9 @@ overflow-scroll.table tr td{
     display:inline-block;
     text-align:center;
     vertical-align:middle
+}
+.amateurs-main-match #countdown-box{
+    color:var(--whitecolor);;
 }
 .amateurs-main-match .score span{
     padding:6px 25px 4px 25px;
@@ -19039,7 +19047,7 @@ overflow-scroll.table tr td{
     vertical-align:middle
 }
 .match-lineup .member .card.yellow{
-    background:var(--somebgcolor);
+    background:var(--action-color);
 }
 .match-lineup .member .card.red{
     background:#c80b0b
@@ -19199,7 +19207,7 @@ overflow-scroll.table tr td{
     font-size:14px
 }
 .share-box .share-socials li a:hover{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 @media (max-width:767px){
     .share-box .item .title{
@@ -19757,7 +19765,7 @@ overflow-scroll.table tr td{
 }
 .championship-header-wrapper{
     min-height:300px;
-    background:url(../images/soccer/champ-title-bg.jpg) 50% 50% no-repeat;
+    background:url(../../images/background/gymnasium.jpg) 50% 50% no-repeat;
     background-size:cover;
     position:relative
 }
@@ -19906,7 +19914,7 @@ overflow-scroll.table tr td{
     text-transform:uppercase;
     color:var(--whitecolor);;
     font-family:Montserrat,sans-serif;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     position:relative
 }
 .staff-box .info .role span{
@@ -19915,7 +19923,7 @@ overflow-scroll.table tr td{
 .staff-box .info .role:before{
     content:'';
     width:100%;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     transform:skew(-10deg);
     position:absolute;
     top:0;
@@ -19950,7 +19958,7 @@ overflow-scroll.table tr td{
     text-transform:uppercase;
     color:var(--whitecolor);;
     font-family:Montserrat,sans-serif;
-    background:var(--somebgcolor);
+    background:var(--action-color);
 }
 .captain-bage:before{
     content:'';
@@ -19960,7 +19968,7 @@ overflow-scroll.table tr td{
     bottom:0;
     right:-10px;
     transform:skew(-10deg);
-    background:var(--somesitecolor);
+    background:var(--action-color);
     z-index:-1
 }
 .player-name{
@@ -20375,7 +20383,7 @@ table tr td:first-child span{
     left:0;
     top:0;
     bottom:0;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     width:20%
 }
 .donation-item .info .progress-line .bar-1{
@@ -20383,7 +20391,7 @@ table tr td:first-child span{
     left:0;
     top:0;
     bottom:0;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     width:30%
 }
 .donation-item .info .progress-line .bar-2{
@@ -20391,7 +20399,7 @@ table tr td:first-child span{
     left:0;
     top:0;
     bottom:0;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     width:40%
 }
 .donation-item .info .progress-line .bar-3{
@@ -20399,13 +20407,13 @@ table tr td:first-child span{
     left:0;
     top:0;
     bottom:0;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     width:50%
 }
 .donation-item .info .progress-line .bar:before{
     content:'';
     width:4px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     transform:skew(-10deg);
     position:absolute;
     top:0;
@@ -20456,7 +20464,7 @@ table tr td:first-child span{
     background-color:#fcfcfc
 }
 .ct-series-a .ct-line,.ct-series-a .ct-point{
-    stroke:var(--somebgcolor);
+    stroke:var(--action-color);
 }
 .ct-series-b .ct-line,.ct-series-b .ct-point{
     stroke:#0051ad
@@ -20500,7 +20508,7 @@ table tr td:first-child span{
     color:var(--sometextbtncolor);
 }
 .contacts-wrap .contact-list li a:hover{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 .contacts-wrap .contact-list li.phone span{
     font-size:16px;
@@ -20828,12 +20836,12 @@ td a{
     left:0;
     top:0;
     bottom:0;
-    background:var(--somebgcolor);
+    background:var(--action-color);
 }
 .main-slider .progress-line .bar:before{
     content:'';
     width:4px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     transform:skew(-10deg);
     position:absolute;
     top:0;
@@ -20977,7 +20985,7 @@ player-hockey-wrap .wrapper-circle{
     background-color:#fcfcfc
 }
 .ct-series-a .ct-line,.ct-series-a .ct-point{
-    stroke:var(--somebgcolor);
+    stroke:var(--action-color);
 }
 .ct-series-b .ct-line,.ct-series-b .ct-point{
     stroke:#0051ad
@@ -21008,7 +21016,7 @@ player-hockey-wrap .wrapper-circle{
     background-color:#fcfcfc
 }
 .ct-series-a .ct-line,.ct-series-a .ct-point{
-    stroke:var(--somebgcolor);
+    stroke:var(--action-color);
 }
 .ct-series-b .ct-line,.ct-series-b .ct-point{
     stroke:#0051ad
@@ -21307,7 +21315,7 @@ table tr td .organisation-name{
     vertical-align:middle
 }
 .match-lineup .member .card.yellow{
-    background:var(--somebgcolor);
+    background:var(--action-color);
 }
 .match-lineup .member .card.red{
     background:#c80b0b
@@ -21609,13 +21617,13 @@ table tr td .organisation-name{
     left:0;
     top:0;
     bottom:0;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     width:10%
 }
 .msp_post_slider .progress-line .bar:before{
     content:'';
     width:4px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     transform:skew(-10deg);
     position:absolute;
     top:0;
@@ -21678,15 +21686,15 @@ table tr td .organisation-name{
     background:var(--sometextbtncolor);
 }
 .msp_post_slider .msp_post_slide.slide-1{
-    background:url(../images/soccer/main-slider.jpg) no-repeat;
+    background:url(../../images/background/main-slider.jpg) no-repeat;
     background-size:cover
 }
 .msp_post_slider .msp_post_slide.slide-2{
-    background:url(../images/soccer/main-slider.jpg) no-repeat;
+    background:url(../../images/background/main-slider.jpg) no-repeat;
     background-size:cover
 }
 .msp_post_slider .msp_post_slide.slide-3{
-    background:url(../images/soccer/main-slider.jpg) no-repeat;
+    background:url(../../images/background/main-slider.jpg) no-repeat;
     background-size:cover
 }
 .msp_post_slider .msp_post_slide .slider-caption{
@@ -21764,7 +21772,7 @@ table tr td .organisation-name{
 }
 .msp_post_slider .msp_post_slide .slider-caption .booking a{
     padding:15px 24px 15px 24px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     overflow:hidden;
     border-radius:23px;
     color:var(--sometextbtncolor);;
@@ -21843,7 +21851,7 @@ table tr td .organisation-name{
     left:0;
     bottom:0;
     height:6px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     transition:all .4s
 }
 .tab-filters li a:hover:before{
@@ -21869,7 +21877,7 @@ table tr td .organisation-name{
 }
 .preloader-wrapper .dark-big{
     display:flex;
-    background:var(--call2action-color);
+    background:var(--sometextbtncolor);
     width:90%;
     z-index:1;
     opacity:.9;
@@ -21877,7 +21885,7 @@ table tr td .organisation-name{
 }
 .preloader-wrapper .dark-small{
     display:flex;
-    background:var(--call2action-color);
+    background:var(--sometextbtncolor);
     width:35%;
     z-index:2;
     left:-200%
@@ -21888,7 +21896,7 @@ table tr td .organisation-name{
     display:flex;
     width:13%;
     z-index:5;
-    background-color:var(--call2action-color);
+    background-color:var(--sometextbtncolor);
     right:-200%
 }
 .preloader-wrapper .yellow-normal{
@@ -21897,7 +21905,7 @@ table tr td .organisation-name{
     display:flex;
     width:4%;
     z-index:3;
-    background-color:var(--call2action-color);
+    background-color:var(--sometextbtncolor);
     right:-200%
 }
 .preloader-wrapper .yellow-small1{
@@ -23222,7 +23230,7 @@ table tr td .organisation-name{
     color:var(--darkgraycolor);
 }
 .error-wrap .offline-socials li:hover a{
-    color:var(--somebgcolor);
+    color:var(--action-color);
 }
 @media (max-width:600px){
     .error-wrap .offline-title .big-text{
@@ -23485,7 +23493,7 @@ div.fancy-select div.trigger:after{
     stroke:#cc8100
 }
 #stackedbar>svg>g>g.ct-series.ct-series-b>line{
-    stroke:var(--somebgcolor);
+    stroke:var(--action-color);
 }
 #stackedbar>svg>g>g.ct-series.ct-series-c>line{
     stroke:#ffbc47
@@ -23494,7 +23502,7 @@ div.fancy-select div.trigger:after{
     stroke:#ccc
 }
 #gaugechart>svg>g.ct-series.ct-series-a>path{
-    fill:var(--somebgcolor);
+    fill:var(--action-color);
 }
 #gaugechart>svg>g.ct-series.ct-series-b>path{
     fill:#f05b4f
@@ -23526,9 +23534,9 @@ div.fancy-select div.trigger:after{
     position:absolute;
     left:0;
     content:'';
-    border:3px solid var(--somesitecolor);
+    border:3px solid var(--action-color);
     border-radius:10px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     margin-right:10px;
     margin-bottom:10px
 }
@@ -23575,7 +23583,7 @@ div.fancy-select div.trigger:after{
     top:15%
 }
 .svgpath>svg>g>g.ct-series.ct-series-a>path{
-    stroke:var(--somebgcolor);
+    stroke:var(--action-color);
 }
 .svgpath>svg>g>g.ct-series.ct-series-b>path{
     stroke:#f05b4f
@@ -23590,7 +23598,7 @@ div.fancy-select div.trigger:after{
     background-color:#fcfcfc
 }
 .svgpath>svg>g>g.ct-series.ct-series-a>path.ct-area{
-    fill:var(--somebgcolor);
+    fill:var(--action-color);
 }
 .svgpath>svg>g>g.ct-series.ct-series-b>path.ct-area{
     fill:#f05b4f
@@ -23599,10 +23607,10 @@ div.fancy-select div.trigger:after{
     fill:#0051ad
 }
 #pickcircle>svg>g>g>line{
-    stroke:var(--somebgcolor);
+    stroke:var(--action-color);
 }
 #pickcircle>svg>g>g>circle{
-    fill:var(--somebgcolor);
+    fill:var(--action-color);
 }
 #pickcircle>svg>g.ct-grids>line{
     stroke:#ccc
@@ -23689,10 +23697,10 @@ div.fancy-select div.trigger:after{
     stroke:#ccc
 }
 #diagram>svg>g>g.ct-series.ct-series-a>path{
-    stroke:var(--somebgcolor);
+    stroke:var(--action-color);
 }
 #diagram>svg>g>g.ct-series.ct-series-a>.ct-point{
-    stroke:var(--somebgcolor);
+    stroke:var(--action-color);
 }
 #diagram>svg>g>g.ct-series.ct-series-b>path{
     stroke:#0051ad
@@ -23713,10 +23721,10 @@ div.fancy-select div.trigger:after{
     stroke:#ccc
 }
 .advancesmill>svg>g>g.ct-series.ct-series-a>path{
-    stroke:var(--somebgcolor);
+    stroke:var(--action-color);
 }
 .advancesmill>svg>g>g.ct-series.ct-series-a>.ct-point{
-    stroke:var(--somebgcolor);
+    stroke:var(--action-color);
 }
 .advancesmill>svg>g>g.ct-series.ct-series-b>path{
     stroke:#0051ad
@@ -23756,9 +23764,9 @@ div.fancy-select div.trigger:after{
     position:absolute;
     left:0;
     content:'';
-    border:3px solid var(--somesitecolor);
+    border:3px solid var(--action-color);
     border-radius:10px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     margin-right:10px
 }
 .advancesmill>.ct-legend li.ct-series-1:before{
@@ -23814,7 +23822,7 @@ div.fancy-select div.trigger:after{
     stroke:var(--sometextbtncolor);
 }
 #donutchart>svg>g.ct-series.ct-series-a>path{
-    fill:var(--somebgcolor);
+    fill:var(--action-color);
 }
 #donutchart>svg>g.ct-series.ct-series-b>path{
     fill:#b87400
@@ -23836,9 +23844,9 @@ div.fancy-select div.trigger:after{
     position:absolute;
     left:0;
     content:'';
-    border:3px solid var(--somesitecolor);
+    border:3px solid var(--action-color);
     border-radius:10px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     margin-right:10px;
     margin-bottom:10px
 }
@@ -23890,7 +23898,7 @@ div.fancy-select div.trigger:after{
     background:#fcfcfc
 }
 #horizontalbar>svg>g>g.ct-series.ct-series-a>line{
-    stroke:var(--somebgcolor);
+    stroke:var(--action-color);
 }
 #horizontalbar>svg>g>g.ct-series.ct-series-b>line{
     stroke:#f4c63d
@@ -23912,9 +23920,9 @@ div.fancy-select div.trigger:after{
     position:absolute;
     left:0;
     content:'';
-    border:3px solid var(--somesitecolor);
+    border:3px solid var(--action-color);
     border-radius:10px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     margin-right:10px
 }
 #horizontalbar>.ct-legend li.ct-series-1:before{
@@ -23986,7 +23994,7 @@ div.fancy-select div.trigger:after{
     fill:var(--sometextbtncolor);
 }
 .ct-bar.ct-threshold-above,.ct-line.ct-threshold-above,.ct-point.ct-threshold-above{
-    stroke:var(--somebgcolor);
+    stroke:var(--action-color);
 }
 .ct-bar.ct-threshold-below,.ct-line.ct-threshold-below,.ct-point.ct-threshold-below{
     stroke:#77b800
@@ -25239,7 +25247,7 @@ div.fancy-select div.trigger:after{
     left:0;
     bottom:0;
     height:6px;
-    background:var(--somesitecolor);
+    background:var(--action-color);
     transition:all .4s
 }
 .landing-sport-players-slider .player-filters li a:hover:before{

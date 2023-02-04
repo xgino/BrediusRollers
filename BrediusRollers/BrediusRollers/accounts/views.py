@@ -19,7 +19,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .model.profile import Profile
 from .model.adress import Adress
 from players.models import Player
-from games.models import Goals, Match_team, Game
+from games.models import Score, Match_team, Game
 
 
 class LoginView(FormView):
@@ -55,7 +55,7 @@ def dashboard(request):
     profile = user.profile
     team = user.profile.player.team
     team_player = Player.objects.all().filter(team=team)
-    goals = Goals.objects.all().filter(player=profile.player).aggregate(Sum('goals'))
+    goals = Score.objects.all().filter(player=profile.player).aggregate(Sum('goals'))
     match_team = Match_team.objects.all().filter(team=profile.player.team)
     amount_match = Game.objects.all().filter(Q(home_team__in=match_team) | Q(away_team__in=match_team))
 
