@@ -90,11 +90,11 @@ def teams(request):
     template = 'teams.html'
     season = globe.season()
 
-    PlayerH1 = Player.objects.filter( season=season ).filter(team__in=Team.objects.filter(name='H1').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
-    PlayerH2 = Player.objects.filter( season=season ).filter(team__in=Team.objects.filter(name='H2').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
-    PlayerH3 = Player.objects.filter( season=season ).filter(team__in=Team.objects.filter(name='H3').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
-    PlayerH4 = Player.objects.filter( season=season).filter(team__in=Team.objects.filter(name='H4').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
-    PlayerH5 = Player.objects.filter( season=season).filter(team__in=Team.objects.filter(name='H5').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
+    PlayerH1 = Player.objects.filter( season=season ).filter(team__in=Team.objects.filter(name='H1').filter(club__in=Club.objects.filter(name__startswith='Bredius')) ).order_by('profile__user__first_name')
+    PlayerH2 = Player.objects.filter( season=season ).filter(team__in=Team.objects.filter(name='H2').filter(club__in=Club.objects.filter(name__startswith='Bredius')) ).order_by('profile__user__first_name')
+    PlayerH3 = Player.objects.filter( season=season ).filter(team__in=Team.objects.filter(name='H3').filter(club__in=Club.objects.filter(name__startswith='Bredius')) ).order_by('profile__user__first_name')
+    PlayerH4 = Player.objects.filter( season=season).filter(team__in=Team.objects.filter(name='H4').filter(club__in=Club.objects.filter(name__startswith='Bredius')) ).order_by('profile__user__first_name')
+    PlayerH5 = Player.objects.filter( season=season).filter(team__in=Team.objects.filter(name='H5').filter(club__in=Club.objects.filter(name__startswith='Bredius')) ).order_by('profile__user__first_name')
 
     BrediusTeam3, BrediusTeam6, BrediusTeam9, BrediusTeam12, BrediusTeam15 = globe.brediusTeam(season)
 
