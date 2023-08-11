@@ -1,13 +1,41 @@
 
 
-HOME DEFENDERS / KEEPERS Slider Bugg
-- [X] Filter Only 1 player
-- [X] Image Glich.. Repeat none guess
 
-ADMIN Search bars
-- [X] Cant use searchbar
 
-WEBSITE
+
+
+
+
+**WEBSITE**
+CRITICAL:
+- [X] HOME DEFENDERS / KEEPERS Slider Bugg
+    - [X] Filter Only 1 player
+    - [X] Image Glich.. Repeat none guess
+- [X] ADMIN Search bars
+    - [X] Cant use searchbar
+- [X] Website Lorem text update. rewrite
+
+
+URGENT:
 - [X] Join us footer link not working
 - [X] Join team, about page not working
-- [ ] info@ mail not working
+- [X] info@ mail not working
+- [ ] Bredius Team worker showcase spot
+    - [X] Number corner wrong
+    - [ ] doesnt have own page with info
+- [ ] Custom admin panel
+    - [ ] Easy Crud & readable selection
+- [ ] Training day countdown, not working on same day, result (NaNd NaNh NaNm NaNs)
+
+SHOULD:
+- [X] Wedstrijd.html team vs team. Season behind remove
+- [X] Wedstrijden.html team vs team. Season behind remove
+- [ ] SEO Optimalisation
+- [ ] Add training, dubble training able,
+- [ ] VERWACHTE OPSTELLING wedstrijd.html -> Only Home team players, no away team If in bredius
+
+
+- [ ] Admin while add game, gameday select only return place, same place and dont know. Return Place + date
+- [ ] Admin Team selection (year) behind is not clean.
+- [ ] Admin auto display only in same season
+- [ ] Match score allow ? if forgot score

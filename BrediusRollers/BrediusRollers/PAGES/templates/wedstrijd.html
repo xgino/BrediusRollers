@@ -16,7 +16,7 @@
                         <!-- <div class="avatar"><img src="images/soccer/team-logo1.png" alt="match-list-team-img"></div> -->
                         <div class="text">
                             {{ game.home_team.team.club.name }} {{ game.home_team.team.name }} 
-                            <span>{{ game.home_team.team.club.city }} {{ game.home_team.team.season.start_date|date:"Y" }} - {{ game.home_team.team.season.end_date|date:"Y" }} </span>
+                            <span>{{ game.home_team.team.club.city }} | {{ game.home_team.team.season.start_date|date:"M" }} - {{ game.home_team.team.season.end_date|date:"M Y" }} </span>
                         </div> 
                     </div>
                     <div class="counter">
@@ -28,7 +28,7 @@
                     <div class="team right">
                         <div class="text">
                             {{ game.away_team.team.club.name }} {{ game.away_team.team.name }} 
-                            <span>{{ game.away_team.team.club.city }} {{ game.away_team.team.season.start_date|date:"Y" }} - {{ game.away_team.team.season.end_date|date:"Y" }}
+                            <span>{{ game.away_team.team.club.city }} | {{ game.away_team.team.season.start_date|date:"M" }} - {{ game.away_team.team.season.end_date|date:"M Y" }}
                         </div>
                         <!-- <div class="avatar"><img src="images/soccer/team-logo2.png" alt="match-list-team-img"></div> -->
                     </div>
@@ -110,7 +110,8 @@
 
                                     <div class="info">
                                         <div class="wrap">
-                                            <a href="{% url 'Pages:player' x.id %}" class="name">{{ x }} ({{ x.position.short_name }}) 
+                                            <a href="{% url 'Pages:player' x.id %}" class="name">
+                                                {{ x.profile.user.first_name }} {{ x.profile.user.last_name }} {% if x.position.short_name %} ({{ x.position.short_name }}) {% endif%}</br>
                                                 {% if x.is_captain %} Captain {% endif %}
                                             </a>
                                             <!-- <img src="images/common/timeline-goal.jpg" alt="timeline-goal"> -->

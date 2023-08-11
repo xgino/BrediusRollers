@@ -46,7 +46,7 @@
                         
                             <div class="amateurs-main-match">
                                 <div class="title">
-                                    <p>Momenteel geen gegevens beschikbaar.</p>
+                                    <p>{% include 'import/_no_data_txt.html' %}</p>
                                 </div>
                             </div>
                         {% endif %}
@@ -63,13 +63,13 @@
                                 <span class="teams-wrap">
                                         <span class="team">
                                             <!-- <span><img src="images/common/team-logo1.png" alt="team-image"></span> -->
-                                            <span>{{ game.home_team }}</span>
+                                            <span>{{ game.home_team.team.club }} {{ game.home_team.team.name }}</span>
                                         </span>
                                         <span class="score">
                                             <span>{{ game.gameday.date|date:"d F"|lower }} {{ game.start_time|time:"H:i" }}</span>
                                         </span>
                                         <span class="team1">
-                                            <span>{{ game.away_team }}</span>
+                                            <span>{{ game.away_team.team.club }} {{ game.away_team.team.name }}</span>
                                             <!-- <span><img src="images/common/team-logo2.png" alt="team-image"></span> -->
                                         </span>
                                 </span>
@@ -78,7 +78,7 @@
                         {% endfor %}
                     {% else %}
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <p>Momenteel geen gegevens beschikbaar.</p>
+                            <p>{% include 'import/_no_data_txt.html' %}</p>
                         </div>
                     {% endif %}
                 </div>
@@ -94,13 +94,13 @@
                                 <span class="teams-wrap">
                                         <span class="team">
                                             <!-- <span><img src="images/common/team-logo1.png" alt="team-image"></span> -->
-                                            <span>{{ game.home_team }}</span>
+                                            <span>{{ game.home_team.team.club }} {{ game.home_team.team.name }}</span>
                                         </span>
                                         <span class="score">
                                             <span>{{ game.home_score }} : {{ game.away_score }}</span>
                                         </span>
                                         <span class="team1">
-                                            <span>{{ game.away_team }}</span>
+                                            <span>{{ game.away_team.team.club }} {{ game.away_team.team.name }}</span>
                                             <!-- <span><img src="images/common/team-logo2.png" alt="team-image"></span> -->
                                         </span>
                                 </span>
@@ -112,7 +112,7 @@
                         {% endfor %}
                     {% else %}
                         <div class="col-md-12">
-                            <p>Momenteel geen gegevens beschikbaar.</p>
+                            <p>{% include 'import/_no_data_txt.html' %}</p>
                         </div>
                     {% endif %}
                 </div>

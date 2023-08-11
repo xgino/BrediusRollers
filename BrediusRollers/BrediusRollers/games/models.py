@@ -39,7 +39,7 @@ class Game(models.Model):
     start_time = models.TimeField(auto_now=False, auto_now_add=False, verbose_name="Start tijd")
     end_time = models.TimeField(auto_now=False, auto_now_add=False, verbose_name="Eindig tijd")
     
-    leauge_code   = models.CharField(max_length=10, verbose_name="Wedstrijd Code", )
+    leauge_code   = models.CharField(max_length=10, verbose_name="Wedstrijd Code", null=True, blank=True)
     home_team = models.ForeignKey(Match_team, on_delete=models.CASCADE, verbose_name="Home", related_name='Home_Team')
     home_score = models.IntegerField(verbose_name="Home Goals")
     away_team = models.ForeignKey(Match_team, on_delete=models.CASCADE, verbose_name="Away", related_name='Away_Team')

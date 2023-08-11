@@ -244,7 +244,7 @@
                     </div>
                     {% else %}
                     <div class="wrap">
-                        <p>Momenteel geen gegevens beschikbaar.</p>
+                        <p>Geen gegevens beschikbaar op dit moment.</p>
                     </div>
                     {% endif %}
                 </div>
@@ -275,7 +275,7 @@
                     {% endfor %}
                     {% else %}
                         <div class="col-md-12">
-                            <p>Momenteel geen gegevens beschikbaar.</p>
+                            <p>{% include 'import/_no_data_txt.html' %}</p>
                         </div>
                     {% endif %}
 
@@ -293,16 +293,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-7">
-                <h4 class="hockey-stats-h4">Players stats</h4>
+                <h4 class="hockey-stats-h4">Bredius Spelers</h4>
                 
                 <div class="single-player-stats players_statistic_slider">
                     <ul class="player-filters" role="tablist">  
                         {% if keepers %}
-                            <li class="active"><a href="#goalkeepers" role="tab" data-toggle="tab">goalkeepers</a></li>
+                            <li class="active"><a href="#goalkeepers" role="tab" data-toggle="tab">keepers</a></li>
                         {% endif %}
 
                         {% if defenders %}
-                            <li><a href="#defenders" role="tab" data-toggle="tab">defenders</a></li>
+                            <li><a href="#defenders" role="tab" data-toggle="tab">verdedigers</a></li>
                         {% endif %}
                 
                     </ul>
@@ -506,7 +506,7 @@
                             {% endfor %}
                             {% else %}
                             <div class="item">
-                                <p>Momenteel geen gegevens beschikbaar.</p>
+                                <p>{% include 'import/_no_data_txt.html' %}</p>
                             </div>
                             {% endif %}
                         </div>
@@ -521,7 +521,7 @@
                             {% endfor %}
                             {% else %}
                                 <div class="item">
-                                    <p>Momenteel geen gegevens beschikbaar.</p>
+                                    <p>{% include 'import/_no_data_txt.html' %}</p>
                                 </div>
                             {% endif %}
                         </div>
@@ -538,23 +538,28 @@
     <div class="container">
         <div class="row">
             <div class="col-md-7">
-                <h4>club story <br>began here</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer porta sem et enim pellentesque, sed convallis 
-                    ex varius. Fusce nisl justo, condimentum eget nisl ac, luctus tristique odio. Fusce at turpis nisi. Pellentesque 
-                    vel orci fermentum dui sodales vehicula. Sed vel lectus sodales, vestibulum magna ut, vehicula sem. Nulla viverra.</p>
+                <h4>Welkom bij de <br>Bredius Rollers</h4>
+                <!-- <p>
+                    Rolstoelhockey is een spectaculaire sport die al sinds 1974 in Nederland wordt gespeeld. 
+                    Het lijkt op zaalhockey (floorball), maar dan in een rolstoel. Het grote verschil? Je speelt 5 tegen 5 met de stick en bal. Iedereen kan meedoen aan handbewogen rolstoelhockey, of je nu een valide of niet-valide speler bent. Ideaal om samen te sporten met je broertje, zusje, vader of moeder! Sluit je aan bij onze dynamische sportclub en ontdek zelf hoe gaaf rolstoelhockey kan zijn!
+                </p> -->
+
+                <p>dé rolstoelhockeyclub van ASV Bredius in Woerden. 
+                    Wij zijn een energieke en sportieve club waar jong en oud samen onze passie voor sport delen. 
+                    Wil jij deel uitmaken van ons team en rolstoelhockey ervaren? Kom dan gerust eens langs, iedereen is welkom!</p>
                     
                 <div class="row">
                     <div class="col-md-6">
                         <div class="icon"><img src="{% static 'other/images/common/success-icon.png' %}" alt="succes-icon"></div>
-                        <div class="title">Title</div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer porta sem et enim pellentesque, sed convallis 
-                            ex varius. </p>
+                        <div class="title">Spanning met sticks en ballen</div>
+                        <p>Ontdek de opwindende wereld van rolstoelhockey en ervaar de spanning van wedstrijden met sticks en ballen vanuit je sportrolstoel.</p>
                     </div>
                     <div class="col-md-6">
                         <div class="icon"><img src="{% static 'other/images/common/success-icon1.png' %}" alt="succes-icon"></div>
-                        <div class="title">Title</div>
-                        <p>ex varius. Fusce nisl justo, condimentum eget nisl ac, luctus tristique odio. Fusce at turpis nisi. Pellentesque 
-                            vel orci.</p>
+                        <div class="title">Vol teamwork en spanning</div>
+                        <p>
+                            Ontdek de opwindende wereld van rolstoelhockey, waar teamwork, spanning en balbeheersing samenkomen in wedstrijden die je niet wilt missen.
+                        </p>
                     </div>
                     <!-- <div class="col-md-12"><a href="trophies.html" class="booking">trophies</a></div> -->
                     <div class="col-md-12"><br /><br /><br /><br /></div>
