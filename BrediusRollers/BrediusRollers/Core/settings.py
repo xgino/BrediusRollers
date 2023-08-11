@@ -6,7 +6,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=True, cast=bool)
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -96,6 +96,7 @@ USE_TZ = True
 # Curency Europe
 DECIMAL_SEPARATOR = ','
 THOUSAND_SEPARATOR = ' '
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Static Files
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -107,7 +108,7 @@ STATICFILES_DIRS = [
 # Media folder settings
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 
 
