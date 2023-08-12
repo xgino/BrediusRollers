@@ -1,8 +1,7 @@
 from email.headerregistry import Address
 from django.db import models
 from club.models import Season
-from teams.models import League, Team
-from players.models import Player
+from teams.models import League, Team, Player
 from accounts.model.adress import Adress
 
 class Match_team(models.Model):

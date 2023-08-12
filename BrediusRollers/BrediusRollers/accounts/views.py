@@ -18,7 +18,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from .model.profile import Profile
 from .model.adress import Adress
-from players.models import Player
+from teams.models import Player
 from games.models import Score, Match_team, Game
 
 

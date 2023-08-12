@@ -21,7 +21,6 @@ INSTALLED_APPS = [
     'PAGES.apps.PagesConfig',         # Account -> register, login, pass forgot, profile, dashboard
     'club.apps.ClubConfig',         # Club -> Season
     'teams.apps.TeamsConfig',         # Teams -> League
-    'players.apps.PlayersConfig',         # Players -> possitions
     'games.apps.GamesConfig',         # Games -> matchTeam, gameday, score
     'trainings.apps.TrainingsConfig',         # Trainings -> TrainingLocation, TrainingTime
 

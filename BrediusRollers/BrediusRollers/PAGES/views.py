@@ -8,8 +8,7 @@ from django.db.models import Sum, Q, Count  # Django Filter OR
 # Import form own models
 from games.models import Game_day, Game, Match_team, Score
 from club.models import Club, Role, Sponsors, Season, About, Photo
-from teams.models import Team
-from players.models import Player
+from teams.models import Team, Player
 from trainings.models import Training
 
 from .cleanup import globe

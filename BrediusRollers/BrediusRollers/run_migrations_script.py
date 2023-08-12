@@ -8,8 +8,6 @@ migration_commands = """
     migrate club
     makemigrations teams
     migrate teams
-    makemigrations players
-    migrate players
     makemigrations games
     migrate games
     makemigrations trainings

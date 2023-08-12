@@ -37,16 +37,12 @@ class Coach(models.Model):
 
 
 class Season(models.Model):
-    name  = models.IntegerField(verbose_name="Season")
-    members  = models.IntegerField(verbose_name="Members")
     start_date  = models.DateField(max_length=255, verbose_name="Start Date")
     end_date  = models.DateField(max_length=255, verbose_name="End Date")
-
-    first_training  = models.DateField(max_length=255, verbose_name="Start training")
-    last_training  = models.DateField(max_length=255, verbose_name="Last training")
+    members  = models.IntegerField(verbose_name="Members")
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.start_date.year}-{self.end_date.year}"
 
 
 class Role(models.Model):

@@ -4,8 +4,7 @@ from django.utils import timezone
 # Import from models
 from games.models import Game_day, Game, Match_team, Score
 from club.models import Club, Role, Sponsors, Season, About, Photo
-from teams.models import Team
-from players.models import Player
+from teams.models import Team, Player
 from trainings.models import Training
 
 
@@ -100,9 +99,10 @@ def top_assists(season):
 # Return all players == keepers
 def get_keepers(season):
     try:
-        team = Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius'))
-        keepers = Player.objects.filter(team__in=team).filter(position__short_name='GK').filter(season=season).order_by('-team')
-    except:
+        club = Club.objects.get(name__startswith='Bredius')
+        teams = Team.objects.filter(club=club)
+        keepers = Player.objects.filter(team__in=teams, positions__contains=['goalkeeper'], season=season).order_by('-team')
+    except Club.DoesNotExist:
         keepers = None
     return keepers
 
@@ -111,7 +111,7 @@ def get_keepers(season):
 def get_defenders(season):
     try: 
         team = Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius'))
-        defenders = Player.objects.filter( team__in=team ).filter(position__short_name='DF').filter(season=season).order_by('-team')
+        defenders = Player.objects.filter( team__in=team ).filter(positions='defender').filter(season=season).order_by('-team')
     except:
         defenders = None
     return defenders

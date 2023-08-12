@@ -15,7 +15,7 @@ class ClubAdmin(ImportExportModelAdmin):
     list_display = ('id', 'name', 'city', 'season')
     list_display_links = ('name',)
     list_filter = ('name', 'city', 'season',)
-    search_fields = ('name', 'city', 'season')
+    search_fields = ('name',)
     list_per_page = 25
 
 class SeasonAdmin(ImportExportModelAdmin):
@@ -31,7 +31,7 @@ class SubscriptionAdmin(ImportExportModelAdmin):
     list_display = ('id', 'sub_num', 'season')
     list_display_links = ('sub_num',)
     list_filter = ('season',)
-    search_fields = ('sub_num', 'season',)
+    search_fields = ('sub_num',)
     list_per_page = 25
 
 class CoachAdmin(ImportExportModelAdmin):
@@ -44,6 +44,7 @@ class RoleAdmin(ImportExportModelAdmin):
     resource_classes = [RoleResource]
     list_display = ('id', 'profile', 'title', 'description', 'short_description')
     list_display_links = ('profile',)
+    list_filter = ('title',)
     list_per_page = 25
 
 class AboutAdmin(ImportExportModelAdmin):
@@ -54,6 +55,7 @@ class AboutAdmin(ImportExportModelAdmin):
 class PhotoAdmin(ImportExportModelAdmin):
     list_display = ('id', 'title', 'description', 'season', 'photo')
     list_display_links = ('title',)
+    list_filter = ('season',)
     list_per_page = 25
 
 
