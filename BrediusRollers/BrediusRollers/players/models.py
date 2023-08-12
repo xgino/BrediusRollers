@@ -1,4 +1,5 @@
 from django.db import models
+from multiselectfield import MultiSelectField
 
 from accounts.model.profile import Profile
 from teams.models import Team
@@ -6,11 +7,16 @@ from club.models import Subscription, Season
 
 
 class Position(models.Model):
-    name  = models.CharField(max_length=255, verbose_name="Name")
-    short_name   = models.CharField(max_length=255, verbose_name="Korte Naam")
+    POSITION_CHOICES = [
+        ('forward', 'Forward'),
+        ('midfielder', 'Midfielder'),
+        ('defender', 'Defender'),
+        ('goalkeeper', 'Goalkeeper'),
+    ]
+    positions = MultiSelectField(choices=POSITION_CHOICES, verbose_name="Positions")
 
     def __str__(self):
-        return self.name
+        return ', '.join(self.positions)
 
 
 class Player(models.Model):

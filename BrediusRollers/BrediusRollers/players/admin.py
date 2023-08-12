@@ -15,8 +15,8 @@ class PlayerAdmin(ImportExportModelAdmin):
 
 class PositionAdmin(ImportExportModelAdmin):
     resource_classes = [PositionResource]
-    list_display = ('id', 'name', 'short_name')
-    list_display_links = ('name',)
+    list_display = ('id', 'positions')
+    list_display_links = ('positions',)
     list_per_page = 25
 
 
