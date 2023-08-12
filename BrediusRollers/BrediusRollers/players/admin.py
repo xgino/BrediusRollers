@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Player, Position
+from .models import Player
 
 from import_export.admin import ImportExportModelAdmin
-from .resources import PlayerResource, PositionResource
+from .resources import PlayerResource
 
 
 class PlayerAdmin(ImportExportModelAdmin):
@@ -13,14 +13,9 @@ class PlayerAdmin(ImportExportModelAdmin):
     #search_fields = ('profile',)
     list_per_page = 25
 
-class PositionAdmin(ImportExportModelAdmin):
-    resource_classes = [PositionResource]
-    list_display = ('id', 'positions')
-    list_display_links = ('positions',)
-    list_per_page = 25
+
 
 
 admin.site.register(Player, PlayerAdmin)
-admin.site.register(Position, PositionAdmin)
 
 
