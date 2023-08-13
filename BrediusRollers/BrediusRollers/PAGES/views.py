@@ -6,43 +6,47 @@ from django.utils import timezone
 from django.db.models import Sum, Q, Count  # Django Filter OR
 
 # Import form own models
-from games.models import Game_day, Game, Match_team, Score
-from club.models import Club, Role, Sponsors, Season, About, Photo
+from games.models import Game_day, Game, Score
+from club.models import Club, Role, Sponsors, Season, Photo
 from teams.models import Team, Player
 from trainings.models import Training
 
 from .cleanup import globe
+
+# TODO IS to fix Globe and template
 
 
 def home(request):
     template = 'home.html'
     season = globe.season()
 
+    psge = globe.pastBredius()
     # Get SLIDER Past -3 Bredius Games
-    past_bredius1, past_bredius2, past_bredius3, past_bredius = globe.pastBredius()
+    #past_bredius1, past_bredius2, past_bredius3, past_bredius = globe.pastBredius()
 
-    top_goals = globe.top_goals(season)
-    top_assists = globe.top_assists(season)
+    #top_goals = globe.top_goals(season)
+    #top_assists = globe.top_assists(season)
 
-    keepers = globe.get_keepers(season)
-    defenders = globe.get_defenders(season)
+    #keepers = globe.get_keepers(season)
+    #defenders = globe.get_defenders(season)
 
-    upcomming_matchday = globe.upcomming_matchday(season)
-    bredius_players = globe.get_bredius_players(season)
+    #upcomming_matchday = globe.upcomming_matchday(season)
+    #bredius_players = globe.get_bredius_players(season)
 
-    BrediusTeam3, BrediusTeam6, BrediusTeam9, BrediusTeam12, BrediusTeam15 = globe.brediusTeam(season)
+    #BrediusTeam3, BrediusTeam6, BrediusTeam9, BrediusTeam12, BrediusTeam15 = globe.brediusTeam(season)
 
-    sponsor = Sponsors.objects.order_by("?")[:4]
+    #sponsor = Sponsors.objects.order_by("?")[:4]
 
     context = {
-        'past_bredius': past_bredius, 'past_bredius1': past_bredius1, 'past_bredius2': past_bredius2, 'past_bredius3': past_bredius3,
-        'bredius_players': bredius_players,
-        'upcomming_matchday': upcomming_matchday,
-        'top_goals': top_goals, 'top_assists': top_assists,
-        'keepers': keepers[1:], 'defenders': defenders,
-        'fkeepers':keepers.first(),
-        'BrediusTeam3': BrediusTeam3, 'BrediusTeam6': BrediusTeam6, 'BrediusTeam9': BrediusTeam9, 'BrediusTeam12': BrediusTeam12, 'BrediusTeam15': BrediusTeam15,
-        'sponsor': sponsor,
+        'psge': psge,
+        # 'past_bredius': past_bredius, 'past_bredius1': past_bredius1, 'past_bredius2': past_bredius2, 'past_bredius3': past_bredius3,
+        # 'bredius_players': bredius_players,
+        # 'upcomming_matchday': upcomming_matchday,
+        # 'top_goals': top_goals, 'top_assists': top_assists,
+        # 'keepers': keepers[1:], 'defenders': defenders,
+        # 'fkeepers':keepers.first(),
+        # 'BrediusTeam3': BrediusTeam3, 'BrediusTeam6': BrediusTeam6, 'BrediusTeam9': BrediusTeam9, 'BrediusTeam12': BrediusTeam12, 'BrediusTeam15': BrediusTeam15,
+        # 'sponsor': sponsor,
     }
 
     return render(request, template, context)
@@ -132,7 +136,6 @@ def overons(request):
     club = Club.objects.filter(name__startswith='Bredius').filter(season=season).first()
     bredius_teams = Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius').filter(season=season)).order_by('name')
     bredius_teams_count = Team.objects.filter(season=season).filter(club__in=Club.objects.filter(name__startswith='Bredius')).order_by('name')
-    about = About.objects.filter(season=season).first()
     photo = Photo.objects.filter(season=season).order_by('?')
 
     club_player_count = globe.count_players(season)
@@ -147,7 +150,6 @@ def overons(request):
         'BrediusTeam3': BrediusTeam3, 'BrediusTeam6': BrediusTeam6, 'BrediusTeam9': BrediusTeam9, 'BrediusTeam12': BrediusTeam12, 'BrediusTeam15': BrediusTeam15,
 
         'sponsor': sponsor,
-        'about': about,
         'photo': photo,
         'club': club,
         'next_training': next_training,

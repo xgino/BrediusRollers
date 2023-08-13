@@ -1,70 +1,70 @@
 from django.contrib import admin
-from .models import Club, Season, Subscription, Coach, Role, Sponsors, About, Photo
+from .models import Club, Season, Subscription, Coach, Role, Sponsors, Photo
 
 from import_export.admin import ImportExportModelAdmin
 from .resources import CoachResource, RoleResource, SeasonResource, ClubResource, SubscriptionResource
 
+class SeasonAdmin(admin.ModelAdmin):
+    list_display = ('id', 'start_date', 'end_date',)
+    list_display_links = ('start_date', 'end_date')
+    list_per_page = 25
+
+class ClubAdmin(admin.ModelAdmin):
+    list_display = ['name', 'season', 'members', 'city']
+    list_filter = [
+        ('season', admin.RelatedFieldListFilter),
+        ('name'),
+    ]
+    search_fields = ['name']
+    list_per_page = 25
+
 
 class SponsorsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'description', 'short_description', 'logo')
+    list_display = ('id', 'title', 'short_description')
     list_display_links = ('title',)
     list_per_page = 25
 
-class ClubAdmin(ImportExportModelAdmin):
-    resource_classes = [ClubResource]
-    list_display = ('id', 'name', 'city', 'season')
-    list_display_links = ('name',)
-    list_filter = ('name', 'city', 'season',)
-    search_fields = ('name',)
-    list_per_page = 25
-
-class SeasonAdmin(ImportExportModelAdmin):
-    resource_classes = [SeasonResource]
-    list_display = ('id', 'name', 'members', 'start_date', 'end_date', 'first_training', 'last_training')
-    list_display_links = ('name',)
-    list_filter = ('name',)
-    search_fields = ('name',)
-    list_per_page = 25
-
-class SubscriptionAdmin(ImportExportModelAdmin):
-    resource_classes = [SubscriptionResource]
+class SubscriptionAdmin(admin.ModelAdmin):
     list_display = ('id', 'sub_num', 'season')
     list_display_links = ('sub_num',)
-    list_filter = ('season',)
     search_fields = ('sub_num',)
+    list_filter = [
+        ('season', admin.RelatedFieldListFilter),
+    ]
     list_per_page = 25
 
-class CoachAdmin(ImportExportModelAdmin):
-    resource_classes = [CoachResource]
-    list_display = ('id', 'profile')
+class CoachAdmin(admin.ModelAdmin):
+    list_display = ('id', 'profile', 'season')
     list_display_links = ('profile',)
+    list_filter = [
+        ('season', admin.RelatedFieldListFilter),
+        ('profile__firstname'),
+    ]
     list_per_page = 25
 
-class RoleAdmin(ImportExportModelAdmin):
-    resource_classes = [RoleResource]
-    list_display = ('id', 'profile', 'title', 'description', 'short_description')
+class RoleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'profile', 'title')
     list_display_links = ('profile',)
-    list_filter = ('title',)
+    list_filter = [
+        ('season', admin.RelatedFieldListFilter),
+        ('title'),
+    ]
     list_per_page = 25
 
-class AboutAdmin(ImportExportModelAdmin):
-    list_display = ('id', 'season', 'description', 'photo')
-    list_display_links = ('season',)
-    list_per_page = 25
-
-class PhotoAdmin(ImportExportModelAdmin):
-    list_display = ('id', 'title', 'description', 'season', 'photo')
+class PhotoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'photo')
     list_display_links = ('title',)
     list_filter = ('season',)
+    list_filter = [
+        ('season', admin.RelatedFieldListFilter),
+    ]
     list_per_page = 25
 
-
-
-admin.site.register(Club, ClubAdmin)
+# Register the admin classes
 admin.site.register(Season, SeasonAdmin)
+admin.site.register(Club, ClubAdmin)
+admin.site.register(Sponsors, SponsorsAdmin)
 admin.site.register(Subscription, SubscriptionAdmin)
 admin.site.register(Coach, CoachAdmin)
 admin.site.register(Role, RoleAdmin)
-admin.site.register(Sponsors, SponsorsAdmin)
-admin.site.register(About, AboutAdmin)
 admin.site.register(Photo, PhotoAdmin)

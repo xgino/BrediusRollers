@@ -1,6 +1,6 @@
 from django.db import models
 from accounts.model.adress import Adress
-
+from club.models import Season
 
 class Trainings_time(models.Model):
     start_time  = models.TimeField(verbose_name="Start Time")
@@ -18,10 +18,10 @@ class Trainings_location(models.Model):
 
 
 class Training(models.Model):
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name="Season")
     training_time = models.ForeignKey(Trainings_time, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Training_time")
     training_location = models.ForeignKey(Trainings_location, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Training_location")
     date = models.DateField(verbose_name="Date")
-    
 
     def __str__(self):
         return f'{self.training_time} {self.training_location}'

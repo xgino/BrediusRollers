@@ -31,7 +31,7 @@ class ProfileInline(admin.StackedInline):
     fk_name = 'user'
 
     fieldsets = (
-        ('Gebruikers info', {'fields': ('gender', 'phone', 'date_of_birth', 'adress', 'profiel', 'avatar', 'bio', 'hobby',)}),
+        ('Gebruikers info', {'fields': ('firstname', 'lastname', 'gender', 'phone', 'date_of_birth', 'adress', 'profiel', 'avatar', 'bio', 'hobby',)}),
         
     )
 
@@ -45,11 +45,10 @@ class UserAdmin(BaseUserAdmin):
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
     inlines = (ProfileInline,)
-    list_display = ['email', 'get_full_name', 'formated_date_joined', 'formated_last_login', 'active']
-    list_filter = ['first_name', 'last_name', 'active']
+    list_display = ['email', 'formated_date_joined', 'formated_last_login', 'active']
+    list_filter = ['active']
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Naam', {'fields': ('first_name', 'last_name',)}),
         ('Permissions', {'fields': ('admin', 'staff', 'active',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -57,7 +56,7 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'first_name', 'password', 'password_2')}
+            'fields': ('email', 'password', 'password_2')}
         ),
     )
     search_fields = ['email']

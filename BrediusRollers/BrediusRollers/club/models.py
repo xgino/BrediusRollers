@@ -19,6 +19,39 @@ def capture_photo(instance, filename):
     return os.path.join('about/photo', filename)
 
 
+class Season(models.Model):
+    start_date = models.DateField(verbose_name="Start Date")
+    end_date = models.DateField(verbose_name="End Date")
+
+    def __str__(self):
+        return f"{self.start_date.year}-{self.end_date.year}"
+    
+
+class Club(models.Model):
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
+    name  = models.CharField(max_length=255, verbose_name="Club")
+    members  = models.IntegerField(verbose_name="Members", null=True, blank=True)
+    city   = models.CharField(max_length=255, verbose_name="Stad", null=True, blank=True,)
+    description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
+    picture = models.ImageField(default='about/default_image.jpg', upload_to=about_image, verbose_name="Picture")
+
+    def __str__(self):
+        return f"{self.name} - {self.season}"
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['name', 'season'], name='unique_clubname_per_season')
+        ]
+
+class Subscription(models.Model):
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
+    sub_num  = models.CharField(max_length=255, verbose_name="Lid Nummer", unique=True, null=True, blank=True)
+    fee   = models.FloatField(verbose_name="Cost")
+
+    def __str__(self):
+        return self.sub_num
+
+
 class Sponsors(models.Model):
     title  = models.CharField(max_length=255, verbose_name="Title")
     description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
@@ -27,66 +60,36 @@ class Sponsors(models.Model):
 
     def __str__(self):
         return str(self.title)
-
+    
 
 class Coach(models.Model):
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Coach")
 
     def __str__(self):
         return str(self.profile)
 
-
-class Season(models.Model):
-    start_date  = models.DateField(max_length=255, verbose_name="Start Date")
-    end_date  = models.DateField(max_length=255, verbose_name="End Date")
-    members  = models.IntegerField(verbose_name="Members")
-
-    def __str__(self):
-        return f"{self.start_date.year}-{self.end_date.year}"
-
+    class Meta:
+        unique_together = ('season', 'profile')
 
 class Role(models.Model):
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Role")
     title  = models.CharField(max_length=255, verbose_name="Title")
     short_description = models.TextField(max_length=50, blank=True, null=True, verbose_name="Short description")
     description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
 
     def __str__(self):
         return str(self.profile)
-
-
-class Club(models.Model):
-    name  = models.CharField(max_length=255, verbose_name="Club")
-    city   = models.CharField(max_length=255, verbose_name="Stad")
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
-
-    def __str__(self):
-        return self.name
-
-
-class Subscription(models.Model):
-    sub_num  = models.CharField(max_length=255, verbose_name="Lid Nummer")
-    fee   = models.FloatField(verbose_name="Cost")
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
-
-    def __str__(self):
-        return self.sub_num
-
-
-class About(models.Model):
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
-    description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
-    photo = models.ImageField(default='about/default_image.jpg', upload_to=about_image, verbose_name="Image")
-
-    def __str__(self):
-        return f"{self.season}"
+    
+    class Meta:
+        unique_together = ('season', 'profile')
 
 class Photo(models.Model):
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
     title  = models.CharField(max_length=15, verbose_name="Title -> 1x naam perdag, Verander naam hier != als file naam")
     description = models.TextField(max_length=30, blank=True, null=True, verbose_name="Description")
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
     photo = models.ImageField(upload_to=capture_photo, verbose_name="Photo")
 
     def __str__(self):
-        return f"{self.title} {self.season.name}"
+        return str(self.title)

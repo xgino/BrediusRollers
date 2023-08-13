@@ -1,16 +1,6 @@
 from import_export import resources
-from .models import Match_team, Game_day, Game, Score
+from .models import Game_day, Game, Score
 
-
-class MatchTeamResource(resources.ModelResource):
-    class Meta:
-        model = Match_team
-        fields = ('id', 'team')
-
-        widgets = {
-            'published': {'format': '%d.%m.%Y'},
-        }
-        
 
 class GamedayResource(resources.ModelResource):
     class Meta:

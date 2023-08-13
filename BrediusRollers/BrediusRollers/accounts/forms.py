@@ -18,13 +18,12 @@ class RegisterForm(forms.ModelForm):
 
     """
     email    = forms.EmailField(widget=forms.TextInput(attrs={'name': 'registerEmail', 'class': 'input-material', 'id': 'register-email', 'data-msg': 'E-mailadres is verplicht.'}))
-    first_name    = forms.CharField(widget=forms.TextInput(attrs={'name': 'registerUsername', 'class': 'input-material', 'id': 'register-username', 'data-msg': 'Voornaam is verplicht.'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'name': 'registerPassword', 'class': 'input-material', 'id': 'register-password', 'data-msg': 'Wachtwoord is verplicht.'}))
     password_2 = forms.CharField(widget=forms.PasswordInput(attrs={'name': 'registerPassword', 'class': 'input-material', 'id': 'register-password', 'data-msg': 'Wachtwoord is verplicht.'}))
  
     class Meta:
         model = User
-        fields = ['email', 'first_name']
+        fields = ['email']
 
     def clean_email(self):
         '''
@@ -59,16 +58,16 @@ class RegisterForm(forms.ModelForm):
 
 
 class UpdateUserForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    last_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['email']
 
 
 class UpdateProfileForm(forms.ModelForm):
+    firstname = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    lastname = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     gender    = forms.ChoiceField(choices=Profile.GENDER_CHOICES, label='Gender', required=True, widget=forms.Select(attrs={'class':'form-control mb-3 mb-3'}))
     phone    = forms.CharField(label='Phone', required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     date_of_birth    = forms.DateField(widget=forms.DateInput(format='%d-%m-%Y', attrs={'class': 'form-control'}), input_formats=['%d-%m-%Y'], required=False)
@@ -78,7 +77,7 @@ class UpdateProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['gender', 'phone', 'date_of_birth', 'avatar', 'bio', 'hobby']
+        fields = ['firstname', 'lastname', 'gender', 'phone', 'date_of_birth', 'avatar', 'bio', 'hobby']
 
 
 
@@ -123,7 +122,7 @@ class UserAdminChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['email','first_name', 'last_name', 'password', 'active', 'admin']
+        fields = ['email', 'password', 'active', 'admin']
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.

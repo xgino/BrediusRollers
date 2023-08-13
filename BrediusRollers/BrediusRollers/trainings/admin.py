@@ -7,8 +7,11 @@ from .resources import TrainingResource, TrainingsLocationResource, TrainingsTim
 
 class TrainingAdmin(ImportExportModelAdmin):
     resource_classes = [TrainingResource]
-    list_display = ('id', 'training_time', 'training_location', 'date')
+    list_display = ('id', 'training_time', 'training_location', 'date', 'season')
     list_display_links = ('id',)
+    list_filter = [
+        ('season', admin.RelatedFieldListFilter),
+    ]
     list_per_page = 25
 
 

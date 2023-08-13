@@ -1,9 +1,11 @@
 from django.db.models import Sum, Q, Count  # Django Filter OR
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+from datetime import date, datetime
 
 # Import from models
-from games.models import Game_day, Game, Match_team, Score
-from club.models import Club, Role, Sponsors, Season, About, Photo
+from games.models import Game_day, Game, Score
+from club.models import Club, Role, Sponsors, Season, Photo
 from teams.models import Team, Player
 from trainings.models import Training
 
@@ -12,12 +14,53 @@ now = timezone.now()
 
 # Return Latest added season
 def season():
-    try:
-        season = Season.objects.latest("name")
-    except:
-        season = None
+    current_date = date.today()
+    current_season = Season.objects.filter(start_date__lte=current_date, end_date__gte=current_date).first()
+    return current_season
 
-    return season
+
+# Return Past bredius games 1, 2, 3
+def pastBredius():
+
+    try:
+        current_date = datetime.now().date()
+        # Filter games for the "Bredius" team and get the latest 3 games
+        bredius_games = Game.objects.filter(
+            Q(home_team__club__name__icontains="bredius") | Q(away_team__club__name__icontains="bredius"),
+            gameday__date__lt=current_date
+        ).order_by('-gameday__date')[:3]
+
+        return bredius_games
+    except ObjectDoesNotExist:
+        return None
+
+
+    """
+    get_past_games = (Game_day.objects.filter(date__lt=now).order_by('date'))
+    get_bredius_games = (Q(home_team__in=Match_team.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))) | Q(away_team__in=Match_team.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))))
+
+    try:
+        past_bredius1 = Game.objects.filter(get_bredius_games).filter(season=season).filter(gameday__in=get_past_games)[0]
+    except:
+        past_bredius1 = None
+
+    try:
+        past_bredius2 = Game.objects.filter(get_bredius_games).filter(season=season).filter(gameday__in=get_past_games)[1]
+    except:
+        past_bredius2 = None
+
+    try:
+        past_bredius3 = Game.objects.filter(get_bredius_games).filter(season=season).filter(gameday__in=get_past_games)[1:2]
+    except:
+        past_bredius3 = None
+
+    try:
+        past_bredius = Game.objects.filter(get_bredius_games).filter(gameday__in=get_past_games).filter(season=season).order_by('end_time')[:5]
+    except:
+        past_bredius = None
+    """
+
+    #return past_bredius1, past_bredius2, past_bredius3, past_bredius
 
 
 # Returns all teammembers of Bredius
@@ -50,32 +93,6 @@ def brediusTeam(season):
     return BrediusTeam3, BrediusTeam6, BrediusTeam9, BrediusTeam12, BrediusTeam15
 
 
-# Return Past bredius games 1, 2, 3
-def pastBredius():
-    get_past_games = (Game_day.objects.filter(date__lt=now).order_by('date'))
-    get_bredius_games = (Q(home_team__in=Match_team.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))) | Q(away_team__in=Match_team.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))))
-
-    try:
-        past_bredius1 = Game.objects.filter(get_bredius_games).filter(season=season).filter(gameday__in=get_past_games)[0]
-    except:
-        past_bredius1 = None
-
-    try:
-        past_bredius2 = Game.objects.filter(get_bredius_games).filter(season=season).filter(gameday__in=get_past_games)[1]
-    except:
-        past_bredius2 = None
-
-    try:
-        past_bredius3 = Game.objects.filter(get_bredius_games).filter(season=season).filter(gameday__in=get_past_games)[1:2]
-    except:
-        past_bredius3 = None
-
-    try:
-        past_bredius = Game.objects.filter(get_bredius_games).filter(gameday__in=get_past_games).filter(season=season).order_by('end_time')[:5]
-    except:
-        past_bredius = None
-
-    return past_bredius1, past_bredius2, past_bredius3, past_bredius
 
 
 # Return Top 7 goals, playername
