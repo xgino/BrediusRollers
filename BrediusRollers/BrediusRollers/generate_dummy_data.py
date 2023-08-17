@@ -6,7 +6,7 @@ import django
 django.setup()
 from django.core.management.base import BaseCommand
 
-
+from tqdm import tqdm
 from faker import Faker
 fake = Faker()
 from datetime import datetime, timedelta, time
@@ -29,56 +29,59 @@ class AccountsDataGenerator:
         self.generate_accounts_data()
 
     def generate_accounts_data(self):
-        for _ in range(150):
-            email = fake.email()
-            password = 'testpassword'
-            active = True
-            staff = False
-            admin = False
+        total_users = 150  # Total number of users to generate
+        with tqdm(total=total_users, desc="Generating accounts") as pbar: # Create a tqdm progress bar
+            for _ in range(total_users):
+                email = fake.email()
+                password = 'testpassword'
+                active = True
+                staff = False
+                admin = False
 
-            user = User.objects.create(
-                email=email,
-                password=password,
-                active=active,
-                staff=staff,
-                admin=admin
-            )
-            
-            firstname = fake.first_name()
-            lastname = fake.last_name()
-            gender = random.choice(['Dhr', 'Mevr'])
-            phone = fake.phone_number()
-            dob = fake.date_of_birth(minimum_age=18, maximum_age=90)
-            bio = fake.paragraph(nb_sentences=2)
-            hobby = fake.word()
+                user = User.objects.create(
+                    email=email,
+                    password=password,
+                    active=active,
+                    staff=staff,
+                    admin=admin
+                )
+                
+                firstname = fake.first_name()
+                lastname = fake.last_name()
+                gender = random.choice(['Dhr', 'Mevr'])
+                phone = fake.phone_number()
+                dob = fake.date_of_birth(minimum_age=18, maximum_age=90)
+                bio = fake.paragraph(nb_sentences=2)
+                hobby = fake.word()
 
-            profile = Profile.objects.create(
-                user=user,
-                firstname=firstname,
-                lastname=lastname,
-                gender=gender,
-                phone=phone,
-                date_of_birth=dob,
-                bio=bio,
-                hobby=hobby
-            )
+                profile = Profile.objects.create(
+                    user=user,
+                    firstname=firstname,
+                    lastname=lastname,
+                    gender=gender,
+                    phone=phone,
+                    date_of_birth=dob,
+                    bio=bio,
+                    hobby=hobby
+                )
 
-            street = fake.street_name()
-            house_number = fake.building_number()
-            zipcode = fake.random_int(min=1000, max=9999)
-            zipcode_number = fake.random_element(elements=['AB', 'CD', 'EF'])
-            place = fake.city()
+                street = fake.street_name()
+                house_number = fake.building_number()
+                zipcode = fake.random_int(min=1000, max=9999)
+                zipcode_number = fake.random_element(elements=['AB', 'CD', 'EF'])
+                place = fake.city()
 
-            address = Adress.objects.create(
-                street=street,
-                house_number=house_number,
-                zipcode=str(zipcode),
-                zipcode_number=zipcode_number,
-                place=place
-            )
+                address = Adress.objects.create(
+                    street=street,
+                    house_number=house_number,
+                    zipcode=str(zipcode),
+                    zipcode_number=zipcode_number,
+                    place=place
+                )
 
-            profile.adress = address
-            profile.save()
+                profile.adress = address
+                profile.save()
+                pbar.update(1)  # Update the progress bar
 
         print("Accounts testing data created successfully.")
 
@@ -86,21 +89,38 @@ class AccountsDataGenerator:
 # Club app
 class ClubDataGenerator:
     def __init__(self):
-        self.generate_seasons()
-        self.generate_clubs()
-        self.generate_sponsors()
-        self.generate_coaches()
-        self.generate_roles()
-        self.generate_subscriptions()
-        self.generate_photos()
+
+        self.total_methods = 7  # Total number of methods in the class
+        with tqdm(total=self.total_methods, desc="Club Data Generation") as pbar:
+            self.generate_seasons()
+            pbar.update(1)
+            
+            self.generate_clubs()
+            pbar.update(1)
+            
+            self.generate_sponsors()
+            pbar.update(1)
+            
+            self.generate_coaches()
+            pbar.update(1)
+            
+            self.generate_roles()
+            pbar.update(1)
+            
+            self.generate_subscriptions()
+            pbar.update(1)
+            
+            self.generate_photos()
+            pbar.update(1)
+
         print("Club testing data created successfully.")
 
 
     def generate_seasons(self):
         season_data = [
-        (datetime(2021, 9, 1), datetime(2022, 6, 1)),
-        (datetime(2022, 9, 1), datetime(2023, 6, 1)),
-        (datetime(2023, 9, 1), datetime(2024, 6, 1)),
+        (datetime(2021, 12, 1), datetime(2022, 11, 30)),
+        (datetime(2022, 12, 1), datetime(2023, 11, 30)),
+        (datetime(2023, 12, 1), datetime(2024, 11, 30)),
     ]
     
         # Loop through the season data and create seasons if they don't exist
@@ -214,13 +234,21 @@ class ClubDataGenerator:
                         pass
 
 
-
 # Team app
 class TeamsDataGenerator:
     def __init__(self):
-        self.generate_leagues()
-        self.generate_teams()
-        self.generate_players()
+
+        self.total_methods = 3  # Total number of methods in the class
+        with tqdm(total=self.total_methods, desc="Team Data Generation") as pbar:
+            self.generate_leagues()
+            pbar.update(1)
+            
+            self.generate_teams()
+            pbar.update(1)
+            
+            self.generate_players()
+            pbar.update(1)
+
         print("Team testing data created successfully.")
 
     def generate_leagues(self):
@@ -316,9 +344,18 @@ class TeamsDataGenerator:
 # Game App
 class GameDataGenerator:
     def __init__(self):
-        self.generate_game_days()
-        self.generate_games()
-        self.generate_scores()
+
+        self.total_methods = 3  # Total number of methods in the class
+        with tqdm(total=self.total_methods, desc="Game Data Generation") as pbar:
+            self.generate_game_days()
+            pbar.update(1)
+            
+            self.generate_games()
+            pbar.update(1)
+            
+            self.generate_scores()
+            pbar.update(1)
+
         print("Game testing data created successfully.")
     
     def generate_game_days(self):
@@ -348,41 +385,40 @@ class GameDataGenerator:
     def generate_games(self):
         all_seasons = Season.objects.all()
         all_game_days = Game_day.objects.all()
-        all_teams = Team.objects.all()
-        all_leagues = League.objects.all()
-        
+
         for season in all_seasons:
+            all_teams_in_season = Team.objects.filter(club__season=season)
+            all_teams_list = list(all_teams_in_season)  # Convert to list for shuffling
+
             for game_day in all_game_days:
-                for _ in range(20):  # Generate 20 games per game day
-                    home_team = random.choice(all_teams)
-                    
-                    # Filter out teams from the same club and team name
-                    valid_away_teams = [away_team for away_team in all_teams
-                                        if away_team.club != home_team.club or away_team.name != home_team.name]
-                    
+                for home_team in all_teams_list:
+                    valid_away_teams = [team for team in all_teams_list if team != home_team]
                     if valid_away_teams:
                         away_team = random.choice(valid_away_teams)
-                        league = random.choice(all_leagues)
+                        league = random.choice(League.objects.all())
                         leauge_code = fake.random_element(elements=('A', 'B', 'C', 'D', 'E', 'F')) + str(random.randint(1, 10))
                         field = random.randint(1, 5)
                         start_time = datetime.combine(game_day.date, datetime.min.time()) + timedelta(minutes=random.randint(0, 23*60+59))
                         end_time = start_time + timedelta(minutes=random.randint(60, 180))
                         home_score = random.randint(0, 5)
                         away_score = random.randint(0, 5)
-                        
+
+                        games_to_create = []
+                        games_to_create.append(Game(
+                            gameday=game_day,
+                            league=league,
+                            leauge_code=leauge_code,
+                            field=field,
+                            start_time=start_time.time(),
+                            end_time=end_time.time(),
+                            home_team=home_team,
+                            away_team=away_team,
+                            home_score=home_score,
+                            away_score=away_score
+                        ))
+
                         try:
-                            Game.objects.create(
-                                gameday=game_day,
-                                league=league,
-                                leauge_code=leauge_code,
-                                field=field,
-                                start_time=start_time.time(),
-                                end_time=end_time.time(),
-                                home_team=home_team,
-                                away_team=away_team,
-                                home_score=home_score,
-                                away_score=away_score
-                            )
+                            Game.objects.bulk_create(games_to_create)  # Bulk insert
                         except IntegrityError:
                             pass
 
@@ -397,27 +433,42 @@ class GameDataGenerator:
                 games_played = Game.objects.filter(
                     Q(home_team=player.team) | Q(away_team=player.team),
                     gameday__season=season
-                )
+                ).prefetch_related('gameday__season')
+
+                scores_to_create = []
 
                 for game in games_played:
-                    goals = random.choice([0, 1, 2, 3, 4, 5])  # Random goals scored (0 to 5)
-                    assists = random.choice([0, 1])  # Random assists (0 or 1)
+                    goals = random.choice([0, 1, 2, 3, 4, 5])
+                    assists = random.choice([0, 1])
 
-                    Score.objects.create(
+                    scores_to_create.append(Score(
                         season=season,
                         player=player,
                         game=game,
                         goals=goals,
                         assists=assists
-                    )
+                    ))
+
+                try:
+                    Score.objects.bulk_create(scores_to_create)
+                except IntegrityError:
+                    pass
 
 
 # Training app
 class TrainingDataGenerator:
     def __init__(self):
-        self.generate_training_time()
-        self.generate_training_adres()
-        self.generate_trainingen()
+        self.total_methods = 3  # Total number of methods in the class
+        with tqdm(total=self.total_methods, desc="Training Data Generation") as pbar:
+            self.generate_training_time()
+            pbar.update(1)
+            
+            self.generate_training_adres()
+            pbar.update(1)
+            
+            self.generate_trainingen()
+            pbar.update(1)
+
         print("Training testing data created successfully.")
 
     def generate_training_time(self):

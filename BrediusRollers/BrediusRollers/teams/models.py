@@ -1,8 +1,10 @@
+from django.contrib import admin
 from django.db import models
 from django.urls import reverse
 from multiselectfield import MultiSelectField
 from accounts.model.profile import Profile
 from club.models import Subscription, Season, Club, Coach
+from games.models import Player, Game, Game_day
 
 
 class League(models.Model):
@@ -18,6 +20,8 @@ class League(models.Model):
     def __str__(self):
         return self.name
 
+
+## TODO FIX MOVING SCORE FROM GAME MODEL TO TEAM MODEL ONLINE UNDER PLAYER
 
 class Team(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Club")
@@ -36,6 +40,24 @@ class Team(models.Model):
 
     def get_absolute_url(self):
         return reverse('Pages:team_filter', args=[self.id])
+
+
+
+class Score(models.Model):
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name="Season")
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Player")
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name="Game")
+    goals  = models.IntegerField(verbose_name="Goals")
+    assists = models.IntegerField(verbose_name="assists")
+
+    def __str__(self):
+        return str(self.goals)
+
+    def gameday_sport_hall(self):
+        return self.game.gameday.sport_hall
+
+    def matching(self):
+        return f"{self.game.home_team.club.name} {self.game.home_team.name} VS {self.game.away_team.club.name} {self.game.away_team.name}"
 
 
 class Player(models.Model):

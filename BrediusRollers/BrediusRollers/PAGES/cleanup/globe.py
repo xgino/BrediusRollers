@@ -12,55 +12,164 @@ from trainings.models import Training
 
 now = timezone.now()
 
-# Return Latest added season
-def season():
+# Return Current season
+def get_current_season():
     current_date = date.today()
-    current_season = Season.objects.filter(start_date__lte=current_date, end_date__gte=current_date).first()
-    return current_season
-
-
-# Return Past bredius games 1, 2, 3
-def pastBredius():
-
     try:
-        current_date = datetime.now().date()
-        # Filter games for the "Bredius" team and get the latest 3 games
-        bredius_games = Game.objects.filter(
-            Q(home_team__club__name__icontains="bredius") | Q(away_team__club__name__icontains="bredius"),
-            gameday__date__lt=current_date
-        ).order_by('-gameday__date')[:3]
-
-        return bredius_games
+        current_season = Season.objects.get(start_date__lte=current_date, end_date__gte=current_date)
+        return current_season
     except ObjectDoesNotExist:
+        print("No Current Season Found")
         return None
 
 
-    """
-    get_past_games = (Game_day.objects.filter(date__lt=now).order_by('date'))
-    get_bredius_games = (Q(home_team__in=Match_team.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))) | Q(away_team__in=Match_team.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))))
+# Return Past bredius games Current season
+def get_club_games_in_current_season(club_name):
 
+    current_season = get_current_season()
+    if current_season:
+        try:
+            home_team_games = Game.objects.filter(
+                gameday__season=current_season,
+                home_team__club__name__icontains=club_name,
+            )
+            
+            away_team_games = Game.objects.filter(
+                gameday__season=current_season,
+                away_team__club__name__icontains=club_name,
+            )
+            
+            club_games = home_team_games | away_team_games  # Combine home and away games
+            return club_games
+        except Game.DoesNotExist:
+            return None
+    return None
+
+# Return Games of bredius All seasons
+def get_club_games(club_name):
     try:
-        past_bredius1 = Game.objects.filter(get_bredius_games).filter(season=season).filter(gameday__in=get_past_games)[0]
-    except:
-        past_bredius1 = None
+        home_team_games = Game.objects.filter(
+            home_team__club__name__icontains=club_name
+        )
+        
+        away_team_games = Game.objects.filter(
+            away_team__club__name__icontains=club_name
+        )
+        
+        club_games = home_team_games | away_team_games  # Combine home and away games
+        return club_games
+    except Game.DoesNotExist:
+        return None
 
+# Return past num games
+def get_past_bredius_games(club_name, num):
     try:
-        past_bredius2 = Game.objects.filter(get_bredius_games).filter(season=season).filter(gameday__in=get_past_games)[1]
-    except:
-        past_bredius2 = None
+        bredius_games = get_club_games(club_name)
+        if bredius_games is not None:
+            # Get the most recent past 7 "Bredius" games
+            past_7_bredius_games = bredius_games.filter(
+                gameday__date__lt = date.today()
+            ).order_by('-gameday__date', '-start_time')[:num]
 
+            return past_7_bredius_games
+        else:
+            return None
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+    
+
+# Return future 7 games
+def get_future_bredius_games(club_name):
     try:
-        past_bredius3 = Game.objects.filter(get_bredius_games).filter(season=season).filter(gameday__in=get_past_games)[1:2]
-    except:
-        past_bredius3 = None
+        bredius_games = get_club_games(club_name)
+        if bredius_games is not None:
+            # Get the next 7 "Bredius" games
+            next_7_bredius_games = bredius_games.filter(
+                gameday__date__gte=date.today()
+            ).order_by('gameday__date', 'start_time')[:7]
 
+            return next_7_bredius_games
+        else:
+            return None
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+
+# Get the Future upcomming Game Day
+def get_next_game_day(club_name):
     try:
-        past_bredius = Game.objects.filter(get_bredius_games).filter(gameday__in=get_past_games).filter(season=season).order_by('end_time')[:5]
-    except:
-        past_bredius = None
-    """
+        today = timezone.now().date()
+        next_game_day = Game_day.objects.filter(date__gte=today).order_by('date').first()
+        return next_game_day
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None, None
 
-    #return past_bredius1, past_bredius2, past_bredius3, past_bredius
+# Get the next upcomming bredius Game
+def get_next_bredius_game(club_name):
+    try:
+        bredius_games = get_club_games(club_name)
+        if bredius_games is not None:
+            # Get the next "Bredius" game from today onwards
+            today = date.today()
+            next_bredius_game = bredius_games.filter(
+                gameday__date__gte=today
+            ).order_by('gameday__date', 'start_time').first()
+
+            return next_bredius_game
+        else:
+            return None
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+    
+# Get the position of the players
+def get_player_position_season(club_name, position):
+    current_season = get_current_season()
+
+    if current_season:
+        try:
+            keeper_players = Player.objects.filter(
+                team__club__name__icontains=club_name,
+                team__club__season=current_season,
+                positions__icontains=position
+            ).order_by('profile__firstname', 'profile__lastname')
+
+            return keeper_players
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None
+    return None
+
+
+def get_goals_by_position_in_season(club_name):
+    current_season = get_current_season()
+
+    if current_season:
+        try:
+            player_goal_counts = {}
+            scores = Score.objects.filter(
+                player__team__club__name__icontains=club_name,
+                player__team__club__season=current_season
+            )
+            
+            for score in scores:
+                player_id = score.player.id
+                goals = score.goals
+                
+                if player_id in player_goal_counts:
+                    player_goal_counts[player_id] += goals
+                else:
+                    player_goal_counts[player_id] = goals
+            
+            return player_goal_counts
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None
+    return None
+
+
 
 
 # Returns all teammembers of Bredius

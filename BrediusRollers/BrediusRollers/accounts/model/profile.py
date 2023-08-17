@@ -46,8 +46,8 @@ class Profile(models.Model):
     adress          = models.ForeignKey(Adress, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Adres")
 
     def __str__(self):
-        return self.user.email
-
+        return f"{self.firstname} {self.lastname}"
+    
     def get_full_name(self):
         return self.firstname + " " + self.lastname
 

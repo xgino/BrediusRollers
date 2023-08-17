@@ -38,6 +38,9 @@ class Game(models.Model):
     def __str__(self):
         return f'{self.home_team} VS {self.away_team}'
 
+    def battle(self):
+        return f'{self.home_team.club.name} {self.home_team.name} VS {self.away_team.club.name} {self.away_team.name}'
+
     def gameday_sport_hall(self):
         return self.gameday.sport_hall
     
@@ -70,19 +73,3 @@ class Game(models.Model):
         time = self.long_formated_starttime()
         return f'{date} {time}'
 
-
-class Score(models.Model):
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name="Season")
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Player")
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name="Game")
-    goals  = models.IntegerField(verbose_name="Goals")
-    assists = models.IntegerField(verbose_name="assists")
-
-    def __str__(self):
-        return str(self.goals)
-
-    def gameday_sport_hall(self):
-        return self.game.gameday.sport_hall
-
-    def matching(self):
-        return f"{self.game.home_team.club.name} {self.game.home_team.name} VS {self.game.away_team.club.name} {self.game.away_team.name}"

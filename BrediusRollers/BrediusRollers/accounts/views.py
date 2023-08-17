@@ -18,8 +18,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from .model.profile import Profile
 from .model.adress import Adress
-from teams.models import Player
-from games.models import Score, Game
+from teams.models import Player, Score
+from games.models import Game
 
 
 class LoginView(FormView):

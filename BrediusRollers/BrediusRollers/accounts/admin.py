@@ -13,11 +13,19 @@ from .resources import AdressResource
 
 User = get_user_model()
 
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('firstname', 'lastname', 'get_user_email')
+    search_fields = ['firstname', 'lastname', 'user__email'] 
+    def get_user_email(self, obj):
+        return obj.user.email if obj.user else None
+    get_user_email.short_description = 'User Email'
+
+admin.site.register(Profile, ProfileAdmin)
 
 class AdressAdmin(ImportExportModelAdmin):
     resource_classes = [AdressResource]
-    list_display = ('id', 'get_street', 'get_zip', 'place')
-    list_display_links = ('id', 'get_street', 'get_zip', 'place')
+    list_display = ('get_street', 'get_zip', 'place')
+    list_display_links = ('get_street', 'get_zip', 'place')
     list_filter = ('place',)
     search_fields = ('street', 'zipcode', 'place',)
     list_per_page = 25
@@ -68,3 +76,10 @@ class UserAdmin(BaseUserAdmin):
 admin.site.register(Adress, AdressAdmin)
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)
+
+
+
+
+admin.site.site_header = "Bredius Rollers Admin"
+admin.site.site_title = "Admin"
+admin.site.index_title = "Bredius Rollers"

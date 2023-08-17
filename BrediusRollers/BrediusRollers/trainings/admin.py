@@ -7,8 +7,8 @@ from .resources import TrainingResource, TrainingsLocationResource, TrainingsTim
 
 class TrainingAdmin(ImportExportModelAdmin):
     resource_classes = [TrainingResource]
-    list_display = ('id', 'training_time', 'training_location', 'date', 'season')
-    list_display_links = ('id',)
+    list_display = ('training_location', 'training_time', 'date', 'season')
+    list_display_links = ('training_location',)
     list_filter = [
         ('season', admin.RelatedFieldListFilter),
     ]
@@ -30,5 +30,5 @@ class Trainings_timeAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(Training, TrainingAdmin)
-admin.site.register(Trainings_location, Trainings_locationAdmin)
-admin.site.register(Trainings_time, Trainings_timeAdmin)
+# admin.site.register(Trainings_location, Trainings_locationAdmin)
+# admin.site.register(Trainings_time, Trainings_timeAdmin)

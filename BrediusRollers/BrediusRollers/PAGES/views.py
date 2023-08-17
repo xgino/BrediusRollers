@@ -18,9 +18,35 @@ from .cleanup import globe
 
 def home(request):
     template = 'home.html'
-    season = globe.season()
+    current_season = globe.get_current_season()
+    if current_season:
+        club_name = "Bredius"
+        club_games = globe.get_club_games_in_current_season(club_name)
+        past_bredius_games = globe.get_past_bredius_games(club_name, 4)
+        future_bredius_games = globe.get_future_bredius_games(club_name)
+        next_bredius_gameday = globe.get_next_game_day(club_name)
+        next_bredius_game = globe.get_next_bredius_game(club_name)
+        return render(request, template, {
+            'current_season': current_season,
+            'club_games': club_games,
+            'header_past2games': globe.get_past_bredius_games(club_name, 2),
 
-    psge = globe.pastBredius()
+            'past_bredius_games': past_bredius_games,
+            'future_bredius_games': future_bredius_games,
+            'next_bredius_gameday': next_bredius_gameday,
+            'next_bredius_game': next_bredius_game,
+            
+            'bredius_keepers': globe.get_player_position_season(club_name, 'goalkeeper'),
+            'bredius_defenders': globe.get_player_position_season(club_name, 'defender'),
+            'player_goals': globe.get_goals_by_position_in_season(club_name),
+            })
+    else:
+        return render(request, template, {
+            'error_message': "No current season found."
+            })
+
+
+
     # Get SLIDER Past -3 Bredius Games
     #past_bredius1, past_bredius2, past_bredius3, past_bredius = globe.pastBredius()
 
@@ -38,6 +64,7 @@ def home(request):
     #sponsor = Sponsors.objects.order_by("?")[:4]
 
     context = {
+        'current_season': current_season,
         'psge': psge,
         # 'past_bredius': past_bredius, 'past_bredius1': past_bredius1, 'past_bredius2': past_bredius2, 'past_bredius3': past_bredius3,
         # 'bredius_players': bredius_players,
