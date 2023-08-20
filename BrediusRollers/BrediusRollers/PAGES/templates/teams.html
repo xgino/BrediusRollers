@@ -5,124 +5,32 @@
 
 {% block content %}
 
-
+{{ bred }}
 
 
 <!--CLUB STAFF TOP BEGIN-->
 <div class="club-staff-top">
     <div class="container">
         <div class="row">
-
-
-            <!-- Bredius Rollers H1 -->
-            {% if PlayerH1 %}
+            {% for team, players in team_players.items %}
                 <div class="col-md-12">
-                    <h4>Bredius Rollers H1</h4>
+                    <h4>{{ team.get_name }}</h4>
                 </div>
-                {% for player in PlayerH1 %}
-                    <div class="staff-box">            
-                        <div class="col-md-3  col-sm-6 col-xs-12">
-                            <a href="{% url 'Pages:player' player.id %}" class="item">
-                                <span class="info">
-                                    <span class="name">{{ player.profile.user.get_full_name }}</span>
-                                    <span class="position">{{ player.position }}</span>
-                                    <span class="number">{{ player.number_plate }}</span>
-                                </span>
-                                <img src="{{ player.profile.profiel.url }}" alt="player">
-                            </a>
-                        </div>                                         
-                    </div>
-                {% endfor %}     
-            {% endif %}
-
-
-            <!-- Bredius Rollers H2 -->
-            {% if PlayerH2 %}
-                <div class="col-md-12">
-                    <h4>Bredius Rollers H2</h4>
+                {% for player in players %}
+                <div class="staff-box">            
+                    <div class="col-md-3  col-sm-6 col-xs-12">
+                        <a href="{% url 'Pages:player' player.id %}" class="item">
+                            <span class="info">
+                                <span class="name">{{ player.profile.get_full_name }}</span>
+                                <span class="position">{{ player.positions }}</span>
+                                <span class="number">{{ player.number_plate }}</span>
+                            </span>
+                            <img src="{{ player.profile.profiel.url }}" alt="player">
+                        </a>
+                    </div>                                         
                 </div>
-                {% for player in PlayerH2 %}
-                    <div class="staff-box">            
-                        <div class="col-md-3  col-sm-6 col-xs-12">
-                            <a href="{% url 'Pages:player' player.id %}" class="item">
-                                <span class="info">
-                                    <span class="name">{{ player.profile.user.get_full_name }}</span>
-                                    <span class="position">{{ player.position }}</span>
-                                    <span class="number">{{ player.number_plate }}</span>
-                                </span>
-                                <img src="{{ player.profile.profiel.url }}" alt="player">
-                            </a>
-                        </div>                                         
-                    </div>
-                {% endfor %}     
-            {% endif %}
-
-                    
-            <!-- Bredius Rollers H3 -->
-            {% if PlayerH3 %}
-                <div class="col-md-12">
-                    <h4>Bredius Rollers H3</h4>
-                </div>
-                {% for player in PlayerH3 %}
-                    <div class="staff-box">            
-                        <div class="col-md-3  col-sm-6 col-xs-12">
-                            <a href="{% url 'Pages:player' player.id %}" class="item">
-                                <span class="info">
-                                    <span class="name">{{ player.profile.user.get_full_name }}</span>
-                                    <span class="position">{{ player.position }}</span>
-                                    <span class="number">{{ player.number_plate }}</span>
-                                </span>
-                                <img src="{{ player.profile.profiel.url }}" alt="player">
-                            </a>
-                        </div>                                         
-                    </div>
-                {% endfor %}     
-            {% endif %}
-
-
-            <!-- Bredius Rollers H4 -->
-            {% if PlayerH4 %}
-                <div class="col-md-12">
-                    <h4>Bredius Rollers H4</h4>
-                </div>
-                {% for player in PlayerH4 %}
-                    <div class="staff-box">            
-                        <div class="col-md-3  col-sm-6 col-xs-12">
-                            <a href="{% url 'Pages:player' player.id %}" class="item">
-                                <span class="info">
-                                    <span class="name">{{ player.profile.user.get_full_name }}</span>
-                                    <span class="position">{{ player.position }}</span>
-                                    <span class="number">{{ player.number_plate }}</span>
-                                </span>
-                                <img src="{{ player.profile.profiel.url }}" alt="player">
-                            </a>
-                        </div>                                         
-                    </div>
-                {% endfor %}     
-            {% endif %}
-
-
-            <!-- Bredius Rollers H5 -->
-            {% if PlayerH5 %}
-                <div class="col-md-12">
-                    <h4>Bredius Rollers H5</h4>
-                </div>
-                {% for player in PlayerH5 %}
-                    <div class="staff-box">            
-                        <div class="col-md-3  col-sm-6 col-xs-12">
-                            <a href="{% url 'Pages:player' player.id %}" class="item">
-                                <span class="info">
-                                    <span class="name">{{ player.profile.user.get_full_name }}</span>
-                                    <span class="position">{{ player.position }}</span>
-                                    <span class="number">{{ player.number_plate }}</span>
-                                </span>
-                                <img src="{{ player.profile.profiel.url }}" alt="player">
-                            </a>
-                        </div>                                         
-                    </div>
-                {% endfor %}     
-            {% endif %}
-                    
+                {% endfor %}
+            {% endfor %}      
         
             <!-- <div class="col-md-12">
                 <p>Pabst irony tattooed, synth sriracha selvage pok pok. Wayfarers kinfolk sartorial, helvetica you probably haven't heard of them tumeric venmo deep v mixtape semiotics brunch. </p>

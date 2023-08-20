@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.db.models import Q
+from django.db.models import Q, Sum
 from club.models import Club
 from .models import Game, Score, Game_day
 
@@ -61,7 +61,6 @@ class Game_dayAdmin(ImportExportModelAdmin):
     ]
     list_per_page = 25
     
-
 
 
 class ScoresAdmin(ImportExportModelAdmin):

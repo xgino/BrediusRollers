@@ -5,7 +5,6 @@
 
 {% block content %}
 
-
 <!--MATCH PAGE TOP BEGIN-->
 <div class="match-page-top">
     <div class="container">
@@ -15,8 +14,8 @@
                     <div class="team">
                         <!-- <div class="avatar"><img src="images/soccer/team-logo1.png" alt="match-list-team-img"></div> -->
                         <div class="text">
-                            {{ game.home_team.team.club.name }} {{ game.home_team.team.name }} 
-                            <span>{{ game.home_team.team.club.city }} | {{ game.home_team.team.season.start_date|date:"M" }} - {{ game.home_team.team.season.end_date|date:"M Y" }} </span>
+                            {{ game.home_team.get_name }}
+                            <span>{{ game.home_team.club.city }}</span>
                         </div> 
                     </div>
                     <div class="counter">
@@ -27,8 +26,8 @@
                     </div>
                     <div class="team right">
                         <div class="text">
-                            {{ game.away_team.team.club.name }} {{ game.away_team.team.name }} 
-                            <span>{{ game.away_team.team.club.city }} | {{ game.away_team.team.season.start_date|date:"M" }} - {{ game.away_team.team.season.end_date|date:"M Y" }}
+                            {{ game.away_team.get_name }} 
+                            <span>{{ game.away_team.club.city }}</span>
                         </div>
                         <!-- <div class="avatar"><img src="images/soccer/team-logo2.png" alt="match-list-team-img"></div> -->
                     </div>
@@ -55,8 +54,8 @@
                         <h6>Wedstrijd details</h6>
                         <p>
                             {{ game.gameday.date|date:"d F Y"|lower }} <br />
-                            Code: {{ game.leauge_code }} | Veld {{ game.field }} | {{ game.league }} <br />
-                            Tijd: {{ game.start_time|time:"H:i" }} uur tot {{ game.end_time|time:"H:i" }} uur 
+                            Code: {{ game.leauge_code }} | Veld {{ game.field }} | {{ game.league.name }}<br />
+                            Tijd: {{ game.start_time|time:"H:i" }} tot {{ game.end_time|time:"H:i" }} uur 
                         </p>
                     </div>
 
@@ -83,9 +82,9 @@
                             </div> -->
                             <div class="arena-info">
                                 <div class="name">Sporthal {{ game.gameday.sport_hall }}</div>
-                                <div class="date">{{ game.gameday.adress.street }} {{ game.gameday.adress.house_number }}, {{ game.gameday.adress.zipcode }} {{ game.gameday.adress.zipcode_number }} {{ game.gameday.adress.place }}</div>
+                                <div class="date">{{ game.gameday.adress.get_street }}, {{ game.gameday.adress.get_zip }}</div>
 
-                                <iframe width="100%" height="250" src="https://maps.google.com/maps?q={{ game.gameday.adress.street }}%20{{ game.gameday.adress.house_number }},%20{{ game.gameday.adress.zipcode }}%20{{ game.gameday.adress.zipcode_number }}%20{{ game.gameday.adress.place }},%20Nederland&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+                                <iframe width="100%" height="250" src="https://maps.google.com/maps?q={{ game.gameday.adress.get_street }},%20{{ game.gameday.adress.get_zip }}&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
                             </div>
                         </div>
                     </div>
@@ -101,18 +100,18 @@
                                 <div class="name">Team spelers</div>
                             </div>
                             <div class="team-wrap">	
-
-                                {% for x in players %}
+                                {% for player in players %}
                                 <div class="member">
-                                    <a href="{% url 'Pages:player' x.id %}" class="avatar">
-                                        <img src="{{ x.profile.profiel.url }}" alt="player-avatar">
+                                    <a href="{% url 'Pages:player' player.id %}" class="avatar">
+                                        <img src="{{ player.profile.profiel.url }}" alt="player-avatar">
                                     </a>
 
                                     <div class="info">
                                         <div class="wrap">
-                                            <a href="{% url 'Pages:player' x.id %}" class="name">
-                                                {{ x.profile.user.first_name }} {{ x.profile.user.last_name }} {% if x.position.short_name %} ({{ x.position.short_name }}) {% endif%}</br>
-                                                {% if x.is_captain %} Captain {% endif %}
+                                            <a href="{% url 'Pages:player' player.id %}" class="name">
+                                                {{ player.profile.get_full_name }} {% if player.is_captain %} | Captain {% endif %} <br />
+                                                {% if player.positions %}<small>{{ player.positions }}</small>{% endif%} <br />
+                                                
                                             </a>
                                             <!-- <img src="images/common/timeline-goal.jpg" alt="timeline-goal"> -->
                                         </div>

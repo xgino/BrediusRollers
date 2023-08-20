@@ -41,7 +41,7 @@ class Profile(models.Model):
     profiel         = models.ImageField(default='profile/default_image.jpg', upload_to=profile_image, verbose_name="Profiel")
     avatar          = models.ImageField(default='profile/default_avatar.jpg', upload_to=profile_avatar, verbose_name="Avatar")
     bio             = models.TextField(max_length=200, blank=True, null=True, verbose_name="Bio")
-    hobby           = models.CharField(default='Rolstoel Hockey Bredius', null=True, blank=True, max_length=200, verbose_name='Hobby(s)')
+    hobby           = models.CharField(default='Rolstoel Hockey', null=True, blank=True, max_length=200, verbose_name='Hobby(s)')
 
     adress          = models.ForeignKey(Adress, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Adres")
 

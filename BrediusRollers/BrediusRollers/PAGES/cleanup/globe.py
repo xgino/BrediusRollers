@@ -1,14 +1,15 @@
-from django.db.models import Sum, Q, Count  # Django Filter OR
+from django.db.models import Sum, Q, F, Count  # Django Filter OR
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from datetime import date, datetime
+import random
 
 # Import from models
 from games.models import Game_day, Game, Score
-from club.models import Club, Role, Sponsors, Season, Photo
+from club.models import Club, Role, Sponsors, Season, Coach
 from teams.models import Team, Player
 from trainings.models import Training
-
 
 now = timezone.now()
 
@@ -142,151 +143,187 @@ def get_player_position_season(club_name, position):
             return None
     return None
 
-
-def get_goals_by_position_in_season(club_name):
-    current_season = get_current_season()
-
+# Get player goal count of the season
+def get_player_goals_season(club_name, num):
+    current_season = get_current_season()  # Make sure you have a method to get the current season
     if current_season:
         try:
-            player_goal_counts = {}
-            scores = Score.objects.filter(
-                player__team__club__name__icontains=club_name,
-                player__team__club__season=current_season
-            )
-            
-            for score in scores:
-                player_id = score.player.id
-                goals = score.goals
-                
-                if player_id in player_goal_counts:
-                    player_goal_counts[player_id] += goals
-                else:
-                    player_goal_counts[player_id] = goals
-            
-            return player_goal_counts
+            players = Player.objects.filter(
+                team__club__season=current_season,
+                team__club__name__icontains=club_name
+            ).annotate(
+                total_goals=Sum('score__goals', filter=Q(score__season=current_season)),
+            ).order_by(F('total_goals').desc(),)[:num]
+            return players
         except Exception as e:
             print(f"An error occurred: {e}")
             return None
     return None
 
+# Get player assist count of the season
+def get_player_assists_season(club_name, num):
+    current_season = get_current_season()  # Make sure you have a method to get the current season
+    if current_season:
+        try:
+            players = Player.objects.filter(
+                team__club__season=current_season,
+                team__club__name__icontains=club_name
+            ).annotate(
+                total_assists=Sum('score__assists', filter=Q(score__season=current_season))
+            ).order_by(F('total_assists').desc(),)[:num]
+            
+            return players
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None
+    return None
 
+# Get players of a game
+def get_players_in_game(club_name, game_id):
+    current_season = get_current_season()  # Replace with your logic to get the current season
+    if current_season:
+        
+        game = Game.objects.get(pk=game_id)
+        home_team = game.home_team
+        away_team = game.away_team
+        clubs_with_name = Club.objects.filter(name__icontains=club_name, season=current_season)
+        matching_club = clubs_with_name.first()
 
+        if home_team.club.name == matching_club.name:
+            players = Player.objects.filter(
+                team=home_team
+            )
+        elif away_team.club.name == matching_club.name:
+            players = Player.objects.filter(
+                team=away_team
+            )
+        else:
+            players = Player.objects.none()
 
-# Returns all teammembers of Bredius
-def brediusTeam(season):
-    try: 
-        BrediusTeam3 = Role.objects.filter(season=season).order_by('-profile')[:3]
-    except:
-        BrediusTeam3 = None
+        return players
+     
+    return None
+
+# Return All Team of Bredius and All Players below it
+def get_teams_players(club_name):
+    current_season = get_current_season()  # Replace with your logic to get the current season
+    players_by_team = {}
+
+    if current_season:
+        try:
+            teams = Team.objects.filter(
+                club__name__icontains=club_name,
+                club__season=current_season
+            )
+
+            for team in teams:
+                players = Player.objects.filter(
+                    team=team,
+                    team__club__season=current_season
+                ).order_by('profile__firstname', 'profile__lastname')
+                
+                players_by_team[team] = players
+
+            return players_by_team
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return None
+    return None
+
+# Get 4 sponsors Random display
+def get_random_sponsors(count=4):
+    sponsors = Sponsors.objects.all()
+    random_sponsors = random.sample(list(sponsors), min(count, len(sponsors)))
+    return random_sponsors
+
+# Get Club Roles
+def get_club_roles():
+    current_season = get_current_season()
+    if current_season:
+        roles = Role.objects.filter(
+            season=current_season
+        ).order_by('profile__firstname', 'profile__lastname')
+        
+        roles_list = list(roles)  # Convert QuerySet to a list
+        
+        if roles_list:
+            return roles_list
+        
+    return []
+
+# Get Club Coaches
+def get_club_coaches():
+    current_season = get_current_season()
+    if current_season:
+        coaches = Coach.objects.filter(
+            season=current_season
+        ).order_by('profile__firstname', 'profile__lastname')
+        
+        coaches_list = list(coaches)  # Convert QuerySet to a list
+        
+        if coaches_list:
+            return coaches_list
+        
+    return []
+
+# Get all teams
+def get_team_names_for_club(club_name):
+    current_season = get_current_season()  # Replace this with the actual way you get the current season
+    if current_season:
+        team_names_queryset = Team.objects.filter(
+            club__name__icontains=club_name,  # Use icontains for case-insensitive search
+            club__season=current_season
+        )
+        team_names = [team.name for team in team_names_queryset]
+        formatted_team_names = ", ".join(team_names)
+        return formatted_team_names
+        
+    return ""
+
+# Get counter of members
+def count_members_in_club(club_name):
+    current_season = get_current_season()  # Replace this with the actual way you get the current season
     
-    try: 
-        BrediusTeam6 = Role.objects.filter(season=season).order_by('-profile')[3:6]
-    except:
-        BrediusTeam6 = None
+    if current_season:
+        member_count = Player.objects.filter(
+            team__club__name__icontains=club_name,
+            team__club__season=current_season
+        ).count()
+        return member_count
+        
+    return 0
+
+# Get counter of trainings
+def count_trainings():
+    current_season = get_current_season()  # Replace this with the actual way you get the current season
     
-    try: 
-        BrediusTeam9 = Role.objects.filter(season=season).order_by('-profile')[6:9]
-    except:
-        BrediusTeam9 = None
-    
-    try: 
-        BrediusTeam12 = Role.objects.filter(season=season).order_by('-profile')[9:12]
-    except:
-        BrediusTeam12 = None
-    
-    try: 
-        BrediusTeam15 = Role.objects.filter(season=season).order_by('-profile')[12:15]
-    except:
-        BrediusTeam15 = None
+    if current_season:
+        start_date = current_season.start_date
+        end_date = date.today()
+        
+        num_trainings = Training.objects.filter(
+            season=current_season,
+            date__range=(start_date, end_date)
+        ).count()
+        
+        return num_trainings
+        
+    return 0
 
-    return BrediusTeam3, BrediusTeam6, BrediusTeam9, BrediusTeam12, BrediusTeam15
-
-
-
-
-# Return Top 7 goals, playername
-def top_goals(season):
-    try:
-        top_goals = Score.objects.filter(player__in=Player.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))).filter(season=season).order_by('-goals')[:7]
-    except:
-        top_goals = None
-    return top_goals
-
-
-# Return top 7 assists, playername
-def top_assists(season):
-    try:
-        top_assists = Score.objects.filter(player__in=Player.objects.filter(team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')))).filter(season=season).order_by('-assists')[:7]
-    except:
-        top_assists = None
-    return top_assists
-
-
-# Return all players == keepers
-def get_keepers(season):
-    try:
-        club = Club.objects.get(name__startswith='Bredius')
-        teams = Team.objects.filter(club=club)
-        keepers = Player.objects.filter(team__in=teams, positions__contains=['goalkeeper'], season=season).order_by('-team')
-    except Club.DoesNotExist:
-        keepers = None
-    return keepers
-
-
-# Return all players == defenders
-def get_defenders(season):
-    try: 
-        team = Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius'))
-        defenders = Player.objects.filter( team__in=team ).filter(positions='defender').filter(season=season).order_by('-team')
-    except:
-        defenders = None
-    return defenders
-
-
-# Return first upcomming match
-def upcomming_matchday(season):
-    try:
-        upcomming_matchday = Game_day.objects.filter(season=season).filter(date__gte=now).order_by('date').latest('-date')
-    except:
-        upcomming_matchday = None
-    return upcomming_matchday
-
-
-# Get players in Bredius
-def get_bredius_players(season):
-    try:
-        bredius_players =  Player.objects.filter( team__in=Team.objects.filter(club__in=Club.objects.filter(name__startswith='Bredius')) ).filter(season=season)
-    except:
-        bredius_players = None
-    return bredius_players
-
-
-# Get list of games upcomming
-def get_future_games():
-    try:
-        get_future_games = (Game_day.objects.filter(date__gte=now).order_by('date'))
-    except:
-        get_future_games = None
-    return get_future_games
-
-
-# Get list of games played
-def get_past_games():
-    try:
-        get_past_games = (Game_day.objects.filter(date__lt=now).order_by('date'))
-    except:
-        get_past_games = None
-    return get_past_games
-
-
-# count players in Bredius
-def count_players(season):
-    player_count_H1 = Player.objects.filter( season=season).filter(team__in=Team.objects.filter(name='H1').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
-    player_count_H2 = Player.objects.filter( season=season).filter(team__in=Team.objects.filter(name='H2').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
-    player_count_H3 = Player.objects.filter( season=season).filter(team__in=Team.objects.filter(name='H3').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
-    player_count_H4 = Player.objects.filter( season=season).filter(team__in=Team.objects.filter(name='H4').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
-    player_count_H5 = Player.objects.filter( season=season).filter(team__in=Team.objects.filter(name='H5').filter(club__in=Club.objects.filter(name__startswith='Bredius')) )
-    
-    club_player_count = len(player_count_H1) + len(player_count_H2) + len(player_count_H3) + len(player_count_H4) + len(player_count_H5)
-    return club_player_count
-
+# Find upcomming next trainig
+def get_next_training():
+    current_season = get_current_season()  # Replace this with the actual way you get the current season
+    if current_season:
+        today = date.today()
+        now = datetime.now()
+        
+        next_training = Training.objects.filter(
+            season=current_season,
+            date__gte=today
+        ).exclude(
+            date=today,
+            training_time__end_time__lt=now.time()
+        ).order_by('date', 'training_time__start_time').first()
+        
+        return next_training
+    return None

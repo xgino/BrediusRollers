@@ -16,10 +16,11 @@ from .forms import UpdateUserForm, UpdateProfileForm
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
 
+from PAGES.cleanup import globe
 from .model.profile import Profile
 from .model.adress import Adress
-from teams.models import Player, Score
-from games.models import Game
+from teams.models import Player
+from games.models import Game, Score
 
 
 class LoginView(FormView):
@@ -49,6 +50,19 @@ class RegisterView(CreateView):
 
 @login_required
 def dashboard(request):
+
+    template = 'dashboard.html'
+    current_season = globe.get_current_season()
+    if current_season:
+        club_name = "Bredius"
+        return render(request, template, {
+            })
+    else:
+        return render(request, template, {
+            'error_message': "No current season found."
+            })
+
+
     player, created = Profile.objects.get_or_create(user=request.user)  #Create empty profile for new users
 
     user = request.user

@@ -18,7 +18,7 @@
             
             <div class="col-md-7">
                 <div class="trophey-media">
-                    <img src="{{ about.photo.url }}" alt="club-image">
+                    <img src="{{ club.picture.url }}" alt="club-image">
                 </div>
             </div>
             <div class="col-md-5">
@@ -27,16 +27,16 @@
                     <li>Played 96 matches</li>
                     <li>Have not lost a single match at home</li>
                     <li>New club record for most scores</li> -->
-                    <li>Leeftijd en beperking vormen geen belemmering: bij ons is <mark style="font-weight: 800; color: #dd513c">iedereen welkom</mark>!</li>
-                    <li>Ontdek de <mark style="font-weight: 800; color: #dd513c">spanning en sportiviteit</mark> van Rolstoelhockey: een uitdagende teamsport met techniek en tactiek.</li>
-                    <li>Geniet van een <mark style="font-weight: 800; color: #dd513c">vertrouwelijke sfeer</mark> waarin je op je eigen niveau kunt spelen, met ondersteuning om naar de top te komen.</li>
-                    <li><mark style="font-weight: 800; color: #dd513c">Prestaties en teamspel</mark> gaan hand in hand bij onze club: ervaar het zelf en ontdek hoe ver je kunt komen!</li>
-                    <li>Bij ons draait alles om <mark style="font-weight: 800; color: #dd513c">passie en plezier</mark>: ontdek hoe je met jouw talenten het beste uit jezelf kunt halen!</li>
+                    <li>Leeftijd en beperking vormen geen belemmering: bij ons is <strong>iedereen welkom</strong>!</li>
+                    <li>Ontdek de <strong>spanning en sportiviteit</strong> van Rolstoelhockey: een uitdagende teamsport met techniek en tactiek.</li>
+                    <li>Geniet van een <strong>vertrouwelijke sfeer</strong> waarin je op je eigen niveau kunt spelen, met ondersteuning om naar de top te komen.</li>
+                    <li><strong>Prestaties en teamspel</strong> gaan hand in hand bij onze club: ervaar het zelf en ontdek hoe ver je kunt komen!</li>
+                    <li>Bij ons draait alles om <strong>passie en plezier</strong>: ontdek hoe je met jouw talenten het beste uit jezelf kunt halen!</li>
                 </ul>
             </div>
             <div class="col-md-12">
                 <p>
-                    {{ about.description }}
+                    {{ club.description }}
                 </p>
             </div>
 
@@ -46,13 +46,30 @@
     <!--TIMELINE BEGIN-->
     <div class="timeline-bar">
         <div class="bar">
-            <div class="date date-1" >2015</div>
-            <div class="date date-2" >2017</div>
-            <div class="date date-3" >2019</div>
-            <div class="date date-4" >2020</div>
-            <div class="date date-5" >2021</div>
-            <div class="date date-6 active" ><script>document.write(new Date().getFullYear())</script> </div>
+            <div class="date date-1" ></div>
+            <div class="date date-2" ></div>
+            <div class="date date-3" ></div>
+            <div class="date date-4" ></div>
+            <div class="date date-5" ></div>
+            <div class="date date-6 active" ></div>
         </div>
+                
+        <script>
+            const firstYear = 2015;
+            const currentYear = new Date().getFullYear();
+            const numYears = currentYear - firstYear + 1;
+            const step = Math.floor(numYears / 5);
+        
+            const yearDivs = document.querySelectorAll('.date');
+        
+            yearDivs[0].textContent = firstYear;
+            yearDivs[yearDivs.length - 1].textContent = currentYear;
+        
+            for (let i = 1; i < yearDivs.length - 1; i++) {
+                const year = firstYear + i * step;
+                yearDivs[i].textContent = year;
+            }
+        </script>
     </div>
     <!--TIMELINE END-->
     
@@ -86,10 +103,10 @@
                             <div class="col-md-3">
                                 <div class="org-club-info">                                    
                                     <div class="item"><span>Seizoen:</span> {{ club.season.start_date|date:"M Y" }} - {{ club.season.end_date|date:"M Y" }}</div>
-                                    <div class="item"><span>Onze teams:</span> {% for x in bredius_teams %}{{ x.name }} {% endfor %}</div>  
+                                    <div class="item"><span>Onze teams:</span> {{ teamnames }}</div>  
                                     <div class="item"><span>Plaats:</span> {{ club.city }}</div>
-                                    <div class="item"><span>Trainingen gehad:</span> {{ train_count }}</div>
-                                    <div class="item"><span>Aantal leden:</span> {{ club_player_count }}</div>
+                                    <div class="item"><span>Trainingen gehad:</span> {{ training_count }}</div>
+                                    <div class="item"><span>Aantal leden:</span> {{ member_count }}</div>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -101,7 +118,7 @@
                                             <div class="name" id="training-countdown">{{ next_training.date|date:"l" }} {{ next_training.training_time.start_time|date:"H:i" }} | {{ next_training.date|date:"d M Y" }}</div>
                                             <div class="date">{{ next_training.training_location.adress.street }} {{ next_training.training_location.adress.house_number }} | {{ next_training.training_location.adress.zipcode }} {{ next_training.training_location.adress.zipcode_number }} {{ next_training.training_location.adress.place }}</div>
                                             <div class="date">Start tijd {{ next_training.training_time.start_time|date:"H:i" }} | Eind tijd {{ next_training.training_time.end_time|date:"H:i" }}</div>
-                                            <div class="date">Opbouw 30min | Afbouw 30min</div>
+                                            <div class="date">Opbouw ca. 30min | Afbouw ca. 30min</div>
                                         </div>
                                     </div>
                                    {% endif %}
@@ -127,18 +144,19 @@
 <!--CLUB WRAP END-->
 
 
-{% if photo %}
+
+{% if photos %}
 <!--MACTH LIVE GALLERY BEGIN-->
 <section class="match-live-gallery">
     <div class="owl-carousel owl-theme gallery-slider">
-        {% for x in photo %}
+        {% for photo in photos %}
         <div class="item">
-            <a href="news-single.html">
+            <a href="javascript:void(0);">
                 <span class="info">
-                    <span class="then">{{ x.title }}</span>
-                    <span class="what">{{ x.description }}</span>
+                    <span class="then">{{ photo.title }}</span>
+                    <span class="what">{{ photo.description }}</span>
                 </span>
-                <img src="{{ x.photo.url }}" alt="gallery-slide-img">
+                <img src="{{ photo.photo.url }}" alt="{{ photo.title }}">
             </a>
         </div>
         {% endfor %}

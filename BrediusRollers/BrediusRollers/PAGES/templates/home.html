@@ -5,17 +5,6 @@
 
 {% block content %}
 
-
-Current season: {{ current_season }} | {{current_season.start_date}}-{{current_season.end_date}}
-
-<br> <br> 
-
-Goal:
-{{player_goals}}
-<br> <br> 
-
-
-
 <div class="main-slider-section">
     <div class="main-slider">
         <div id="main-slider" class="carousel slide" data-ride="carousel" data-interval="4000">
@@ -31,7 +20,7 @@ Goal:
                                         </div>
                                         <div class="team" id="countdown-box"></div>                                       
                                         <div class="booking">
-                                            <a href="#">Details</a>
+                                            <a href="{% url 'Pages:wedstrijden' %}">Details</a>
                                         </div>
                                     {% else %}
                                         <div class="match-date">
@@ -98,7 +87,7 @@ Goal:
                                         <span>{{ next_bredius_game.gameday.sport_hall }}</span>
                                     </span>
                                 </span>
-                                <span class="game-result">{{ next_bredius_game.gameday.adress.get_street }}, {{ next_bredius_game.gameday.adress.get_zip }} {{ next_bredius_game.adress.place }}</span>
+                                <span class="game-result">{{ next_bredius_game.gameday.adress.get_street }}, {{ next_bredius_game.gameday.adress.get_zip }}</span>
                             </a>
                             {% else %}
                             <a href="#" class="nav-item">
@@ -191,7 +180,7 @@ Goal:
                                 </span>
                         </span>
                         <span class="game-result">
-                            <span>{{ game.gameday.adress.street }} {{ game.gameday.adress.house_number }}, {{ game.gameday.adress.zipcode }} {{ game.gameday.adress.zipcode_number }} {{ game.gameday.adress.place }}</span>
+                            <span>{{ game.gameday.adress.get_street }}, {{ game.gameday.adress.get_zip }}</span>
                             <br /> <span>{{ game.start_time|time:"H:i" }}, {{ game.gameday.date|date:"d F Y"|lower }}</span>
                         </span>
                     </a> <br />
@@ -241,7 +230,7 @@ Goal:
                                         <div class="stat">
                                             <div class="top-info with_number">
                                                 <div class="number">{{ x.number_plate }}</div>
-                                                <a href="player-second-page.html" class="name">{{ x.profile.user.first_name }} {{ x.profile.user.last_name }}</a>
+                                                <a href="{% url 'Pages:player' x.id %}" class="name">{{ x.profile.get_full_name }}</a>
                                             </div>
                                             <div class="position">{{x.positions|join:", " }}</div>
                                             <!-- <div class="progress-wrap">
@@ -275,7 +264,7 @@ Goal:
                                             </div> -->
                                         </div>
                                         <div class="image">
-                                            <a href="player-second-page.html" title="player-image">
+                                            <a href="{% url 'Pages:player' x.id %}" title="player-image">
                                                 <img src="{{ x.profile.profiel.url }}" alt="{{ x.profile.user.first_name }} | Profile">
                                             </a>
                                         </div>	
@@ -291,13 +280,9 @@ Goal:
                                         <div class="stat">
                                             <div class="top-info with_number">
                                                 <div class="number">{{ x.number_plate }}</div>
-                                                <a href="player.html" class="name">{{ x.profile.user.first_name }} {{ x.profile.user.last_name }}</a>
+                                                <a href="{% url 'Pages:player' x.id %}" class="name">{{ x.profile.get_full_name }}</a>
                                             </div>
-                                            <div class="top-info">
-                                                <a href="player-second-page.html" class="name">
-                                                </a>
-                                            </div>
-                                            <div class="position">{{x.positions}}</div>
+                                            <div class="position">{{x.positions|join:", " }}</div>
                                             <!-- <div class="progress-wrap">
                                                 <div class="progress-item">
                                                     <div class="bar-label">
@@ -329,7 +314,7 @@ Goal:
                                             </div> -->
                                         </div>
                                         <div class="image">
-                                            <a href="player-second-page.html" title="player-image">
+                                            <a href="{% url 'Pages:player' x.id %}" title="player-image">
                                                 <img src="{{ x.profile.profiel.url }}" alt="player-image">
                                             </a>
                                         </div>	
@@ -370,12 +355,13 @@ Goal:
                     </div>
                     <div class="tab-content">
                         <div class="best-players-list tab-pane active" id="goals">
-                            {% if top_goals %}
-                            {% for x in top_goals %}
-                            <a href="player-second-page.html" class="item">
-                                <span class="number">{{ x.goals }}</span>
-                                <span>{{ x.player.profile.user.first_name }} {{ x.player.profile.user.last_name }} </span>
-                                <span class="achievement">{{ x.player.number_plate }}</span>
+                            
+                            {% if player_goals %}
+                            {% for player in player_goals %}
+                            <a href="{% url 'Pages:player' player.id %}" class="item">
+                                <span class="number">{{ player.number_plate }}</span>
+                                <span>{{ player.profile.get_full_name }}</span>
+                                <span class="achievement">{{ player.total_goals }}</span>
                             </a>
                             {% endfor %}
                             {% else %}
@@ -385,12 +371,12 @@ Goal:
                             {% endif %}
                         </div>
                         <div class="best-players-list tab-pane" id="assist">
-                            {% if top_assists %}
-                            {% for x in top_assists %}
-                            <a href="player.html" class="item">
-                                <span class="number">{{ x.assists }}</span>
-                                <span>{{ x.player.profile.user.first_name }} {{ x.player.profile.user.last_name }}</span>
-                                <span class="achievement">{{ x.player.number_plate }}</span>
+                            {% if player_assists %}
+                            {% for player in player_assists %}
+                            <a href="{% url 'Pages:player' player.id %}" class="item">
+                                <span class="number">{{ player.number_plate }}</span>
+                                <span>{{ player.profile.get_full_name }}</span>
+                                <span class="achievement">{{ player.total_assists }}</span>
                             </a>
                             {% endfor %}
                             {% else %}

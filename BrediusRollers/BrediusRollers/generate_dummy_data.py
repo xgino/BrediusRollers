@@ -29,7 +29,7 @@ class AccountsDataGenerator:
         self.generate_accounts_data()
 
     def generate_accounts_data(self):
-        total_users = 150  # Total number of users to generate
+        total_users = 250  # Total number of users to generate
         with tqdm(total=total_users, desc="Generating accounts") as pbar: # Create a tqdm progress bar
             for _ in range(total_users):
                 email = fake.email()
@@ -237,7 +237,6 @@ class ClubDataGenerator:
 # Team app
 class TeamsDataGenerator:
     def __init__(self):
-
         self.total_methods = 3  # Total number of methods in the class
         with tqdm(total=self.total_methods, desc="Team Data Generation") as pbar:
             self.generate_leagues()
@@ -253,14 +252,13 @@ class TeamsDataGenerator:
 
     def generate_leagues(self):
         LEAGUE_CHOICES = [
-            ('HK', 'Hoofdklasse'),
-            ('OK', 'Overgangsklasse'),
-            ('1e', 'Eerste Klasse'),
-            ('2e', 'Tweede Klasse'),
-            ('3e', 'Derde Klasse'),
-            ('4e', 'Vierde Klasse'),
+            ('Hoofdklasse', 'Hoofdklasse'),
+            ('Overgangsklasse', 'Overgangsklasse'),
+            ('Eerste Klasse', 'Eerste Klasse'),
+            ('Tweede Klasse', 'Tweede Klasse'),
+            ('Derde Klasse', 'Derde Klasse'),
+            ('Vierde Klasse', 'Vierde Klasse'),
         ]
-        
         existing_league_names = set(League.objects.values_list('name', flat=True))
         for choice in LEAGUE_CHOICES:
             name = choice[0]
@@ -438,8 +436,8 @@ class GameDataGenerator:
                 scores_to_create = []
 
                 for game in games_played:
-                    goals = random.choice([0, 1, 2, 3, 4, 5])
-                    assists = random.choice([0, 1])
+                    goals = random.choice([0, 1, 2, 3])
+                    assists = random.choice([0, 1, 2, 3])
 
                     scores_to_create.append(Score(
                         season=season,

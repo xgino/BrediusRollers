@@ -3,14 +3,13 @@ from django.db import models
 from club.models import Season
 from teams.models import League, Team, Player
 from accounts.model.adress import Adress
-   
-
+from datetime import date
 
 class Game_day(models.Model):
     sport_hall   = models.CharField(max_length=255, verbose_name="Sporthal")
     date = models.DateField(auto_now=False, auto_now_add=False, verbose_name="Datum")
     adress = models.ForeignKey(Adress, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Adres")
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name="Season")
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name="Season Moet gelijk zijn aan season van club")
 
     def __str__(self):
         return f"{self.sport_hall} {self.season.start_date.year}-{self.season.end_date.year}"
@@ -30,10 +29,10 @@ class Game(models.Model):
     start_time = models.TimeField(auto_now=False, auto_now_add=False, verbose_name="Start tijd")
     end_time = models.TimeField(auto_now=False, auto_now_add=False, verbose_name="Eindig tijd")
     
-    home_team = models.ForeignKey(Team, on_delete=models.CASCADE, verbose_name="Home", related_name='Home_Team')
-    home_score = models.IntegerField(verbose_name="Home Goals")
-    away_team = models.ForeignKey(Team, on_delete=models.CASCADE, verbose_name="Away", related_name='Away_Team')
-    away_score = models.IntegerField(verbose_name="Away Goals")
+    home_team = models.ForeignKey(Team, on_delete=models.CASCADE, verbose_name="Home", related_name='Home_Team', limit_choices_to={'club__season__start_date__lte': date.today(), 'club__season__end_date__gte': date.today()})
+    home_score = models.IntegerField(null=True, blank=True, verbose_name="Home Goals")
+    away_team = models.ForeignKey(Team, on_delete=models.CASCADE, verbose_name="Away", related_name='Away_Team', limit_choices_to={'club__season__start_date__lte': date.today(), 'club__season__end_date__gte': date.today()})
+    away_score = models.IntegerField(null=True, blank=True, verbose_name="Away Goals")
 
     def __str__(self):
         return f'{self.home_team} VS {self.away_team}'
@@ -72,4 +71,21 @@ class Game(models.Model):
         date = self.gameday.formated_date()
         time = self.long_formated_starttime()
         return f'{date} {time}'
+
+
+class Score(models.Model):
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name="Season")
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Player")
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name="Game")
+    goals  = models.IntegerField(verbose_name="Goals", default=0)
+    assists = models.IntegerField(verbose_name="assists", default=0)
+
+    def __str__(self):
+        return str(self.goals)
+
+    def gameday_sport_hall(self):
+        return self.game.gameday.sport_hall
+
+    def matching(self):
+        return f"{self.game.home_team.club.name} {self.game.home_team.name} VS {self.game.away_team.club.name} {self.game.away_team.name}"
 

@@ -30,5 +30,5 @@ class Trainings_timeAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(Training, TrainingAdmin)
-# admin.site.register(Trainings_location, Trainings_locationAdmin)
-# admin.site.register(Trainings_time, Trainings_timeAdmin)
+admin.site.register(Trainings_location, Trainings_locationAdmin)
+admin.site.register(Trainings_time, Trainings_timeAdmin)

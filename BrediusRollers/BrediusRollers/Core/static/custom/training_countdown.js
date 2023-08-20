@@ -33,7 +33,7 @@ var x = setInterval(function() {
     // If the count down is finished, write some text
     if (distance < 0) {
       clearInterval(x);
-      document.getElementById("training-countdown-box").innerHTML = "EXPIRED";
+      document.getElementById("training-countdown-box").innerHTML = "BEZIG";
     }
   }, 1000);
 

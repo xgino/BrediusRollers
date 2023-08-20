@@ -14,11 +14,11 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="tab-content">
                     <div class="tab-pane active" id="all">
-                        {% if upcomming_matchday %}
+                        {% if next_bredius_gameday %}
                             <div class="amateurs-main-match">
                                 <div class="title">
-                                    <span id="date">{{ upcomming_matchday.date|date:"d F Y"|lower }}</span> <br />
-                                    <span>Sporthal {{ upcomming_matchday.sport_hall }}</span>
+                                    <span id="date">{{ next_bredius_gameday.date|date:"d F Y"|lower }}</span> <br />
+                                    <span>Sporthal {{ next_bredius_gameday.sport_hall }}</span>
                                 </div>	
                                 <a href="#" class="team">
                                     <!-- <span class="image"><img src="images/soccer/team-logo1.png" alt="main-match"></span>
@@ -38,8 +38,8 @@
                                     <span class="image"><img src="images/soccer/team-logo2.png" alt="main-match"></span> -->
                                 </a>
                                 <div class="title">
-                                    <strong>{{ upcomming_matchday.adress.street }} {{ upcomming_matchday.adress.house_number }}</strong><br />
-                                    <strong>{{ upcomming_matchday.adress.zipcode }} {{ upcomming_matchday.adress.zipcode_number }} {{ upcomming_matchday.adress.place }}</strong>
+                                    <strong>{{ next_bredius_gameday.adress.get_street }}</strong><br />
+                                    <strong>{{ next_bredius_gameday.adress.get_zip }}</strong>
                                 </div>
                             </div>
                         {% else %}
@@ -56,24 +56,24 @@
             <div class="col-md-12 col-sm-12 col-xs-12"><h6>Aankomende wedstrijden</h6></div>
             <div class="col-md-12 col-sm-12 col-xs-12">    
                 <div class="main-lates-matches">
-                    {% if future_bredius %}
-                        {% for game in future_bredius %}
+                    {% if future_bredius_games %}
+                        {% for game in future_bredius_games %}
                             <a href="{% url 'Pages:wedstrijd' game.id %}" class="item">
                                 <span class="championship">{{ game.gameday.sport_hall }} {{ game.league }}</span>
                                 <span class="teams-wrap">
                                         <span class="team">
                                             <!-- <span><img src="images/common/team-logo1.png" alt="team-image"></span> -->
-                                            <span>{{ game.home_team.team.club }} {{ game.home_team.team.name }}</span>
+                                            <span>{{ game.home_team.get_name }}</span>
                                         </span>
                                         <span class="score">
                                             <span>{{ game.gameday.date|date:"d F"|lower }} {{ game.start_time|time:"H:i" }}</span>
                                         </span>
                                         <span class="team1">
-                                            <span>{{ game.away_team.team.club }} {{ game.away_team.team.name }}</span>
+                                            <span>{{ game.away_team.get_name }}</span>
                                             <!-- <span><img src="images/common/team-logo2.png" alt="team-image"></span> -->
                                         </span>
                                 </span>
-                                <span class="game-result">{{ game.gameday.adress.street }} {{ game.gameday.adress.house_number }}, {{ game.gameday.adress.zipcode }} {{ game.gameday.adress.zipcode_number }} {{ game.gameday.adress.place }}</span>
+                                <span class="game-result">{{ game.gameday.adress.get_street }}, {{ game.gameday.adress.get_zip }}</span>
                             </a>
                         {% endfor %}
                     {% else %}
@@ -87,25 +87,25 @@
             <div class="col-md-12 col-sm-12 col-xs-12"><h6>Laatste wedstrijden</h6></div>
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="main-lates-matches">
-                    {% if past_bredius %}
-                        {% for game in past_bredius %}
+                    {% if past_bredius_games %}
+                        {% for game in past_bredius_games %}
                             <a href="{% url 'Pages:wedstrijd' game.id %}" class="item">
                                 <span class="championship">{{ game.gameday.sport_hall }} {{ game.league }}</span>
                                 <span class="teams-wrap">
                                         <span class="team">
                                             <!-- <span><img src="images/common/team-logo1.png" alt="team-image"></span> -->
-                                            <span>{{ game.home_team.team.club }} {{ game.home_team.team.name }}</span>
+                                            <span>{{ game.home_team.get_name }}</span>
                                         </span>
                                         <span class="score">
                                             <span>{{ game.home_score }} : {{ game.away_score }}</span>
                                         </span>
                                         <span class="team1">
-                                            <span>{{ game.away_team.team.club }} {{ game.away_team.team.name }}</span>
+                                            <span>{{ game.away_team.get_name }}</span>
                                             <!-- <span><img src="images/common/team-logo2.png" alt="team-image"></span> -->
                                         </span>
                                 </span>
                                 <span class="game-result">
-                                    <span>{{ game.gameday.adress.street }} {{ game.gameday.adress.house_number }}, {{ game.gameday.adress.zipcode }} {{ game.gameday.adress.zipcode_number }} {{ game.gameday.adress.place }}</span>
+                                    <span>{{ game.gameday.adress.get_street }}, {{ game.gameday.adress.get_zip }}</span>
                                     <br /> <span>{{ game.start_time|time:"H:i" }}, {{ game.gameday.date|date:"d F Y"|lower }}</span>
                                 </span>
                             </a>

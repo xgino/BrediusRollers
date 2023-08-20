@@ -1,3 +1,4 @@
+from django.db import models
 from django.contrib import admin
 from .models import Club, Season, Subscription, Coach, Role, Sponsors, Photo
 
@@ -57,13 +58,17 @@ class SubscriptionAdmin(admin.ModelAdmin):
     list_per_page = 25
 
 class ClubAdmin(admin.ModelAdmin):
-    list_display = ['name', 'season', 'members', 'city']
+    list_display = ['name', 'season', 'player_count', 'city']
     list_filter = [
         ('season', admin.RelatedFieldListFilter),
         ('name'),
     ]
     search_fields = ['name']
     list_per_page = 25
+
+    def player_count(self, obj):
+        return obj.team_set.aggregate(player_count=models.Count('player')).get('player_count', 0)
+    player_count.short_description = 'Number of Players'
 
 class RoleAdmin(admin.ModelAdmin):
     list_display = ('id', 'profile', 'title')

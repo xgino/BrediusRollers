@@ -28,7 +28,7 @@ class Season(models.Model):
     
 
 class Club(models.Model):
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, verbose_name="Season")
     name  = models.CharField(max_length=255, verbose_name="Club")
     members  = models.IntegerField(verbose_name="Members", null=True, blank=True)
     city   = models.CharField(max_length=255, verbose_name="Stad", null=True, blank=True,)
@@ -36,7 +36,7 @@ class Club(models.Model):
     picture = models.ImageField(default='about/default_image.jpg', upload_to=about_image, verbose_name="Picture")
 
     def __str__(self):
-        return f"{self.name} - {self.season}"
+        return f"{self.season} - {self.name}"
 
     class Meta:
         constraints = [

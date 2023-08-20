@@ -96,6 +96,7 @@ USE_TZ = True
 DECIMAL_SEPARATOR = ','
 THOUSAND_SEPARATOR = ' '
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 2000
 
 # Static Files
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

@@ -6,10 +6,6 @@
 
 {% block content %}
 
-
-
-
-
 <section class="player-single-wrap">
     <div class="container">
         <div class="row">
@@ -33,8 +29,7 @@
                         {{ player.profile.gender }}. 
                         {% endif %}
                     
-                        {{ player.profile.user.first_name }} 
-                        {{ player.profile.user.last_name }} 
+                        {{ player.profile.lastname }} 
                     </h4>
 
                 </div>
@@ -48,19 +43,19 @@
                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                     <div class="item">Naam:</div>
                                 </div>
-                                <div class="col-md-8 col-sm-8 col-xs-8">{{ player.profile.user.first_name }} {{ player.profile.user.last_name }}</div>
+                                <div class="col-md-8 col-sm-8 col-xs-8">{{ player.profile.get_full_name }}</div>
                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                     <div class="item">Positie:</div>
                                 </div>
-                                <div class="col-md-8 col-sm-8 col-xs-8">{{ player.position }}</div>
+                                <div class="col-md-8 col-sm-8 col-xs-8">{{ player.positions }}</div>
                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                     <div class="item">Team:</div>
                                 </div>
-                                <div class="col-md-8 col-sm-8 col-xs-8">{{ player.team.club }} {{ player.team.name }}</div>
+                                <div class="col-md-8 col-sm-8 col-xs-8">{{ player.team.get_name }}</div>
                                 <div class="col-md-4 col-sm-4 col-xs-4">
                                     <div class="item">Seizoen:</div>
                                 </div>
-                                <div class="col-md-8 col-sm-8 col-xs-8">{{ player.season.start_date|date:"Y" }} - {{ player.season.end_date|date:"Y" }}</div>
+                                <div class="col-md-8 col-sm-8 col-xs-8">{{ player.team.club.season.start_date|date:"Y" }} - {{ player.team.club.season.end_date|date:"Y" }}</div>
                             </div>
                         </div>
                         
@@ -97,6 +92,7 @@
                     </div>
                 </div>
 
+
                 
                 <div class="col-md-12">
                     <h6>clubgeschiedenis</h6>
@@ -111,18 +107,18 @@
                                 <th>Wedstrijden</th>
                                 <th>Punten</th>
                             </tr>
-                            {% for x in old_player %}
+                            {% for player in old_player_seasons %}
                             <tr>
-                                <td>{{ x.season.start_date|date:"Y" }}/{{ x.season.end_date|date:"Y" }}</td>
+                                <td>{{ player.team.club.season.start_date|date:"Y" }}/{{ player.team.club.season.end_date|date:"Y" }}</td>
                                 <td class="club">
                                     <!-- <img src="images/soccer/team-logo1.png" width="30" height="30" alt="trophy"> -->
-                                    {{ x.team.club }}
+                                    {{ player.team.club.name }}
                                 </td>
-                                <td> {{ x.team.name }}</td>
-                                <td>{{ x.team.league }}</td>
-                                <td>{{ x.position }}</td>
-                                <td>{{ x.team.matches_played }}</td>
-                                <td><span>{{ x.team.points_earned }}</span></td>
+                                <td> {{ player.team.name }}</td>
+                                <td>{{ player.team.league }}</td>
+                                <td>{{ player.position }}</td>
+                                <td>{{ player.team.matches_played }}</td>
+                                <td><span>{{ player.team.points_earned }}</span></td>
                             </tr>
                             {% endfor %}
                             
