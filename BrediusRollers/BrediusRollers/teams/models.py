@@ -39,9 +39,9 @@ class Team(models.Model):
 
 class Player(models.Model):
     POSITION_CHOICES = [
-        ('forward', 'Forward'),
-        ('midfielder', 'Midfielder'),
-        ('defender', 'Defender'),
+        ('middenvelder', 'Middenvelder'),
+        ('aanvaller', 'Aanvaller'),
+        ('verdediger', 'Verdediger'),
         ('goalkeeper', 'Goalkeeper'),
     ]
 

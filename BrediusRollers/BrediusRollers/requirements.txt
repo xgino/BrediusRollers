@@ -7,12 +7,14 @@ bottle==0.12.19
 bottle-websocket==0.2.9
 caer==1.9.8
 cffi==1.14.5
+colorama==0.4.6
 cycler==0.10.0
 defusedxml==0.7.1
 diff-match-patch==20200713
 Django==3.2.13
 django-cleanup==6.0.0
 django-import-export==3.0.1
+django-multiselectfield==0.1.12
 Eel==0.12.4
 et-xmlfile==1.1.0
 Faker==18.13.0
@@ -58,6 +60,8 @@ six==1.16.0
 sqlparse==0.4.2
 tablib==3.2.1
 toml==0.10.2
+toposort==1.10
+tqdm==4.66.1
 typed-ast==1.4.3
 typing-extensions==4.3.0
 whichcraft==0.6.1

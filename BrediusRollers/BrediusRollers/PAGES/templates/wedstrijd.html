@@ -15,13 +15,13 @@
                         <!-- <div class="avatar"><img src="images/soccer/team-logo1.png" alt="match-list-team-img"></div> -->
                         <div class="text">
                             {{ game.home_team.get_name }}
-                            <span>{{ game.home_team.club.city }}</span>
+                            {% if game.home_team.club.city %}<span>{{ game.home_team.club.city }}</span>{% endif %}
                         </div> 
                     </div>
                     <div class="counter">
                         <ul>
-                            <li><div class="digit">{{ game.home_score }}</div></li>
-                            <li><div class="digit">{{ game.away_score }}</div></li>
+                            <li><div class="digit">{{ game.home_score|default:"?" }}</div></li>
+                            <li><div class="digit">{{ game.away_score|default:"?" }}</div></li>
                         </ul>
                     </div>
                     <div class="team right">

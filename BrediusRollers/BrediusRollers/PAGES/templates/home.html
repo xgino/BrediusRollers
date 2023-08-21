@@ -361,7 +361,7 @@
                             <a href="{% url 'Pages:player' player.id %}" class="item">
                                 <span class="number">{{ player.number_plate }}</span>
                                 <span>{{ player.profile.get_full_name }}</span>
-                                <span class="achievement">{{ player.total_goals }}</span>
+                                <span class="achievement">{{ player.total_goals|default:"0" }}</span>
                             </a>
                             {% endfor %}
                             {% else %}
@@ -376,7 +376,7 @@
                             <a href="{% url 'Pages:player' player.id %}" class="item">
                                 <span class="number">{{ player.number_plate }}</span>
                                 <span>{{ player.profile.get_full_name }}</span>
-                                <span class="achievement">{{ player.total_assists }}</span>
+                                <span class="achievement">{{ player.total_assists|default:"0" }}</span>
                             </a>
                             {% endfor %}
                             {% else %}
