@@ -64,7 +64,7 @@ class Sponsors(models.Model):
 
 class Coach(models.Model):
     season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Coach")
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Coach")
 
     def __str__(self):
         return str(self.profile)
@@ -74,7 +74,7 @@ class Coach(models.Model):
 
 class Role(models.Model):
     season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Role")
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Role")
     title  = models.CharField(max_length=255, verbose_name="Title")
     short_description = models.TextField(max_length=50, blank=True, null=True, verbose_name="Short description")
     description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
