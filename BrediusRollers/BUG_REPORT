@@ -42,7 +42,7 @@ SHOULD:
 - [ ] next game at wedstrijd. add next-next game, add what team to play
 - [ ] Change DJango from EN to NL ALL. Clean
 - [ ] txt at contact/ below. Update website 95% accurate, weekend
-
+- [ ] Trafic, visitor tracing in Admin
 
 
 - [X] Admin while add game, gameday select only return place, same place and dont know. Return Place + date
