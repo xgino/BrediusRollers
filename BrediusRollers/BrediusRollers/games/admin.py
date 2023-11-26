@@ -68,8 +68,7 @@ class ScoresAdmin(ImportExportModelAdmin):
     list_display = ('player', 'gameday_sport_hall', 'matching', 'goals', 'assists', 'season')
     list_display_links = ('player',)
     list_filter = [
-        ('season', admin.RelatedFieldListFilter),
-        ('player'),
+        ('player__team__club__season', admin.RelatedFieldListFilter),
     ]
     #search_fields = ('player', 'season', 'game')
     list_per_page = 25
