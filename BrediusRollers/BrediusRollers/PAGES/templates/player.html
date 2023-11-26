@@ -91,40 +91,6 @@
                         {% endif %}
                     </div>
                 </div>
-
-
-                
-                <div class="col-md-12">
-                    <h6>clubgeschiedenis</h6>
-                    <div class="overflow-scroll">
-                        <table>
-                            <tr>
-                                <th>Seizoen</th>
-                                <th class="club">Club</th>
-                                <th>Team</th>
-                                <th>Klasse</th>
-                                <th>Positie</th>
-                                <th>Wedstrijden</th>
-                                <th>Punten</th>
-                            </tr>
-                            {% for player in old_player_seasons %}
-                            <tr>
-                                <td>{{ player.team.club.season.start_date|date:"Y" }}/{{ player.team.club.season.end_date|date:"Y" }}</td>
-                                <td class="club">
-                                    <!-- <img src="images/soccer/team-logo1.png" width="30" height="30" alt="trophy"> -->
-                                    {{ player.team.club.name }}
-                                </td>
-                                <td> {{ player.team.name }}</td>
-                                <td>{{ player.team.league }}</td>
-                                <td>{{ player.position }}</td>
-                                <td>{{ player.team.matches_played }}</td>
-                                <td><span>{{ player.team.points_earned }}</span></td>
-                            </tr>
-                            {% endfor %}
-                            
-                        </table>
-                    </div>
-                </div>   
             </div>
         </div>
     </div>
