@@ -30,7 +30,7 @@ def home(request):
             'next_bredius_game': globe.get_next_bredius_game(club_name),
             
             'bredius_keepers': globe.get_player_position_season(club_name, 'goalkeeper'),
-            'bredius_defenders': globe.get_player_position_season(club_name, 'defender'),
+            'bredius_defenders': globe.get_player_position_season(club_name, 'verdediger'),
             'player_goals': globe.get_player_goals_season(club_name, 7),
             'player_assists': globe.get_player_assists_season(club_name, 7),
 
