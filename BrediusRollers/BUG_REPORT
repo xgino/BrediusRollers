@@ -43,6 +43,8 @@ SHOULD:
 - [ ] Change DJango from EN to NL ALL. Clean
 - [ ] txt at contact/ below. Update website 95% accurate, weekend
 - [ ] Trafic, visitor tracing in Admin
+- [ ] Counting JS some error
+- [ ] Add goals, problem not filter on current season players
 
 
 - [X] Admin while add game, gameday select only return place, same place and dont know. Return Place + date
