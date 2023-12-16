@@ -348,9 +348,9 @@
                             <li class="active">
                                 <a href="#goals" role="tab" data-toggle="tab">goals</a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="#assist" role="tab" data-toggle="tab">assist</a>
-                            </li>
+                            </li> -->
                         </ul>    
                     </div>
                     <div class="tab-content">
@@ -370,7 +370,7 @@
                             </div>
                             {% endif %}
                         </div>
-                        <div class="best-players-list tab-pane" id="assist">
+                        <!-- <div class="best-players-list tab-pane" id="assist">
                             {% if player_assists %}
                             {% for player in player_assists %}
                             <a href="{% url 'Pages:player' player.id %}" class="item">
@@ -384,7 +384,7 @@
                                     <p>{% include 'import/_no_data_txt.html' %}</p>
                                 </div>
                             {% endif %}
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
