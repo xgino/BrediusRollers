@@ -1,5 +1,5 @@
 from import_export import resources
-from .models import Coach, Role, Season, Club, Subscription
+from .models import Coach, Role, Season, Club
         
 
 class CoachResource(resources.ModelResource):
@@ -41,13 +41,4 @@ class ClubResource(resources.ModelResource):
             'published': {'format': '%d.%m.%Y'},
         }
 
-class SubscriptionResource(resources.ModelResource):
-    class Meta:
-        model = Subscription
-        fields = ('id', 'sub_num', 'fee', 'season')
-        
-        widgets = {
-            'published': {'format': '%d.%m.%Y'},
-        }
-        
 

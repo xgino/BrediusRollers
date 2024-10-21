@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from multiselectfield import MultiSelectField
 from accounts.model.profile import Profile
-from club.models import Subscription, Season, Club, Coach
+from club.models import Season, Club, Coach
 from datetime import date
 
 class League(models.Model):
@@ -48,11 +48,9 @@ class Player(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Profile")
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Team", limit_choices_to={'club__season__start_date__lte': date.today(), 'club__season__end_date__gte': date.today()})
     positions = MultiSelectField(choices=POSITION_CHOICES, verbose_name="Positions")
-    subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Subscription", limit_choices_to={'season__start_date__lte': date.today(), 'season__end_date__gte': date.today()})
     number_plate  = models.IntegerField(verbose_name="Number plate")
 
     is_captain  = models.BooleanField(blank=True, verbose_name="captain")
-    wish  = models.TextField(max_length=255, null=True, blank=True, verbose_name="Wish")
 
     def __str__(self):
         return self.profile.firstname + ' ' + self.profile.lastname
@@ -61,8 +59,3 @@ class Player(models.Model):
         current_date = date.today()
         current_season = Season.objects.get(start_date__lte=current_date, end_date__gte=current_date)
         return self.score_set.filter(season=current_season).aggregate(total_goals=models.Sum('goals'))['total_goals']
-
-    def calculate_total_assist_current_season(self):
-        current_date = date.today()
-        current_season = Season.objects.get(start_date__lte=current_date, end_date__gte=current_date)
-        return self.score_set.filter(season=current_season).aggregate(total_assists=models.Sum('assists'))['total_assists']

@@ -17,7 +17,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from accounts.model.profile import Profile
 from accounts.model.adress import Adress
-from club.models import Season, Sponsors, Photo, Coach, Club, Role, Subscription
+from club.models import Season, Sponsors, Photo, Coach, Club, Role
 from teams.models import League, Team, Player
 from games.models import Game, Game_day, Score
 from trainings.models import Training, Trainings_location, Trainings_time
@@ -49,20 +49,12 @@ class AccountsDataGenerator:
                 firstname = fake.first_name()
                 lastname = fake.last_name()
                 gender = random.choice(['Dhr', 'Mevr'])
-                phone = fake.phone_number()
-                dob = fake.date_of_birth(minimum_age=18, maximum_age=90)
-                bio = fake.paragraph(nb_sentences=2)
-                hobby = fake.word()
 
                 profile = Profile.objects.create(
                     user=user,
                     firstname=firstname,
                     lastname=lastname,
                     gender=gender,
-                    phone=phone,
-                    date_of_birth=dob,
-                    bio=bio,
-                    hobby=hobby
                 )
 
                 street = fake.street_name()
@@ -107,9 +99,6 @@ class ClubDataGenerator:
             self.generate_roles()
             pbar.update(1)
             
-            self.generate_subscriptions()
-            pbar.update(1)
-            
             self.generate_photos()
             pbar.update(1)
 
@@ -150,7 +139,6 @@ class ClubDataGenerator:
                         city=fake.city(),
                         season=season,
                         members=random.randint(50, 200),
-                        description=fake.sentence(nb_words=100),
                     )
                     locals()[variable_name] = club  # Assign created club to the corresponding variable name
                 else:
@@ -164,8 +152,6 @@ class ClubDataGenerator:
                 for _ in range(4):
                     Sponsors.objects.create(
                         title=fake.company(),
-                        description=fake.sentence(nb_words=100),
-                        short_description=fake.sentence(nb_words=3),
                     )
 
     def generate_coaches(self):
@@ -200,24 +186,9 @@ class ClubDataGenerator:
                             season=season,
                             profile=profile,
                             title=fake.job(),
-                            short_description=fake.sentence(nb_words=5),
-                            description=fake.paragraph(nb_sentences=2)
                         )
                     except IntegrityError:
                         pass
-
-    def generate_subscriptions(self):
-        all_seasons = Season.objects.all()
-
-        for season in all_seasons:
-            for _ in range(100):
-                sub_num = fake.unique.random_int(min=100000000, max=999999999)
-                fee = round(random.uniform(120, 160), 2)
-                
-                try:
-                    Subscription.objects.create(season=season, sub_num=str(sub_num), fee=fee)
-                except IntegrityError:
-                    pass
 
     def generate_photos(self):
         all_seasons = Season.objects.all()
@@ -225,10 +196,9 @@ class ClubDataGenerator:
             for _ in range(30):
                 while True:
                     title = fake.unique.word()
-                    description = fake.sentence()
 
                     try:
-                        Photo.objects.create(season=season, title=title, description=description, photo='path/to/photo.jpg')
+                        Photo.objects.create(season=season, title=title, photo='path/to/photo.jpg')
                         break
                     except IntegrityError:
                         pass
@@ -300,7 +270,6 @@ class TeamsDataGenerator:
     def generate_players(self):
         all_profiles = Profile.objects.all()
         all_teams = Team.objects.all()
-        all_subscriptions = Subscription.objects.all()
 
         position_choices = [
             ('forward', 'Forward'),
@@ -312,7 +281,6 @@ class TeamsDataGenerator:
         for profile in all_profiles:
             if not Player.objects.filter(profile=profile).exists():  # Check if a player already exists with this profile
                 team = random.choice(all_teams)  # Choose a random team
-                subscription = random.choice(all_subscriptions)  # Choose a random subscription
                 
                 positions = random.sample(position_choices, random.randint(1, 3))  # Choose 1 to 3 positions
                 number_plate = random.randint(1, 99)  # Random number plate
@@ -323,17 +291,13 @@ class TeamsDataGenerator:
                     if Player.objects.filter(team=team, is_captain=True).exists():
                         is_captain = False
                 
-                wish = " ".join(fake.words(nb=5))  # Generate fake wish text
-                
                 try:
                     Player.objects.create(
                         profile=profile,
                         team=team,
                         positions=positions,
-                        subscription=subscription,
                         number_plate=number_plate,
                         is_captain=is_captain,
-                        wish=wish
                     )
                 except IntegrityError:
                     pass
@@ -437,14 +401,12 @@ class GameDataGenerator:
 
                 for game in games_played:
                     goals = random.choice([0, 1, 2, 3])
-                    assists = random.choice([0, 1, 2, 3])
 
                     scores_to_create.append(Score(
                         season=season,
                         player=player,
                         game=game,
                         goals=goals,
-                        assists=assists
                     ))
 
                 try:

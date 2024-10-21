@@ -23,7 +23,7 @@ class LeagueResource(resources.ModelResource):
 class PlayerResource(resources.ModelResource):
     class Meta:
         model = Player
-        fields = ('id', 'profile', 'team', 'positions', 'subscription', 'number_plate', 'is_captain', 'wish')
+        fields = ('id', 'profile', 'team', 'positions', 'number_plate', 'is_captain', 'wish')
 
         widgets = {
             'published': {'format': '%d.%m.%Y'},

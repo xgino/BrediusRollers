@@ -1,5 +1,4 @@
 from inspect import Attribute
-from tkinter import Widget
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth import get_user_model
@@ -69,15 +68,11 @@ class UpdateProfileForm(forms.ModelForm):
     firstname = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     lastname = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
     gender    = forms.ChoiceField(choices=Profile.GENDER_CHOICES, label='Gender', required=True, widget=forms.Select(attrs={'class':'form-control mb-3 mb-3'}))
-    phone    = forms.CharField(label='Phone', required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    date_of_birth    = forms.DateField(widget=forms.DateInput(format='%d-%m-%Y', attrs={'class': 'form-control'}), input_formats=['%d-%m-%Y'], required=False)
     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}), required=False)
-    bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}), required=False)
-    hobby    = forms.CharField(label='Hobbys', required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = Profile
-        fields = ['firstname', 'lastname', 'gender', 'phone', 'date_of_birth', 'avatar', 'bio', 'hobby']
+        fields = ['firstname', 'lastname', 'gender', 'avatar']
 
 
 

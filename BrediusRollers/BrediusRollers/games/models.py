@@ -78,7 +78,6 @@ class Score(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Player")
     game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name="Game")
     goals  = models.IntegerField(verbose_name="Goals", default=0)
-    assists = models.IntegerField(verbose_name="assists", default=0)
 
     def __str__(self):
         return str(self.goals)

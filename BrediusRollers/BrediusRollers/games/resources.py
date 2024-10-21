@@ -24,7 +24,7 @@ class GameResource(resources.ModelResource):
 class ScoresResource(resources.ModelResource):
     class Meta:
         model = Score
-        fields = ('id', 'season', 'player', 'game', 'goals', 'assists')
+        fields = ('id', 'season', 'player', 'game', 'goals')
         
         widgets = {
             'published': {'format': '%d.%m.%Y'},

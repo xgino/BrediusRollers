@@ -32,7 +32,6 @@ class Club(models.Model):
     name  = models.CharField(max_length=255, verbose_name="Club")
     members  = models.IntegerField(verbose_name="Members", null=True, blank=True)
     city   = models.CharField(max_length=255, verbose_name="Stad", null=True, blank=True,)
-    description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
     picture = models.ImageField(default='about/default_image.jpg', upload_to=about_image, verbose_name="Picture")
 
     def __str__(self):
@@ -43,19 +42,9 @@ class Club(models.Model):
             models.UniqueConstraint(fields=['name', 'season'], name='unique_clubname_per_season')
         ]
 
-class Subscription(models.Model):
-    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
-    sub_num  = models.CharField(max_length=255, verbose_name="Lid Nummer", unique=True, null=True, blank=True)
-    fee   = models.FloatField(verbose_name="Cost")
-
-    def __str__(self):
-        return self.sub_num
-
 
 class Sponsors(models.Model):
     title  = models.CharField(max_length=255, verbose_name="Title")
-    description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
-    short_description = models.TextField(max_length=20, blank=True, null=True, verbose_name="Short description")
     logo = models.ImageField(default='sponsor/default.jpg', upload_to=sponsor_logo, verbose_name="Logo")
 
     def __str__(self):
@@ -88,7 +77,6 @@ class Role(models.Model):
 class Photo(models.Model):
     season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
     title  = models.CharField(max_length=15, verbose_name="Title -> 1x naam perdag, Verander naam hier != als file naam")
-    description = models.TextField(max_length=30, blank=True, null=True, verbose_name="Description")
     photo = models.ImageField(upload_to=capture_photo, verbose_name="Photo")
 
     def __str__(self):

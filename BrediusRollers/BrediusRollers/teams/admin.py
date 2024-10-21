@@ -3,6 +3,9 @@ from import_export.admin import ImportExportModelAdmin
 
 from .models import Team, League, Player
 from .resources import TeamResource, LeagueResource, PlayerResource
+from django.utils import timezone
+from club.models import Season
+from accounts.model.profile import Profile
 
 class PlayerInline(admin.TabularInline):  # You can also use StackedInline
     model = Player
@@ -44,7 +47,7 @@ admin.site.register(League, LeagueAdmin)
 
 class PlayerAdmin(ImportExportModelAdmin):
     resource_classes = [PlayerResource]
-    list_display = ('id', 'profile', 'team', 'positions', 'subscription', 'number_plate', 'season_goals', 'season_assists')
+    list_display = ('id', 'profile', 'team', 'positions', 'number_plate', 'season_goals')
     list_display_links = ('profile',)
     list_filter = [
         ('team__club__season', admin.RelatedFieldListFilter),
@@ -58,8 +61,42 @@ class PlayerAdmin(ImportExportModelAdmin):
     def season_goals(self, obj):
         return obj.calculate_total_goals_current_season()
     season_goals.short_description = 'Total Goals'
-    def season_assists(self, obj):
-        return obj.calculate_total_assist_current_season()
-    season_assists.short_description = 'Total Assists'
+
+    # Get the current season based on today's date
+    def get_current_season(self):
+        today = timezone.now().date()
+        try:
+            # Find the season where today's date is between start_date and end_date
+            return Season.objects.get(start_date__lte=today, end_date__gte=today)
+        except Season.DoesNotExist:
+            return None
+
+    # Override the queryset to filter by the current season initially
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        # Check if the user has selected any season in the filter
+        if 'team__club__season__id__exact' not in request.GET:
+            current_season = self.get_current_season()
+            if current_season:
+                return queryset.filter(team__club__season=current_season)
+        return queryset
+
+    # Preselect the current season when adding a new player and filter profiles/teams by season
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        current_season = self.get_current_season()
+
+        if current_season:
+            # Filter profiles by those that are associated with the current season
+            form.base_fields['profile'].queryset = Profile.objects.filter(
+                player__team__club__season=current_season
+            )
+
+            # Filter teams by those that are part of clubs in the current season
+            form.base_fields['team'].queryset = Team.objects.filter(
+                club__season=current_season
+            )
+
+        return form
 
 admin.site.register(Player, PlayerAdmin)

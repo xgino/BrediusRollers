@@ -13,14 +13,6 @@ from .resources import AdressResource
 
 User = get_user_model()
 
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('firstname', 'lastname', 'get_user_email')
-    search_fields = ['firstname', 'lastname', 'user__email'] 
-    def get_user_email(self, obj):
-        return obj.user.email if obj.user else None
-    get_user_email.short_description = 'User Email'
-
-admin.site.register(Profile, ProfileAdmin)
 
 class AdressAdmin(ImportExportModelAdmin):
     resource_classes = [AdressResource]
@@ -39,7 +31,7 @@ class ProfileInline(admin.StackedInline):
     fk_name = 'user'
 
     fieldsets = (
-        ('Gebruikers info', {'fields': ('firstname', 'lastname', 'gender', 'phone', 'date_of_birth', 'adress', 'profiel', 'avatar', 'bio', 'hobby',)}),
+        ('Gebruikers info', {'fields': ('firstname', 'lastname', 'gender', 'adress', 'profiel', 'avatar',)}),
         
     )
 
