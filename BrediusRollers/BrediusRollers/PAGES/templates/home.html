@@ -340,51 +340,36 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <h4 class = "hockey-stats-h4">Top spelers</h4>
+                <h4 class = "hockey-stats-h4">Top Goals</h4>
                 
                 <div class="team-best-player">
                     <div class="">
                         <ul class="player-filters" role="tablist">
-                            <li class="active">
-                                <a href="#goals" role="tab" data-toggle="tab">goals</a>
-                            </li>
-                            <!-- <li>
-                                <a href="#assist" role="tab" data-toggle="tab">assist</a>
-                            </li> -->
+                            {% for team, players in player_goals_by_team.items %}
+                                <li class="{% if forloop.first %}active{% endif %}">
+                                    <a href="#goals-{{ team.id }}" role="tab" data-toggle="tab">{{ team.name }}</a>
+                                </li>
+                            {% endfor %}
                         </ul>    
                     </div>
                     <div class="tab-content">
-                        <div class="best-players-list tab-pane active" id="goals">
-                            
-                            {% if player_goals %}
-                            {% for player in player_goals %}
-                            <a href="{% url 'Pages:player' player.id %}" class="item">
-                                <span class="number">{{ player.number_plate }}</span>
-                                <span>{{ player.profile.get_full_name }}</span>
-                                <span class="achievement">{{ player.total_goals|default:"0" }}</span>
-                            </a>
-                            {% endfor %}
-                            {% else %}
-                            <div class="item">
-                                <p>{% include 'import/_no_data_txt.html' %}</p>
+                        {% for team, players in player_goals_by_team.items %}
+                            <div class="best-players-list tab-pane {% if forloop.first %}active{% endif %}" id="goals-{{ team.id }}">
+                                {% if players %}
+                                    {% for player in players %}
+                                        <a href="{% url 'Pages:player' player.id %}" class="item">
+                                            <span class="number">{{ player.number_plate }}</span>
+                                            <span>{{ player.profile.get_full_name }}</span>
+                                            <span class="achievement">{{ player.total_goals|default:"0" }}</span>
+                                        </a>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="item">
+                                        <p>{% include 'import/_no_data_txt.html' %}</p>
+                                    </div>
+                                {% endif %}
                             </div>
-                            {% endif %}
-                        </div>
-                        <!-- <div class="best-players-list tab-pane" id="assist">
-                            {% if player_assists %}
-                            {% for player in player_assists %}
-                            <a href="{% url 'Pages:player' player.id %}" class="item">
-                                <span class="number">{{ player.number_plate }}</span>
-                                <span>{{ player.profile.get_full_name }}</span>
-                                <span class="achievement">{{ player.total_assists|default:"0" }}</span>
-                            </a>
-                            {% endfor %}
-                            {% else %}
-                                <div class="item">
-                                    <p>{% include 'import/_no_data_txt.html' %}</p>
-                                </div>
-                            {% endif %}
-                        </div> -->
+                        {% endfor %}
                     </div>
                 </div>
             </div>

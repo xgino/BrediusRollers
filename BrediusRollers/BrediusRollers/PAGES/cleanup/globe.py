@@ -143,40 +143,30 @@ def get_player_position_season(club_name, position):
             return None
     return None
 
-# Get player goal count of the season
-def get_player_goals_season(club_name, num):
-    current_season = get_current_season()  # Make sure you have a method to get the current season
+# Get player goal count of the season, separated by team, limited by num
+def get_player_goals_by_team(club_name, num):
+    current_season = get_current_season()  # Ensure you have a method to get the current season
     if current_season:
         try:
-            players = Player.objects.filter(
-                team__club__season=current_season,
-                team__club__name__icontains=club_name
-            ).annotate(
-                total_goals=Sum('score__goals', filter=Q(score__season=current_season)),
-            ).order_by(F('total_goals').desc(),)[:num]
-            return players
-        except Exception as e:
-            print(f"An error occurred: {e}")
-            return None
-    return None
+            # Get teams for the specified club
+            teams = Team.objects.filter(club__season=current_season, club__name__icontains=club_name)
 
-# Get player assist count of the season
-def get_player_assists_season(club_name, num):
-    current_season = get_current_season()  # Make sure you have a method to get the current season
-    if current_season:
-        try:
-            players = Player.objects.filter(
-                team__club__season=current_season,
-                team__club__name__icontains=club_name
-            ).annotate(
-                total_assists=Sum('score__assists', filter=Q(score__season=current_season))
-            ).order_by(F('total_assists').desc(),)[:num]
-            
-            return players
+            player_goals_by_team = {}
+            for team in teams:
+                players = Player.objects.filter(
+                    team=team
+                ).annotate(
+                    total_goals=Sum('score__goals', filter=Q(score__season=current_season))
+                ).order_by(F('total_goals').desc())[:num]  # Limit to num players
+
+                player_goals_by_team[team] = players  # Store players by team
+
+            return player_goals_by_team
         except Exception as e:
             print(f"An error occurred: {e}")
             return None
     return None
+    
 
 # Get players of a game
 def get_players_in_game(club_name, game_id):
