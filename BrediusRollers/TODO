@@ -80,7 +80,8 @@ WEBSITE VERSION 1 FINISHED      |       03 02 2023      |   181,5H
 
     19 03 2023 |    Update bug report       |   1H
     19 03 2023 |    Update home page text   |   2H
-
+    13 10 2024 |    Fix hosting + SSL       |   3H
+    21 10 2024 |    Clean admin + Fix JS    |   6H
 
 
 
@@ -90,9 +91,9 @@ PROBLEMS - TODO
 - [X] Player page, Get player older Season stats
 - [X] Bredius Staff, Select by year
 - [X] Insert other Data Models
-- [ ] Check if db has correct, no repeating things
+- [X] Check if db has correct, no repeating things
 - [ ] Voeg Wissel Player toe
-- [ ] Clean Up code
+- [X] Clean Up code
 - [ ] write Documentation
 - [ ] Usertype FRONTEND ACCOUNT SITE
 - [ ] Create Admin Templates
@@ -107,7 +108,6 @@ VRAGEN
 - [X] Graag wat actie foto's opsturen via mail
 - [ ] Graag een foto van alle spelers als ze dat willen
 - [ ] Er is een sponsorship op onze site, hebben we sponsors? anders graag naam/namen
-- [ ] 
 - [X] Graag wat actie foto's voor op de website, Graag opsturen via mail(resolutie blijft goed)
 - [X] Wat zijn de sociale media's? Graag Links
 - [X] Hebben we een hoofdkantoor? zoja, graag adres
