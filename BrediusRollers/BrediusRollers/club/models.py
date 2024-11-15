@@ -32,7 +32,6 @@ class Club(models.Model):
     name  = models.CharField(max_length=255, verbose_name="Club")
     members  = models.IntegerField(verbose_name="Members", null=True, blank=True)
     city   = models.CharField(max_length=255, verbose_name="Stad", null=True, blank=True,)
-    description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
     picture = models.ImageField(default='about/default_image.jpg', upload_to=about_image, verbose_name="Picture")
 
     def __str__(self):
@@ -54,8 +53,6 @@ class Subscription(models.Model):
 
 class Sponsors(models.Model):
     title  = models.CharField(max_length=255, verbose_name="Title")
-    description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
-    short_description = models.TextField(max_length=20, blank=True, null=True, verbose_name="Short description")
     logo = models.ImageField(default='sponsor/default.jpg', upload_to=sponsor_logo, verbose_name="Logo")
 
     def __str__(self):
@@ -76,8 +73,6 @@ class Role(models.Model):
     season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Role")
     title  = models.CharField(max_length=255, verbose_name="Title")
-    short_description = models.TextField(max_length=50, blank=True, null=True, verbose_name="Short description")
-    description = models.TextField(max_length=200, blank=True, null=True, verbose_name="Description")
 
     def __str__(self):
         return str(self.profile)
@@ -88,7 +83,6 @@ class Role(models.Model):
 class Photo(models.Model):
     season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Season")
     title  = models.CharField(max_length=15, verbose_name="Title -> 1x naam perdag, Verander naam hier != als file naam")
-    description = models.TextField(max_length=30, blank=True, null=True, verbose_name="Description")
     photo = models.ImageField(upload_to=capture_photo, verbose_name="Photo")
 
     def __str__(self):
