@@ -24,8 +24,8 @@ class Team(models.Model):
     league = models.ForeignKey('teams.League', on_delete=models.CASCADE, verbose_name="League")
     name  = models.CharField(max_length=255, verbose_name="Team")
     
-    points_earned  = models.IntegerField(verbose_name="Earned Points")
-    matches_played  = models.IntegerField(verbose_name="Played Matches")
+    points_earned  = models.IntegerField(verbose_name="Earned Points", null=True, blank=True, default=0)
+    matches_played  = models.IntegerField(verbose_name="Played Matches", null=True, blank=True, default=0)
     coach = models.ForeignKey(Coach, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Coach", limit_choices_to={'season__start_date__lte': date.today(), 'season__end_date__gte': date.today()})
 
     def __str__(self):
@@ -48,7 +48,7 @@ class Player(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Profile")
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Team", limit_choices_to={'club__season__start_date__lte': date.today(), 'club__season__end_date__gte': date.today()})
     positions = MultiSelectField(choices=POSITION_CHOICES, verbose_name="Positions")
-    number_plate  = models.IntegerField(verbose_name="Number plate")
+    number_plate  = models.IntegerField(verbose_name="Number plate", null=True, blank=True)
 
     is_captain  = models.BooleanField(blank=True, verbose_name="captain")
 

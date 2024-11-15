@@ -11,7 +11,7 @@ class CoachAdmin(admin.ModelAdmin):
     list_display = ('id', 'profile', 'season')
     list_display_links = ('profile',)
     list_filter = [
-        ('season', admin.RelatedFieldListFilter),
+        ('season'),
         ('profile__firstname'),
     ]
     list_per_page = 25
@@ -63,42 +63,12 @@ class ClubAdmin(admin.ModelAdmin):
     search_fields = ['name', 'city']  # Enable search by club name and city
     list_per_page = 25
 
-     # Get the current season based on today's date
-    def get_current_season(self):
-        today = timezone.now().date()
-        try:
-            # Find the season where today's date is between start_date and end_date
-            return Season.objects.get(start_date__lte=today, end_date__gte=today)
-        except Season.DoesNotExist:
-            return None
-
-    # Override the queryset to filter by the current season's date range initially
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        # Check if the user has selected any season in the filter
-        if 'season__id__exact' not in request.GET:
-            # If not, default to the current season (if available)
-            current_season = self.get_current_season()
-            if current_season:
-                return queryset.filter(season=current_season)
-        return queryset
-
-    # Preselect the current season when adding a new club
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        current_season = self.get_current_season()
-
-        # If this is a new object (i.e., we're adding a new Club), preselect the current season
-        if not obj and current_season:
-            form.base_fields['season'].initial = current_season
-        return form
-
 
 class RoleAdmin(admin.ModelAdmin):
     list_display = ('id', 'profile', 'title')
     list_display_links = ('profile',)
     list_filter = [
-        ('season', admin.RelatedFieldListFilter),
+        ('season'),
         ('title'),
     ]
     list_per_page = 25
@@ -108,7 +78,7 @@ class PhotoAdmin(admin.ModelAdmin):
     list_display_links = ('title',)
     list_filter = ('season',)
     list_filter = [
-        ('season', admin.RelatedFieldListFilter),
+        ('season'),
     ]
     list_per_page = 25
 

@@ -37,7 +37,7 @@ class GameAdmin(ImportExportModelAdmin):
     list_display_links = ('home_team_name', 'away_team_name')
     search_fields = ('gameday__sport_hall',)
     list_filter = [
-        ('gameday__season', admin.RelatedFieldListFilter),
+        ('gameday__season'),
         ('league'),
         ClubFilter,  # Add the custom filter here
         ('gameday__sport_hall'),
@@ -62,77 +62,16 @@ class Game_dayAdmin(ImportExportModelAdmin):
         ('sport_hall'),
     ]
     list_per_page = 25
-    
-    # Get the current season based on today's date
-    def get_current_season(self):
-        today = timezone.now().date()
-        try:
-            # Find the season where today's date is between start_date and end_date
-            return Season.objects.get(start_date__lte=today, end_date__gte=today)
-        except Season.DoesNotExist:
-            return None
-
-    # Override the queryset to filter by the current season's date range initially
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        # Check if the user has selected any season in the filter
-        if 'season__id__exact' not in request.GET:
-            # If not, default to the current season (if available)
-            current_season = self.get_current_season()
-            if current_season:
-                return queryset.filter(season=current_season)
-        return queryset
-
-    # Preselect the current season when adding a new game day
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        current_season = self.get_current_season()
-
-        # If this is a new object (i.e., we're adding a new Game_day), preselect the current season
-        if not obj and current_season:
-            form.base_fields['season'].initial = current_season
-        return form
-
 
 class ScoresAdmin(ImportExportModelAdmin):
     resource_classes = [ScoresResource]
     list_display = ('player', 'gameday_sport_hall', 'matching', 'goals', 'season')
     list_display_links = ('player',)
     list_filter = [
-        ('player__team__club__season', admin.RelatedFieldListFilter),
+        ('player__team__club__season'),
     ]
     #search_fields = ('player', 'season', 'game')
     list_per_page = 25
-
-    # Get the current season based on today's date
-    def get_current_season(self):
-        today = timezone.now().date()
-        try:
-            # Find the season where today's date is between start_date and end_date
-            return Season.objects.get(start_date__lte=today, end_date__gte=today)
-        except Season.DoesNotExist:
-            return None
-
-    # Override the queryset to filter by the current season's date range initially
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        # Check if the user has selected any season in the filter
-        if 'season__id__exact' not in request.GET:
-            # If not, default to the current season (if available)
-            current_season = self.get_current_season()
-            if current_season:
-                return queryset.filter(season=current_season)
-        return queryset
-
-    # Preselect the current season when adding a new score
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        current_season = self.get_current_season()
-
-        # If this is a new object (i.e., we're adding a new Score), preselect the current season
-        if not obj and current_season:
-            form.base_fields['season'].initial = current_season
-        return form
 
 
 

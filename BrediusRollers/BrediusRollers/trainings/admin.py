@@ -11,37 +11,9 @@ class TrainingAdmin(ImportExportModelAdmin):
     list_display = ('training_location', 'training_time', 'date', 'season')
     list_display_links = ('training_location',)
     list_filter = [
-        ('season', admin.RelatedFieldListFilter),
+        ('season'),
     ]
     list_per_page = 25
-
-    # Get the current season based on today's date
-    def get_current_season(self):
-        today = timezone.now().date()
-        try:
-            return Season.objects.get(start_date__lte=today, end_date__gte=today)
-        except Season.DoesNotExist:
-            return None
-
-    # Override the queryset to filter by the current season initially
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        if 'season__id__exact' not in request.GET:
-            current_season = self.get_current_season()
-            if current_season:
-                return queryset.filter(season=current_season)
-        return queryset
-
-    # Preselect the current season when adding a new training session
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        current_season = self.get_current_season()
-
-        if current_season:
-            # Preselect the current season for the season field
-            form.base_fields['season'].initial = current_season
-
-        return form
 
 
 class Trainings_locationAdmin(ImportExportModelAdmin):
