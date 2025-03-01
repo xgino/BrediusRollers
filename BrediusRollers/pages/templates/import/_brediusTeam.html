@@ -1,0 +1,115 @@
+{% load static %}
+
+<!--MAIN CLUB STAFF BEGIN-->
+<section class="main-club-stuff">    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="soccer-h4">Bredius Rollers Team</h4>  
+                <ul class="player-filters" role="tablist">
+                    <li class="active">
+                        <a href="#roles" role="tab" data-toggle="tab">Ons Team</a>
+                    </li>
+                    <li class="">
+                        <a href="#coaches" role="tab" data-toggle="tab">Coaches</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>    
+
+    <div class="tab-content">
+        {% if roles %}
+        <div class="tab-pane active" id="roles" role="tabpanel">
+            <div id="managers_carousel" class="carousel slide main-stuff-slider" data-ride="carousel" >
+                <div class="carousel-inner" role="listbox" >
+
+                    <div class="item active">
+                        <div class="container">
+                            <div class="row">
+                                
+                                {% for role in roles %}
+                                    <div class="col-md-4">
+                                        <div class="staff-item">
+                                            <a href="javascript:void(0);">
+                                                <span class="info">
+                                                    <span class="name">{{ role.profile.get_full_name }}</span>
+                                                    <span class="position">{{ role.title }}</span>
+                                                </span>
+                                                <img src="{% static 'Images/site/default_profile.jpg' %}" alt="person-slider">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                                        </div></div></div>
+                                        <div class="item">
+                                        <div class="container">
+                                        <div class="row">
+                                    {% endif %}
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>            
+
+
+                    <!-- Controls -->
+                    <a class="nav-arrow left-arrow" href="#managers_carousel" role="button" data-slide="prev">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="sr-only"></span>
+                    </a>
+                    <a class="nav-arrow right-arrow" href="#managers_carousel" role="button" data-slide="next">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        <span class="sr-only"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if coaches %}
+        <div class="tab-pane" id="coaches" role="tabpanel">
+            <div id="coaches_carousel" class="carousel slide main-stuff-slider" data-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+        
+                    <div class="item active">
+                        <div class="container">
+                            <div class="row">
+                                {% for coach in coaches %}
+                                    <div class="col-md-4">
+                                        <div class="staff-item">
+                                            <a href="javascript:void(0);">
+                                                <span class="info">
+                                                    <span class="name">{{ coach.profile.get_full_name }}</span>
+                                                </span>
+                                                <img src="{% static 'Images/site/default_profile.jpg' %}" alt="coach-slider">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                                        </div></div></div>
+                                        <div class="item">
+                                            <div class="container">
+                                                <div class="row">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Controls -->
+                    <a class="nav-arrow left-arrow" href="#coaches_carousel" role="button" data-slide="prev">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="sr-only"></span>
+                    </a>
+                    <a class="nav-arrow right-arrow" href="#coaches_carousel" role="button" data-slide="next">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        <span class="sr-only"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+    </div>
+</section>

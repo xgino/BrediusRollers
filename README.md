@@ -1,2 +1,0 @@
-# BrediusRollers
- RolstoelHockey Club website

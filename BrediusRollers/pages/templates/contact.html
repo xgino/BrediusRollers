@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} | Contact {% endblock %}
+
+{% block content %}
+
+
+<!--CONTACT WRAP BEGIN-->
+<section class="contacts-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h4>Contact</h4>	
+                
+                <p>
+                    Bij Bredius Rollers staat de liefde voor rolstoelhockey centraal voor alle leden. 
+                    Of je nu nieuw bent in de sport of al jaren ervaring hebt, we bieden zowel recreatieve als competitieve opties voor rolstoelhockey. 
+                    Bij ons vind je een gemeenschap van sporters die samenwerken aan sportiviteit en respect, ongeacht het niveau van spelen.
+                </p>
+                <div class="contact-office-img">
+                    <img class="img-responsive" src="{% static 'images/location-place/snellerpoort.jpeg' %}" alt="snellerpoort">	
+                </div>
+                <p>
+                    Bredius Rollers biedt handbewogen rolstoelhockey aan voor iedereen, ongeacht leeftijd of beperking. 
+                    Bij ons kun je genieten van recreatieve en competitieve sessies, waarbij plezier en fair play voorop staan. 
+                    Als je meer informatie wilt over onze rolstoelhockey club of interesse hebt om lid te worden, aarzel dan niet om ons een e-mail of whatsapp te sturen. 
+                    We beantwoorden graag al je vragen en verwelkomen je graag in onze gemeenschap van sporters.
+                </p>
+
+                <ul class="socials">
+                    <!-- Import social icons -->
+                    {% include 'import/_social_icons.html' %}
+                </ul>
+
+            </div>
+                
+
+            <div class="col-md-5">
+                <ul class="contact-list">
+                    <li> <strong> Activiteiten- en Sportvereniging Bredius </strong></li>
+                    <li><i class="fa fa-flag" aria-hidden="true"></i>
+                        <span>Kievitstraat 40-BREDIUSHONK, 3443 BG Woerden</span>
+                    </li>
+                    <li>
+                        <i class="fa fa-globe" aria-hidden="true"></i>
+                        <a href="https://www.asvbredius.nl">www.asvbredius.nl</a>
+                    </li>
+                </ul>
+
+                <ul class="contact-list">
+                    <li> <strong>Contact Bredius Rollers </strong></li>
+                    <li>
+                        <span>  Bert Bogaard </span>
+                        
+                    </li>
+                    {% include 'import/_social_icons.html' %}
+
+                </ul>
+
+                {% if next_training %}
+                <ul class="contact-list">
+                    <li> <strong> Aankomend training | <strong id="training-countdown-box"></strong> </strong></li>
+                    <li><i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <div class="name" id="training-countdown">{{ next_training.date|date:"l" }} {{ next_training.training_time.start_time|date:"H:i" }} | {{ next_training.date|date:"d F Y" }}</div>
+                    </li>
+                    
+                    <li><i class="fa fa-flag" aria-hidden="true"></i>
+                        <span>{{ next_training.training_location.location.street }} {{ next_training.training_location.location.house_number }}, {{ next_training.training_location.location.zipcode }} {{ next_training.training_location.location.zipcode_number }} {{ next_training.training_location.location.place }}</span>
+                    </li>
+                    <li>
+                        <iframe width="100%" height="250" src="https://maps.google.com/maps?q={{ next_training.training_location.location.street }}%20{{ next_training.training_location.location.house_number }},%20{{ next_training.training_location.location.zipcode }}%20{{ next_training.training_location.location.zipcode_number }}%20{{ next_training.training_location.location.place }},%20Nederland&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+                    </li>
+                    <!-- <div class="contact-office-img">
+                        <img class="img-responsive" src="{% static 'other/images/soccer/contact-office-img.jpg' %}" alt="contact-office-img">	
+                    </div> -->
+                    
+                </ul>
+                {% endif %}
+                
+            </div>
+
+            <div class="col-md-12">
+                <br />
+                <br />
+            </div>
+
+            <!-- <div class="col-md-6">
+                <h4>Get in touch</h4>	
+                <div class="leave-comment-wrap">
+                    <form>								
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="item">
+                                    <label>
+                                        <span>Name <i>*</i></span>
+                                        <input type="text" name="name">
+                                    </label>
+                                </div>	
+                            </div>
+                            <div class="col-md-6">
+                                <div class="item">
+                                    <label>
+                                        <span>Email <i>*</i></span>
+                                        <input type="email" name="email">
+                                    </label>
+                                </div>	
+                            </div>
+                            <div class="col-md-12">
+                                <div class="item">
+                                    <label>
+                                        <span>Subject</span>
+                                        <input type="text" name="subjects">
+                                    </label>
+                                </div>	
+                            </div>
+                            <div class="col-md-12">
+                                <div class="item">
+                                    <label>
+                                        <span>Your message<i>*</i></span>
+                                        <textarea></textarea>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button class="comment-submit">Send us message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+</section>
+<!--CONTACT WRAP END-->
+
+
+
+
+{% endblock %}
